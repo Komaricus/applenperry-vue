@@ -1,0 +1,4 @@
+chrome >= 65
+not ie <= 11
+Firefox ESR
+safari >= 12.1
