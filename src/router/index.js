@@ -7,7 +7,10 @@ const routes = [
   {
     name: 'Home',
     path: '/',
-    component: () => import('../views/Home')
+    component: () => import('../views/Home'),
+    meta: {
+      title: 'Apple`n`Perry'
+    }
   }
 ]
 

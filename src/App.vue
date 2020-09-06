@@ -15,6 +15,11 @@ export default {
     mode() {
       return process.env.NODE_ENV
     }
+  },
+  watch: {
+    $route(to) {
+      document.title = to.meta.title || 'Apple`n`Perry'
+    }
   }
 }
 </script>
