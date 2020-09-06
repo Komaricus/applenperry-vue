@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'Neucha';
+    src: local('Neucha Regular'), local('Neucha-Regular'), url('fonts/Neucha-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 100;
+}

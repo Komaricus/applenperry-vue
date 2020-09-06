@@ -3,7 +3,16 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = []
+const routes = [
+  {
+    name: 'Home',
+    path: '/',
+    component: () => import('../views/Home'),
+    meta: {
+      title: 'Apple`n`Perry'
+    }
+  }
+]
 
 const router = new VueRouter({
   mode: 'history',

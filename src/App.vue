@@ -1,11 +1,29 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <router-view v-if="mode !== 'production'" />
+    <wip v-else />
+  </div>
 </template>
 <script>
+import WIP from '@/views/WIP'
+
 export default {
-  created() {
-    console.log(process.env.NODE_ENV)
+  components: {
+    wip: WIP
+  },
+  computed: {
+    mode() {
+      return process.env.NODE_ENV
+    }
+  },
+  watch: {
+    $route(to) {
+      document.title = to.meta.title || 'Apple`n`Perry'
+    }
   }
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+@import url('assets/fonts.css');
+@import 'assets/style';
+</style>
