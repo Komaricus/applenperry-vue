@@ -1,5 +1,7 @@
 <template>
   <div id="showcase">
+    <burger id="burger" />
+
     <div id="logo">
       <div id="contain">
         <ul id="cir_menu">
@@ -26,34 +28,75 @@
       <img src="@/assets/images/showcase/logo.png" alt="logo" />
     </div>
 
-    <b-carousel
-      id="carousel"
-      animated="fade"
-      :interval="10000"
-      :has-drag="false"
-      :pause-hover="false"
-      :arrow="false"
-      :indicator="false"
-    >
-      <b-carousel-item
+    <div class="slider">
+      <div
         v-for="(slide, i) in slides"
         :key="i"
-        class="showcase-slide"
+        :class="slide.class"
         :style="{
-          backgroundImage: 'url(' + require(`./../assets/images/showcase/${slide}`) + ')'
+          backgroundImage: 'url(' + require(`./../assets/images/showcase/${slide.img}`) + ')'
         }"
-      >
-      </b-carousel-item>
-    </b-carousel>
+      />
+    </div>
+
+    <p id="phone">
+      <a href="tel: +79653714731">+7 (965) 371-47-31</a>
+    </p>
   </div>
 </template>
 
 <script>
+import Burger from '../components/Burger'
+
 export default {
   name: 'Home',
+  components: {
+    burger: Burger
+  },
   data() {
     return {
-      slides: ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg']
+      slides: [
+        {
+          class: 'slide current',
+          img: '1.jpg'
+        },
+        {
+          class: 'slide',
+          img: '2.jpg'
+        },
+        {
+          class: 'slide',
+          img: '3.jpg'
+        },
+        {
+          class: 'slide',
+          img: '4.jpg'
+        },
+        {
+          class: 'slide',
+          img: '5.jpg'
+        },
+        {
+          class: 'slide',
+          img: '6.jpg'
+        }
+      ]
+    }
+  },
+  created() {
+    setInterval(this.nextSlide, 10000)
+  },
+  methods: {
+    nextSlide() {
+      const index = this.slides.findIndex(e => e.class.includes('current'))
+
+      if (index !== this.slides.length - 1) {
+        this.slides[index].class = 'slide'
+        this.slides[index + 1].class = 'slide current'
+      } else {
+        this.slides[index].class = 'slide'
+        this.slides[0].class = 'slide current'
+      }
     }
   }
 }
@@ -143,24 +186,66 @@ export default {
     text-align: center;
     height: 100vh;
     max-width: 400px;
+
+    img {
+      min-width: 300px;
+      max-height: 400px;
+    }
   }
 
-  #carousel {
+  .slider {
     position: absolute;
-    z-index: 2;
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+    background: #000;
+    z-index: 1;
     top: 0;
     left: 0;
-    height: 100vh;
-    width: 100vw;
   }
 
-  .showcase-slide {
+  .slide {
+    position: absolute;
     box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5) inset;
-    height: 100vh;
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+  }
+
+  .slide.current {
+    opacity: 1;
+  }
+
+  #phone {
+    position: absolute;
+    left: calc(50% - 66px);
+    bottom: 20px;
+    font-size: 1rem;
+    z-index: 5;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+@media (max-width: 980px) {
+  #contain {
+    display: none;
+  }
+
+  #phone {
+    left: 20px !important;
+  }
+
+  #logo {
+    img {
+      max-height: 300px !important;
+    }
   }
 }
 </style>
