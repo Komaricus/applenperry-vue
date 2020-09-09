@@ -2,14 +2,17 @@
   <div id="app">
     <router-view v-if="mode !== 'production'" />
     <wip v-else />
+    <mobile-menu />
   </div>
 </template>
 <script>
 import WIP from '@/views/WIP'
+import MobileMenu from './components/MobileMenu'
 
 export default {
   components: {
-    wip: WIP
+    wip: WIP,
+    'mobile-menu': MobileMenu
   },
   computed: {
     mode() {
