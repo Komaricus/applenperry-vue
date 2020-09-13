@@ -71,7 +71,7 @@ export default {
   font-family: 'Neucha', cursive;
   color: #ffffff;
   letter-spacing: 1px;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .navlistitem a:hover {
