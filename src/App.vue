@@ -10,7 +10,6 @@
 import WIP from '@/views/WIP'
 import MobileMenu from './components/MobileMenu'
 import YearsOldCheck from './views/YearsOldCheck'
-import axios from 'axios'
 
 export default {
   components: {
@@ -32,7 +31,7 @@ export default {
     }
   },
   created() {
-    axios
+    this.$api
       .get('/')
       .then(response => {
         console.log(response)
