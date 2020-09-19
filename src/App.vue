@@ -10,6 +10,7 @@
 import WIP from '@/views/WIP'
 import MobileMenu from './components/MobileMenu'
 import YearsOldCheck from './views/YearsOldCheck'
+import axios from 'axios'
 
 export default {
   components: {
@@ -29,6 +30,16 @@ export default {
     $route(to) {
       document.title = to.meta.title || 'Apple`n`Perry'
     }
+  },
+  created() {
+    axios
+      .get('/')
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 }
 </script>
