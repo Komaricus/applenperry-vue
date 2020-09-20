@@ -13,7 +13,12 @@ Vue.config.productionTip = false
 
 Vue.use({
   install(Vue) {
-    Vue.prototype.$api = axios.create({ baseURL: 'https://applenperry.ru/apple-api' })
+    Vue.prototype.$api = axios.create({
+      baseURL:
+        process.env.NODE_ENV === 'production'
+          ? window.location.origin + '/apple-api'
+          : 'http://localhost:5001/apple-api'
+    })
   }
 })
 

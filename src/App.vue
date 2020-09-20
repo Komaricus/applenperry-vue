@@ -29,16 +29,6 @@ export default {
     $route(to) {
       document.title = to.meta.title || 'Apple`n`Perry'
     }
-  },
-  created() {
-    this.$api
-      .get('/')
-      .then(response => {
-        console.log(response)
-      })
-      .catch(error => {
-        console.error(error)
-      })
   }
 }
 </script>

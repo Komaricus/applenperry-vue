@@ -11,6 +11,11 @@ const routes = [
     meta: {
       title: 'Apple`n`Perry'
     }
+  },
+  {
+    name: '404',
+    path: '*',
+    component: () => import('../views/Page404')
   }
 ]
 
