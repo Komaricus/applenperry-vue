@@ -35,5 +35,4 @@ export default {
 <style lang="scss">
 @import url('assets/fonts.css');
 @import 'assets/style';
-@import 'assets/bulma';
 </style>

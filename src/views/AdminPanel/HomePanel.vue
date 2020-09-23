@@ -1,6 +1,16 @@
 <template>
   <section>
-    <h1>Home</h1>
+    <div class="columns">
+      <div class="column">
+        First column
+      </div>
+      <div class="column">
+        Second column
+      </div>
+      <div class="column">
+        Third column
+      </div>
+    </div>
   </section>
 </template>
 
