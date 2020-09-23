@@ -1,30 +1,35 @@
 <template>
   <section>
     <div class="full-page-centered background-grey">
-      <div id="login-form" class="box">
-        <h1 class="is-size-4">Авторизация</h1>
-        <div id="inputs-section">
-          <b-field label="Логин" :type="!login && error ? 'is-danger' : ''">
-            <b-input v-model="login" @input="error = false"></b-input>
-          </b-field>
-          <b-field label="Пароль" :type="!password && error ? 'is-danger' : ''">
-            <b-input
-              v-model="password"
-              type="password"
-              password-reveal
-              @input="error = false"
-            ></b-input>
-          </b-field>
-        </div>
-        <div id="error-section" v-if="error && errorMessage">
-          <b-message type="is-danger">
-            {{ errorMessage }}
-          </b-message>
-        </div>
-        <div id="buttons-section">
-          <b-button class="is-primary" @click="tryLogIn">Вход</b-button>
-        </div>
-      </div>
+      <v-card id="login-form" min-width="400">
+        <v-card-text class="text--main">
+          <h1 class="text--admin-dark mb-5">Авторизация</h1>
+          <v-text-field
+            v-model="login"
+            :rules="[rules.requiredLogin]"
+            label="Логин"
+            type="text"
+            solo
+            ref="login"
+            color="admin-primary"
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :append-icon="show ? 'fa-eye-slash' : 'fa-eye'"
+            :rules="[rules.requiredPassword]"
+            :type="show ? 'text' : 'password'"
+            label="Пароль"
+            solo
+            @click:append="show = !show"
+            ref="password"
+            color="admin-primary"
+          ></v-text-field>
+          <v-alert max-width="350" class="mt-5 mx-auto" v-show="error" dense outlined type="error">
+            Неверные логин или пароль
+          </v-alert>
+          <v-btn class="text--white" color="admin-primary" @click="tryLogIn">Вход</v-btn>
+        </v-card-text>
+      </v-card>
     </div>
   </section>
 </template>
@@ -38,15 +43,19 @@ export default {
       login: '',
       password: '',
       error: false,
-      errorMessage: ''
+      show: false,
+      rules: {
+        requiredLogin: value => !!value || 'Укажите логин',
+        requiredPassword: value => !!value || 'Укажите пароль'
+      }
     }
   },
   methods: {
     ...mapMutations(['setAuthToken']),
     tryLogIn() {
       if (!this.login || !this.password) {
-        this.error = true
-        this.errorMessage = 'Укажите логин и пароль'
+        this.$refs['login'].validate(true)
+        this.$refs['password'].validate(true)
         return
       }
       this.$api
@@ -72,29 +81,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.background-grey {
-  background-color: #fcfcfc;
-}
-
 #login-form {
-  width: 400px;
-  //background-color: #f1f1f1;
   text-align: center;
-  padding: 15px;
-  //color: black;
+  padding: 10px;
 
   h1 {
     font-family: Roboto, sans-serif;
   }
-}
-
-#error-section {
-  margin: 20px 30px;
-}
-
-#inputs-section {
-  max-width: 300px;
-  text-align: left;
-  margin: 30px auto;
 }
 </style>

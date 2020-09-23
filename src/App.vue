@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <router-view v-if="yo" />
-    <yo v-else-if="mode !== 'production'" />
-    <wip v-else />
-    <mobile-menu />
+    <v-app>
+      <router-view v-if="yo" />
+      <yo v-else-if="mode !== 'production'" />
+      <wip v-else />
+      <mobile-menu />
+    </v-app>
   </div>
 </template>
 <script>
