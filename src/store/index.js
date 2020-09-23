@@ -5,13 +5,21 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  plugins: [createPersistedState()],
+  plugins: [
+    createPersistedState({
+      paths: ['token']
+    })
+  ],
   state: {
-    mobileMenu: false
+    mobileMenu: false,
+    token: ''
   },
   mutations: {
     toggleSideMenu(state) {
       state.mobileMenu = !state.mobileMenu
+    },
+    setAuthToken(state, payload) {
+      state.token = payload
     }
   },
   actions: {},

@@ -1,5 +1,5 @@
 <template>
-  <section class="container-404">
+  <section class="full-page-centered">
     <h1 class="title-404">404</h1>
     <div>
       <h1 class="is-size-3">Страница не найдена</h1>
@@ -15,18 +15,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container-404 {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
+.title-404 {
+  font-size: 7rem;
+  font-family: Roboto, sans-serif;
+  color: #f07d10;
+}
 
-  .title-404 {
-    font-size: 7rem;
-    font-family: Roboto, sans-serif;
-    color: #f07d10;
-  }
+h1 {
+  padding-top: 60px;
+  padding-bottom: 10px;
 }
 </style>
