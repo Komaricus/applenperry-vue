@@ -18,7 +18,8 @@ const routes = [
     path: '/apple-admin',
     component: () => import('../views/AdminPanel/AdminLogin'),
     meta: {
-      title: 'Вход'
+      title: 'Вход',
+      layout: 'admin'
     },
     beforeEnter: (to, from, next) => {
       if (store.state.token) next('/')
@@ -31,7 +32,8 @@ const routes = [
     component: () => import('../views/AdminPanel/HomePanel'),
     meta: {
       title: 'Админка',
-      needToken: true
+      needToken: true,
+      layout: 'admin'
     }
   },
   {
