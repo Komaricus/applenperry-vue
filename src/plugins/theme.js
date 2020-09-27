@@ -4,6 +4,7 @@ export default {
   success: '#009A00',
   warning: '#E06400',
   anchor: '#007DBB',
+  danger: '#E53935',
 
   // Цвета Apple`n`Perry
   primary: '#235335',
