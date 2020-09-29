@@ -23,7 +23,7 @@ const routes = [
       layout: 'admin'
     },
     beforeEnter: (to, from, next) => {
-      if (localStorageService.getToken()) next('/')
+      if (localStorageService.getToken()) next('/apple-admin/panel')
       next()
     }
   },
@@ -51,7 +51,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.needToken && !localStorageService.getToken()) next('/')
+  if (to.meta.needToken && !localStorageService.getToken()) next('/apple-admin')
   next()
 })
 

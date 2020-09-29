@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../router'
 import LocalStorageService from './LocalStorageService'
 const localStorageService = LocalStorageService.getService()
 
@@ -18,9 +19,11 @@ client.interceptors.request.use(
     return config
   },
   error => {
-    Promise.reject(error)
+    return Promise.reject(error)
   }
 )
+
+let isRefreshing = false
 
 client.interceptors.response.use(
   response => {
@@ -28,22 +31,29 @@ client.interceptors.response.use(
   },
   function(error) {
     const originalRequest = error.config
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.response.status === 401 && !originalRequest._retry && !isRefreshing) {
       originalRequest._retry = true
-      return client.get('refresh_token').then(res => {
-        if (res.status === 200) {
-          // 1) put token to LocalStorage
-          localStorageService.setToken(res.data.token)
-
-          // 2) Change Authorization header
-          client.defaults.headers.common['Authorization'] =
-            'Bearer ' + localStorageService.getToken()
-
-          // 3) return originalRequest object with Axios.
-          return client(originalRequest)
-        }
-      })
+      isRefreshing = true
+      return client
+        .get('refresh_token')
+        .then(res => {
+          if (res.status === 200) {
+            localStorageService.setToken(res.data.token)
+            client.defaults.headers.common['Authorization'] =
+              'Bearer ' + localStorageService.getToken()
+            isRefreshing = false
+            return client(originalRequest)
+          }
+        })
+        .catch(error => {
+          console.error(error)
+          localStorageService.clearToken()
+          return Promise.reject(error)
+        })
     }
+
+    localStorageService.clearToken()
+    router.replace('/apple-admin')
     return Promise.reject(error)
   }
 )
