@@ -36,6 +36,9 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import LocalStorageService from '../../plugins/LocalStorageService'
+const localStorageService = LocalStorageService.getService()
+
 export default {
   name: 'AdminLogin',
   data() {
@@ -66,7 +69,7 @@ export default {
         .then(response => {
           console.log(response)
           if (response.data.code === 200) {
-            this.setAuthToken(response.data.token)
+            localStorageService.setToken(response.data.token)
             this.$router.replace('/apple-admin/panel')
           }
         })

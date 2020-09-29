@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store/index'
+import LocalStorageService from '../plugins/LocalStorageService'
+const localStorageService = LocalStorageService.getService()
 
 Vue.use(VueRouter)
 
@@ -22,7 +23,7 @@ const routes = [
       layout: 'admin'
     },
     beforeEnter: (to, from, next) => {
-      if (store.state.token) next('/')
+      if (localStorageService.getToken()) next('/')
       next()
     }
   },
@@ -50,7 +51,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.needToken && !store.state.token) next('/')
+  if (to.meta.needToken && !localStorageService.getToken()) next('/')
   next()
 })
 

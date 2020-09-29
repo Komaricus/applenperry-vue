@@ -57,7 +57,6 @@ import { formsSettings } from './FormsSettings/main'
 import InputField from './Fields/InputField'
 import TextField from './Fields/TextField'
 import SelectField from './Fields/SelectField'
-import { mapState } from 'vuex'
 
 export default {
   name: 'Form',
@@ -123,11 +122,7 @@ export default {
     },
     edit() {
       this.$api
-        .put(`/${this.id}/`, this.body, {
-          headers: {
-            Authorization: 'Bearer ' + this.token
-          }
-        })
+        .put(`/${this.id}/`, this.body)
         .then(response => {
           console.log(response)
           this.$emit('closeForm')
@@ -138,11 +133,7 @@ export default {
     },
     create() {
       this.$api
-        .post(`/${this.id}/`, this.body, {
-          headers: {
-            Authorization: 'Bearer ' + this.token
-          }
-        })
+        .post(`/${this.id}/`, this.body)
         .then(response => {
           console.log(response)
           this.$emit('closeForm')
@@ -156,11 +147,7 @@ export default {
     },
     del() {
       this.$api
-        .delete(`/${this.id}/${this.body.id}`, {
-          headers: {
-            Authorization: 'Bearer ' + this.token
-          }
-        })
+        .delete(`/${this.id}/${this.body.id}`)
         .then(response => {
           console.log(response)
           this.$emit('closeForm')
@@ -169,9 +156,6 @@ export default {
           console.error(error)
         })
     }
-  },
-  computed: {
-    ...mapState(['token'])
   }
 }
 </script>
