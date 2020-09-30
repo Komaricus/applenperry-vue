@@ -100,6 +100,10 @@ export default {
         {
           id: 'categories',
           name: 'Категории товара'
+        },
+        {
+          id: 'about-cider',
+          name: 'О сидре и перри'
         }
       ],
       selectedCategoryIndex: -1,

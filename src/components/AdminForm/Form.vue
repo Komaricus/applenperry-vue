@@ -57,6 +57,7 @@ import { formsSettings } from './FormsSettings/main'
 import InputField from './Fields/InputField'
 import TextField from './Fields/TextField'
 import SelectField from './Fields/SelectField'
+import NumberField from './Fields/NumberField'
 
 export default {
   name: 'Form',
@@ -77,7 +78,8 @@ export default {
   components: {
     'input-field': InputField,
     'text-field': TextField,
-    'select-field': SelectField
+    'select-field': SelectField,
+    'number-field': NumberField
   },
   data() {
     return {

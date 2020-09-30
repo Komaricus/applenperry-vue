@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="mode !== 'production'">
     <v-app-bar app color="admin-primary" dark>
       <v-toolbar-title class="text-neucha">Apple`n`Perry</v-toolbar-title>
 
@@ -7,10 +7,10 @@
     </v-app-bar>
 
     <v-main>
-      <router-view v-if="mode !== 'production'" />
-      <wip v-else />
+      <router-view />
     </v-main>
   </v-app>
+  <wip v-else />
 </template>
 
 <script>
