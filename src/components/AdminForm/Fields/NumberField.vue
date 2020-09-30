@@ -56,7 +56,7 @@ export default {
     emitInputChange() {
       this.$emit('fieldValueChanged', {
         id: this.field.id,
-        value: this.num
+        value: Number(this.num)
       })
     }
   }
