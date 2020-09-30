@@ -31,29 +31,32 @@ client.interceptors.response.use(
   },
   function(error) {
     const originalRequest = error.config
-    if (error.response.status === 401 && !originalRequest._retry && !isRefreshing) {
-      originalRequest._retry = true
-      isRefreshing = true
-      return client
-        .get('refresh_token')
-        .then(res => {
-          if (res.status === 200) {
-            localStorageService.setToken(res.data.token)
-            client.defaults.headers.common['Authorization'] =
-              'Bearer ' + localStorageService.getToken()
-            isRefreshing = false
-            return client(originalRequest)
-          }
-        })
-        .catch(error => {
-          console.error(error)
-          localStorageService.clearToken()
-          return Promise.reject(error)
-        })
+    if (error.response.status === 401) {
+      if (!originalRequest._retry && !isRefreshing) {
+        originalRequest._retry = true
+        isRefreshing = true
+        return client
+          .get('refresh_token')
+          .then(res => {
+            if (res.status === 200) {
+              localStorageService.setToken(res.data.token)
+              client.defaults.headers.common['Authorization'] =
+                'Bearer ' + localStorageService.getToken()
+              isRefreshing = false
+              return client(originalRequest)
+            }
+          })
+          .catch(error => {
+            console.error(error)
+            localStorageService.clearToken()
+            return Promise.reject(error)
+          })
+      }
+
+      localStorageService.clearToken()
+      router.replace('/apple-admin')
     }
 
-    localStorageService.clearToken()
-    router.replace('/apple-admin')
     return Promise.reject(error)
   }
 )
