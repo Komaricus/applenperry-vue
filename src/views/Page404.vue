@@ -1,9 +1,9 @@
 <template>
-  <section class="container-404">
-    <h1 class="title-404">404</h1>
+  <section class="full-page-centered">
+    <h1 id="title-404">404</h1>
     <div>
-      <h1 class="is-size-3">Страница не найдена</h1>
-      <b-button class="is-primary" @click="$router.replace('/')">Перейти на главную</b-button>
+      <h1>Страница не найдена</h1>
+      <v-btn color="primary" @click="$router.replace('/')">Перейти на главную</v-btn>
     </div>
   </section>
 </template>
@@ -15,18 +15,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container-404 {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
+#title-404 {
+  font-size: 7rem;
+  font-family: Roboto, sans-serif;
+  color: #f07d10;
+  font-weight: 400;
+}
 
-  .title-404 {
-    font-size: 7rem;
-    font-family: Roboto, sans-serif;
-    color: #f07d10;
-  }
+h1 {
+  padding-top: 60px;
+  padding-bottom: 10px;
+  font-size: 32px;
+  font-weight: 100;
 }
 </style>

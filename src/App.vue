@@ -1,28 +1,20 @@
 <template>
   <div id="app">
-    <router-view v-if="yo" />
-    <yo v-else-if="mode !== 'production'" />
-    <wip v-else />
-    <mobile-menu />
+    <component :is="layout" />
   </div>
 </template>
 <script>
-import WIP from '@/views/WIP'
-import MobileMenu from './components/MobileMenu'
-import YearsOldCheck from './views/YearsOldCheck'
+import Default from './layouts/Default'
+import Admin from './layouts/Admin'
 
 export default {
   components: {
-    wip: WIP,
-    'mobile-menu': MobileMenu,
-    yo: YearsOldCheck
+    default: Default,
+    admin: Admin
   },
   computed: {
-    mode() {
-      return process.env.NODE_ENV
-    },
-    yo() {
-      return sessionStorage.getItem('yo') === 'true'
+    layout() {
+      return this.$route.meta.layout || 'default'
     }
   },
   watch: {
@@ -35,5 +27,4 @@ export default {
 <style lang="scss">
 @import url('assets/fonts.css');
 @import 'assets/style';
-@import 'assets/bulma';
 </style>
