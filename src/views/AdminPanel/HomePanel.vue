@@ -104,6 +104,10 @@ export default {
         {
           id: 'about-cider',
           name: 'О сидре и перри'
+        },
+        {
+          id: 'countries',
+          name: 'Страны'
         }
       ],
       selectedCategoryIndex: -1,
