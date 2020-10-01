@@ -58,6 +58,7 @@ import InputField from './Fields/InputField'
 import TextField from './Fields/TextField'
 import SelectField from './Fields/SelectField'
 import NumberField from './Fields/NumberField'
+import FilesField from './Fields/FilesField'
 
 export default {
   name: 'Form',
@@ -79,7 +80,8 @@ export default {
     'input-field': InputField,
     'text-field': TextField,
     'select-field': SelectField,
-    'number-field': NumberField
+    'number-field': NumberField,
+    'files-field': FilesField
   },
   data() {
     return {
