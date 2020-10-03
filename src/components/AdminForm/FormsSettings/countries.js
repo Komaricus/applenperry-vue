@@ -13,7 +13,7 @@ export default {
       type: 'files-field',
       label: 'Иконка флага',
       placeholder: 'Загрузите файл',
-      required: false,
+      required: true,
       tooltip: 'Загрузите иконку флага'
     }
   ],

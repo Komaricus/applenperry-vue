@@ -100,6 +100,9 @@ export default {
         this.body.id = this.item.id
         this.fields = [
           ...formsSettings[this.id].fields.map(field => {
+            if (field.type === 'files-field') {
+              return Object.assign({}, field, { value: this.item.image })
+            }
             return Object.assign({}, field, { value: this.item[field.id] || '' })
           })
         ]
