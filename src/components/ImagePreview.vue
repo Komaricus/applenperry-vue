@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img v-if="mode === 'production'" :src="`/${imageSrc}`" alt="" />
+    <img v-if="mode === 'production'" :src="`/images/${imageSrc}`" alt="" />
     <img v-else :src="require(`./../assets/img/${imageSrc}`)" alt="" />
   </div>
 </template>
