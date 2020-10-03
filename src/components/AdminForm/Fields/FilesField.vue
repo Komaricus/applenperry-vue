@@ -22,7 +22,7 @@
           <span class="file-size text--inactive">{{ humanFileSize(file.size) }}</span>
         </v-card-title>
         <v-card-text class="image-preview">
-          <img :src="require(`./../../../assets/img/${file.path}`)" alt="" />
+          <image-preview :image-src="file.path"></image-preview>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -42,6 +42,7 @@
 
 <script>
 import FieldLabel from './FieldLabel'
+import ImagePreview from '../../ImagePreview'
 
 export default {
   name: 'FilesField',
@@ -52,7 +53,8 @@ export default {
     }
   },
   components: {
-    'field-label': FieldLabel
+    'field-label': FieldLabel,
+    'image-preview': ImagePreview
   },
   data() {
     return {
@@ -131,12 +133,6 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.image-preview {
-  img {
-    width: 100%;
-  }
-}
-
 .image-title {
   font-size: 14px;
 }

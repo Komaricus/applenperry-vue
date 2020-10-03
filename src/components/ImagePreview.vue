@@ -1,0 +1,29 @@
+<template>
+  <div>
+    <img v-if="mode === 'production'" :src="`/${imageSrc}`" alt="" />
+    <img v-else :src="require(`./../assets/img/${imageSrc}`)" alt="" />
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ImagePreview',
+  props: {
+    imageSrc: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    mode() {
+      return process.env.NODE_ENV
+    }
+  }
+}
+</script>
+
+<style scoped>
+img {
+  width: 100%;
+}
+</style>
