@@ -14,7 +14,9 @@ export default {
   },
   computed: {
     layout() {
-      return this.$route.meta.layout || 'default'
+      return this.$route.meta.layout || window.location.href.includes('apple-admin')
+        ? 'admin'
+        : 'default'
     }
   },
   watch: {
