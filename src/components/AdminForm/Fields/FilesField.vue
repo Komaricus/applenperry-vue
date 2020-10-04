@@ -13,13 +13,17 @@
       :rules="rules"
       ref="file-field"
     ></v-file-input>
+    <div class="d-flex align-center">
+      <div class="text--main">Или выберите из уже загруженных файлов:</div>
+      <v-btn class="ml-5" color="white" @click="libraryDialog = true">Открыть изображения</v-btn>
+    </div>
     <div v-if="files.length && !loading">
       <h3 class="text--title">Загруженные файлы</h3>
       <v-card v-for="(file, index) in files" :key="file.id" width="300px">
         <v-card-title class="image-title text--main">
-          <span>{{ cropName(file.originalName) }}</span>
+          <span>{{ file.originalName | cropName }}</span>
           <v-spacer />
-          <span class="file-size text--inactive">{{ humanFileSize(file.size) }}</span>
+          <span class="file-size text--inactive">{{ file.size | humanFileSize }}</span>
         </v-card-title>
         <v-card-text class="image-preview">
           <image-preview :image-src="file.path"></image-preview>
@@ -37,12 +41,22 @@
     <div v-if="loading" class="text-center">
       <v-progress-circular indeterminate color="admin-primary"></v-progress-circular>
     </div>
+
+    <v-dialog v-model="libraryDialog" max-width="1200">
+      <v-card>
+        <v-card-title class="text--title text-roboto">Выбор изображения</v-card-title>
+        <v-card-text>
+          <file-picker :mode="'pick'" @file-picked="filePicked"></file-picker>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import FieldLabel from './FieldLabel'
 import ImagePreview from '../../ImagePreview'
+import FilePicker from '../../FilePicker'
 
 export default {
   name: 'FilesField',
@@ -54,13 +68,15 @@ export default {
   },
   components: {
     'field-label': FieldLabel,
-    'image-preview': ImagePreview
+    'image-preview': ImagePreview,
+    'file-picker': FilePicker
   },
   data() {
     return {
       files: [],
       rules: [],
-      loading: false
+      loading: false,
+      libraryDialog: false
     }
   },
   created() {
@@ -103,20 +119,6 @@ export default {
           this.loading = false
         })
     },
-    cropName(name) {
-      let cropName = name
-      if (cropName.length > 22)
-        cropName = name.substr(0, 10) + '...' + name.substring(name.length - 10)
-      return cropName
-    },
-    humanFileSize(size) {
-      let i = Math.floor(Math.log(size) / Math.log(1000))
-      return (
-        (size / Math.pow(1000, i)).toFixed(2) * 1 +
-        ' ' +
-        ['байт', 'КБайт', 'Мбайт', 'ГБайт', 'ТБайт'][i]
-      )
-    },
     emitInputChange() {
       let ids = this.files.map(f => {
         return f.id
@@ -128,6 +130,10 @@ export default {
         id: this.field.id,
         value: ids
       })
+    },
+    filePicked(file) {
+      this.files = [file]
+      this.libraryDialog = false
     }
   }
 }

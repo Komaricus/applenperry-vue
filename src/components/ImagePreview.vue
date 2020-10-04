@@ -1,7 +1,19 @@
 <template>
   <div>
-    <img v-if="mode === 'production'" :src="`/images/${imageSrc}`" alt="" />
-    <img v-else :src="require(`./../assets/img/${imageSrc}`)" alt="" />
+    <v-img
+      v-if="mode === 'production'"
+      :src="`/images/${imageSrc}`"
+      contain
+      max-height="300"
+      max-width="300"
+    ></v-img>
+    <v-img
+      v-else
+      :src="require(`./../assets/img/${imageSrc}`)"
+      contain
+      max-height="300"
+      max-width="300"
+    ></v-img>
   </div>
 </template>
 
@@ -22,8 +34,4 @@ export default {
 }
 </script>
 
-<style scoped>
-img {
-  width: 100%;
-}
-</style>
+<style scoped></style>

@@ -38,6 +38,16 @@ const routes = [
     }
   },
   {
+    name: 'Files',
+    path: '/apple-admin/files',
+    component: () => import('../views/AdminPanel/Files'),
+    meta: {
+      title: 'Управление изображениями',
+      needToken: true,
+      layout: 'admin'
+    }
+  },
+  {
     name: '404',
     path: '*',
     component: () => import('../views/Page404')
