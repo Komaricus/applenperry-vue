@@ -57,6 +57,7 @@
 import FieldLabel from './FieldLabel'
 import ImagePreview from '../../ImagePreview'
 import FilePicker from '../../FilePicker'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'FilesField',
@@ -90,6 +91,7 @@ export default {
     this.emitInputChange()
   },
   methods: {
+    ...mapMutations(['showSnackbar']),
     async filesAdded(files) {
       if (!files || (Array.isArray(files) && !files.length)) return
       this.loading = true
@@ -112,11 +114,13 @@ export default {
             this.emitInputChange()
             this.loading = false
             this.$refs['file-field'].validate(true)
+            this.showSnackbar({ text: 'Файл успешно загружен', color: 'success' })
           }, 2000)
         })
         .catch(error => {
           console.error(error)
           this.loading = false
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
     },
     emitInputChange() {

@@ -24,11 +24,28 @@
     <v-main>
       <router-view />
     </v-main>
+
+    <v-snackbar
+      :value="snackbar"
+      :color="snackbarColor"
+      class="text-roboto"
+      right
+      shaped
+      bottom
+      elevation="1"
+    >
+      {{ snackbarText }}
+    </v-snackbar>
   </v-app>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Admin'
+  name: 'Admin',
+  computed: {
+    ...mapState(['snackbar', 'snackbarText', 'snackbarColor'])
+  }
 }
 </script>

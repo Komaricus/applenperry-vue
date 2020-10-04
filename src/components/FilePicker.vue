@@ -69,6 +69,7 @@
 
 <script>
 import ImagePreview from './ImagePreview'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'FilePicker',
@@ -95,6 +96,7 @@ export default {
     await this.getFiles()
   },
   methods: {
+    ...mapMutations(['showSnackbar']),
     async getFiles() {
       this.loading = true
       await this.$api
@@ -104,6 +106,7 @@ export default {
         })
         .catch(error => {
           console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
         .finally(() => {
           this.loading = false
@@ -114,12 +117,13 @@ export default {
         .delete(`/files/`, {
           data: this.selectedFile
         })
-        .then(async response => {
-          console.log(response)
+        .then(async () => {
+          this.showSnackbar({ text: 'Файл успешно удален', color: 'success' })
           await this.getFiles()
         })
         .catch(error => {
           console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
         .finally(() => {
           this.deleteDialog = false
@@ -133,7 +137,6 @@ export default {
       await this.$api
         .get(`/files/deletable/${this.selectedFile.id}`)
         .then(({ data }) => {
-          console.log(data)
           this.status = data.status
           if (this.status === 'not_deletable') {
             this.countries = data.countries
@@ -142,6 +145,7 @@ export default {
         })
         .catch(error => {
           console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
     }
   }

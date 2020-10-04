@@ -88,6 +88,7 @@
 
 <script>
 import Form from '../../components/AdminForm/Form'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'HomePanel',
@@ -119,6 +120,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['showSnackbar']),
     async getItems() {
       await this.$api
         .get(`/${this.selectedCategory.id}/`)
@@ -129,6 +131,7 @@ export default {
         })
         .catch(error => {
           console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
     },
     async categoryChanged() {

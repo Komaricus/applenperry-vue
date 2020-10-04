@@ -59,6 +59,7 @@ import TextField from './Fields/TextField'
 import SelectField from './Fields/SelectField'
 import NumberField from './Fields/NumberField'
 import FilesField from './Fields/FilesField'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Form',
@@ -114,6 +115,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['showSnackbar']),
     onFieldValueChanged(args) {
       this.body[args.id] = args.value
     },
@@ -122,7 +124,10 @@ export default {
     },
     save() {
       this.valid = this.$refs.form.validate()
-      if (!this.valid) return
+      if (!this.valid) {
+        this.showSnackbar({ text: 'Заполните обязательные поля', color: 'warning' })
+        return
+      }
 
       if (this.type === 'edit') this.edit()
       else this.create()
@@ -130,23 +135,25 @@ export default {
     edit() {
       this.$api
         .put(`/${this.id}/`, this.body)
-        .then(response => {
-          console.log(response)
+        .then(() => {
+          this.showSnackbar({ text: 'Запись успешно отредактирована', color: 'success' })
           this.$emit('closeForm')
         })
         .catch(error => {
           console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: '$error' })
         })
     },
     create() {
       this.$api
         .post(`/${this.id}/`, this.body)
-        .then(response => {
-          console.log(response)
+        .then(() => {
+          this.showSnackbar({ text: 'Запись успешно создана', color: 'success' })
           this.$emit('closeForm')
         })
         .catch(error => {
           console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: '$error' })
         })
     },
     openDeleteDialog() {
@@ -155,12 +162,13 @@ export default {
     del() {
       this.$api
         .delete(`/${this.id}/${this.body.id}`)
-        .then(response => {
-          console.log(response)
+        .then(() => {
+          this.showSnackbar({ text: 'Запись успешно удалена', color: 'success' })
           this.$emit('closeForm')
         })
         .catch(error => {
           console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: '$error' })
         })
     }
   }

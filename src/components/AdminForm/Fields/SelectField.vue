@@ -21,6 +21,7 @@
 
 <script>
 import FieldLabel from './FieldLabel'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'SelectField',
@@ -50,6 +51,7 @@ export default {
         })
         .catch(error => {
           console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
         .finally(() => {
           setTimeout(() => {
@@ -67,6 +69,7 @@ export default {
     this.emitInputChange()
   },
   methods: {
+    ...mapMutations(['showSnackbar']),
     emitInputChange() {
       this.$emit('fieldValueChanged', {
         id: this.field.id,

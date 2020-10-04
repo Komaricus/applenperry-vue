@@ -67,7 +67,6 @@ export default {
           password: this.password
         })
         .then(response => {
-          console.log(response)
           if (response.data.code === 200) {
             localStorageService.setToken(response.data.token)
             this.$router.replace('/apple-admin/panel')
