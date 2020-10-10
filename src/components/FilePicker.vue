@@ -30,7 +30,7 @@
       </v-col>
     </v-row>
     <v-row v-else class="fill-height ma-0" align="center" justify="center">
-      <v-progress-circular indeterminate color="admin-primary"></v-progress-circular>
+      <v-progress-circular class="mt-5" indeterminate color="admin-primary"></v-progress-circular>
     </v-row>
 
     <v-dialog v-model="deleteDialog" max-width="500px">

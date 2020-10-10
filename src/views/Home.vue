@@ -29,14 +29,9 @@
     </div>
 
     <div class="slider">
-      <div
-        v-for="(slide, i) in slides"
-        :key="i"
-        :class="slide.class"
-        :style="{
-          backgroundImage: 'url(' + require(`./../assets/images/showcase/${slide.img}`) + ')'
-        }"
-      />
+      <div v-for="(slide, i) in slides" :class="slide.class" :key="i">
+        <img :src="require(`./../assets/img/${slide.image.path}`)" alt="" />
+      </div>
     </div>
 
     <p id="phone">
@@ -55,35 +50,24 @@ export default {
   },
   data() {
     return {
-      slides: [
-        {
-          class: 'slide current',
-          img: '1.jpg'
-        },
-        {
-          class: 'slide',
-          img: '2.jpg'
-        },
-        {
-          class: 'slide',
-          img: '3.jpg'
-        },
-        {
-          class: 'slide',
-          img: '4.jpg'
-        },
-        {
-          class: 'slide',
-          img: '5.jpg'
-        },
-        {
-          class: 'slide',
-          img: '6.jpg'
-        }
-      ]
+      slides: []
     }
   },
-  created() {
+  async created() {
+    this.$api
+      .get('/open/slides')
+      .then(({ data }) => {
+        for (let i = 0; i < data.length; i++) {
+          if (i === 0) {
+            this.slides.push(Object.assign(data[i], { class: 'slide current' }))
+            continue
+          }
+          this.slides.push(Object.assign(data[i], { class: 'slide' }))
+        }
+      })
+      .catch(error => {
+        console.error(error)
+      })
     setInterval(this.nextSlide, 10000)
   },
   methods: {
@@ -207,16 +191,18 @@ export default {
 
   .slide {
     position: absolute;
-    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5) inset;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top;
+    display: flex;
+    justify-content: center;
+
+    img {
+      opacity: 0.6;
+    }
   }
 
   .slide.current {

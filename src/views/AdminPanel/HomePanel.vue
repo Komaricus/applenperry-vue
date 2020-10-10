@@ -109,6 +109,10 @@ export default {
         {
           id: 'countries',
           name: 'Страны'
+        },
+        {
+          id: 'home-slider',
+          name: 'Слайдер главная'
         }
       ],
       selectedCategoryIndex: -1,

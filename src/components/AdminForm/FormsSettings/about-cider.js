@@ -30,7 +30,7 @@ export default {
           return Number.isInteger(Number(value)) || 'Введите целое число'
         },
         value => {
-          return Number(value) > 10 || 'Минимальное значение: 10'
+          return Number(value) >= 10 || 'Минимальное значение: 10'
         },
         value => {
           return Number(value) < 36 || 'Максимальное значение: 36'
