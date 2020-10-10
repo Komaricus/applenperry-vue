@@ -39,7 +39,7 @@
       </v-card>
     </div>
     <div v-if="loading" class="text-center">
-      <v-progress-circular indeterminate color="admin-primary"></v-progress-circular>
+      <v-progress-circular indeterminate class="mt-5" color="admin-primary"></v-progress-circular>
     </div>
 
     <v-dialog v-model="libraryDialog" max-width="1200">
