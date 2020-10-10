@@ -14,7 +14,36 @@ export default new Vuex.Store({
     mobileMenu: false,
     snackbar: false,
     snackbarColor: '',
-    snackbarText: ''
+    snackbarText: '',
+    items: [
+      {
+        id: 'categories',
+        name: 'Категории товара'
+      },
+      {
+        id: 'about-cider',
+        name: 'О сидре и перри'
+      },
+      {
+        id: 'countries',
+        name: 'Страны'
+      },
+      {
+        id: 'home-slider',
+        name: 'Слайдер главная'
+      },
+      {
+        id: 'vendors',
+        name: 'Производители'
+      }
+    ]
+  },
+  getters: {
+    lists: state => {
+      return state.items.map(e => {
+        return e.id
+      })
+    }
   },
   mutations: {
     toggleSideMenu(state) {

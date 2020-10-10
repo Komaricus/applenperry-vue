@@ -30,7 +30,7 @@ export default {
       ]
     },
     {
-      id: 'file_id',
+      id: 'fileId',
       type: 'files-field',
       label: 'Изображение слайда',
       placeholder: 'Загрузите файл',

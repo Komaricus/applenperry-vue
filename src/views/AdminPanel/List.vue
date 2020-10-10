@@ -20,6 +20,7 @@
                 :src="require(`./../../assets/img/${item.image.path}`)"
                 max-width="60"
                 max-height="32"
+                contain
               ></v-img>
             </v-list-item-icon>
             <v-list-item-content>
@@ -42,14 +43,13 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'List',
   data() {
     return {
       id: '',
-      lists: ['categories', 'about-cider', 'countries', 'home-slider'],
       items: [],
       index: -1
     }
@@ -92,6 +92,9 @@ export default {
         '/apple-admin/panel/list/' + this.id + '/edit/' + this.items[this.index - 1].id
       )
     }
+  },
+  computed: {
+    ...mapGetters(['lists'])
   }
 }
 </script>

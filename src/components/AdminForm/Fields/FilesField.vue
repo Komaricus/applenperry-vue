@@ -17,7 +17,7 @@
       <div class="text--main">Или выберите из уже загруженных файлов:</div>
       <v-btn class="ml-5" color="white" @click="libraryDialog = true">Открыть изображения</v-btn>
     </div>
-    <div v-if="files.length && !loading">
+    <div v-if="files.length && !loading" class="my-3">
       <h3 class="text--title">Загруженные файлы</h3>
       <v-card v-for="(file, index) in files" :key="file.id" width="300px">
         <v-card-title class="image-title text--main">

@@ -13,6 +13,8 @@
 
 <script>
 import Form from '../../components/AdminForm/Form'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Edit',
   components: {
@@ -27,7 +29,6 @@ export default {
   },
   data() {
     return {
-      lists: ['categories', 'about-cider', 'countries', 'home-slider'],
       item: {}
     }
   },
@@ -51,6 +52,9 @@ export default {
     async closeForm() {
       await this.$router.push('/apple-admin/panel/list/' + this.$route.params.type)
     }
+  },
+  computed: {
+    ...mapGetters(['lists'])
   }
 }
 </script>

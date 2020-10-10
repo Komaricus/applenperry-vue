@@ -23,28 +23,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'HomePanel',
   data() {
     return {
-      items: [
-        {
-          id: 'categories',
-          name: 'Категории товара'
-        },
-        {
-          id: 'about-cider',
-          name: 'О сидре и перри'
-        },
-        {
-          id: 'countries',
-          name: 'Страны'
-        },
-        {
-          id: 'home-slider',
-          name: 'Слайдер главная'
-        }
-      ],
       index: -1
     }
   },
@@ -62,6 +46,9 @@ export default {
 
       await this.$router.push('/apple-admin/panel/list/' + this.items[this.index].id)
     }
+  },
+  computed: {
+    ...mapState(['items'])
   }
 }
 </script>
