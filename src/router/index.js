@@ -35,7 +35,38 @@ const routes = [
       title: 'Админка',
       needToken: true,
       layout: 'admin'
-    }
+    },
+    children: [
+      {
+        path: 'list/:type',
+        component: () => import('../views/AdminPanel/List'),
+        meta: {
+          title: 'Админка',
+          needToken: true,
+          layout: 'admin'
+        },
+        children: [
+          {
+            path: 'create',
+            component: () => import('../views/AdminPanel/Create'),
+            meta: {
+              title: 'Админка',
+              needToken: true,
+              layout: 'admin'
+            }
+          },
+          {
+            path: 'edit/:id',
+            component: () => import('../views/AdminPanel/Edit'),
+            meta: {
+              title: 'Админка',
+              needToken: true,
+              layout: 'admin'
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     name: 'Files',

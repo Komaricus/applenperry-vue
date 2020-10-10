@@ -3,11 +3,7 @@
     <v-row no-gutters>
       <v-col cols="4" class="column">
         <div class="pa-2">
-          <v-list-item-group
-            @change="categoryChanged"
-            v-model="selectedCategoryIndex"
-            color="admin-primary"
-          >
+          <v-list-item-group @change="categoryChanged" v-model="index" color="admin-primary">
             <v-list-item v-for="(item, i) in items" :key="i">
               <v-list-item-content>
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
@@ -16,85 +12,19 @@
           </v-list-item-group>
         </div>
       </v-col>
-      <v-col
-        cols="4"
-        class="column"
-        v-if="
-          Number(selectedCategoryIndex) >= 0 &&
-            (selectedItemIndex === undefined || Number(selectedItemIndex) < 0)
-        "
-      >
-        <div class="pa-2">
-          <v-list-item-group
-            @change="itemChanged"
-            v-model="selectedItemIndex"
-            color="admin-primary"
-          >
-            <v-list-item>
-              <v-list-item-avatar>
-                <v-icon>
-                  fa-plus-square
-                </v-icon>
-              </v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title>Добавить запись</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <div class="separator"></div>
-            <v-list-item v-for="(item, i) in categoryItems" :key="i">
-              <v-list-item-content>
-                <v-list-item-title>{{ item.name }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </div>
-      </v-col>
-      <v-col
-        cols="4"
-        class="column"
-        v-if="
-          Number(selectedCategoryIndex) >= 0 &&
-            (selectedItemIndex === undefined || Number(selectedItemIndex) < 0)
-        "
-      >
-        <div class="pa-2">
-          <p class="text--inactive">Для добавления новой записи нажмите кнопку "Добавить запись"</p>
-          <p class="text--inactive">Для редактирования выберите запись из списка</p>
-        </div>
-      </v-col>
-      <v-col cols="8" v-if="Number(selectedItemIndex) >= 0" class="column">
-        <div class="pa-5">
-          <admin-form
-            :id="selectedCategory.id"
-            :type="type"
-            @closeForm="closeForm"
-            :item="selectedItem"
-          ></admin-form>
-        </div>
-      </v-col>
-      <v-col
-        cols="8"
-        id="logo-column"
-        v-if="
-          (selectedCategoryIndex === undefined || Number(selectedCategoryIndex) < 0) &&
-            (selectedItemIndex === undefined || Number(selectedItemIndex) < 0)
-        "
-      >
+      <v-col cols="8" id="logo-column" v-if="$route.path === '/apple-admin/panel'">
         <img src="@/assets/logo-admin.png" alt="" />
+      </v-col>
+      <v-col cols="8" v-else>
+        <router-view></router-view>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import Form from '../../components/AdminForm/Form'
-import { mapMutations } from 'vuex'
-
 export default {
   name: 'HomePanel',
-  components: {
-    'admin-form': Form
-  },
   data() {
     return {
       items: [
@@ -115,58 +45,22 @@ export default {
           name: 'Слайдер главная'
         }
       ],
-      selectedCategoryIndex: -1,
-      selectedCategory: {},
-      categoryItems: [],
-      selectedItemIndex: -1,
-      selectedItem: {},
-      type: 'edit'
+      index: -1
+    }
+  },
+  created() {
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.$route.path.indexOf(this.items[i].id) !== -1) this.index = i
     }
   },
   methods: {
-    ...mapMutations(['showSnackbar']),
-    async getItems() {
-      await this.$api
-        .get(`/${this.selectedCategory.id}/`)
-        .then(({ data }) => {
-          this.selectedItemIndex = -1
-          this.selectedItem = {}
-          this.categoryItems = data
-        })
-        .catch(error => {
-          console.error(error)
-          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
-        })
-    },
     async categoryChanged() {
-      if (this.selectedCategoryIndex === undefined || Number(this.selectedCategoryIndex) < 0) {
-        this.selectedCategory = {}
-        this.selectedItem = {}
-        this.selectedItemIndex = -1
+      if (this.index === undefined || Number(this.index) < 0) {
+        await this.$router.push('/apple-admin/panel')
         return
       }
 
-      this.selectedCategory = this.items[this.selectedCategoryIndex]
-      await this.getItems()
-    },
-    async itemChanged() {
-      if (this.selectedItemIndex === 0) {
-        this.type = 'creation'
-        return
-      }
-
-      if (this.selectedItemIndex === undefined || Number(this.selectedItemIndex) < 0) {
-        this.selectedItem = {}
-        return
-      }
-
-      this.type = 'edit'
-      this.selectedItem = this.categoryItems[this.selectedItemIndex - 1]
-    },
-    async closeForm() {
-      this.selectedItemIndex = -1
-      this.selectedItem = {}
-      await this.getItems()
+      await this.$router.push('/apple-admin/panel/list/' + this.items[this.index].id)
     }
   }
 }
@@ -195,11 +89,5 @@ export default {
     max-width: 500px;
     opacity: 0.2;
   }
-}
-
-.separator {
-  margin: 5px 0;
-  border-bottom: 1px solid $border;
-  width: 100%;
 }
 </style>

@@ -48,6 +48,8 @@ export default {
         .get(this.field.itemsURL)
         .then(({ data }) => {
           this.items = data
+          const index = this.items.findIndex(e => e.id === this.$route.params.id)
+          this.items.splice(index, 1)
         })
         .catch(error => {
           console.error(error)
