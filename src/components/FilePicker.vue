@@ -44,13 +44,21 @@
           <div v-if="status === 'deletable'" class="delete-text">
             <p>Вы уверены что хотите удалить файл {{ selectedFile.originalName || '' }}?</p>
           </div>
-          <div v-else>
+          <div v-else class="overflow-auto">
             <p>
               Файл невозможно удалить, так как он привязан к следующим объектам:
             </p>
-            <span class="text--title font-weight-bold">Страны:</span>
-            <div class="mt-1 ml-3" v-for="country in countries" :key="country.id">
-              {{ country.name }}
+            <div v-if="countries.length">
+              <span class="text--title font-weight-bold">Страны:</span>
+              <div class="mt-1 ml-3" v-for="country in countries" :key="country.id">
+                {{ country.name }}
+              </div>
+            </div>
+            <div v-if="homeSlides.length">
+              <span class="text--title font-weight-bold">Слайды на главной странице:</span>
+              <div class="mt-1 ml-3" v-for="slide in homeSlides" :key="slide.id">
+                {{ slide.name }}
+              </div>
             </div>
           </div>
         </v-card-text>
@@ -91,7 +99,8 @@ export default {
       deleteDialog: false,
       selectedFile: {},
       status: 'deletable',
-      countries: []
+      countries: [],
+      homeSlides: []
     }
   },
   async created() {
@@ -142,6 +151,7 @@ export default {
           this.status = data.status
           if (this.status === 'not_deletable') {
             this.countries = data.countries
+            this.homeSlides = data.homeSlides
           }
           this.deleteDialog = true
         })
