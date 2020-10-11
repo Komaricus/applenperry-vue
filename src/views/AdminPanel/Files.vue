@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="files-container">
     <h2 class="text-roboto">Управление изображениями</h2>
     <file-picker />
   </div>
@@ -16,4 +16,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.files-container {
+  max-width: 1424px;
+  margin: 20px auto 0;
+}
+</style>

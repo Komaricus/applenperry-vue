@@ -1,8 +1,12 @@
 <template>
-  <div>
+  <div class="file-picker-container">
     <v-row v-if="!loading">
-      <v-col v-for="file in files" :key="file.id" class="d-flex child-flex" cols="4">
-        <v-card max-width="300">
+      <v-col
+        v-for="file in files"
+        :key="file.id"
+        class="d-flex child-flex card-col"
+      >
+        <v-card max-width="332">
           <v-card-title class="image-title text--main">
             <span>{{ file.originalName | cropName }}</span>
             <v-spacer />
@@ -60,6 +64,12 @@
                 {{ slide.name }}
               </div>
             </div>
+            <div v-if="vendors.length">
+              <span class="text--title font-weight-bold">Производители:</span>
+              <div class="mt-1 ml-3" v-for="vendor in vendors" :key="vendor.id">
+                {{ vendor.name }}
+              </div>
+            </div>
           </div>
         </v-card-text>
         <v-card-actions v-if="status === 'deletable'">
@@ -100,7 +110,8 @@ export default {
       selectedFile: {},
       status: 'deletable',
       countries: [],
-      homeSlides: []
+      homeSlides: [],
+      vendors: []
     }
   },
   async created() {
@@ -152,6 +163,7 @@ export default {
           if (this.status === 'not_deletable') {
             this.countries = data.countries
             this.homeSlides = data.homeSlides
+            this.vendors = data.vendors
           }
           this.deleteDialog = true
         })
@@ -165,11 +177,20 @@ export default {
 </script>
 
 <style scoped>
+.file-picker-container {
+  max-width: 1424px;
+  margin: 0 auto;
+}
+
 .image-title {
   font-size: 14px;
 }
 
 .file-size {
   font-size: 12px;
+}
+
+.card-col {
+  max-width: 354px;
 }
 </style>

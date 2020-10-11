@@ -1,19 +1,7 @@
 <template>
-  <div>
-    <v-img
-      v-if="mode === 'production'"
-      :src="`/images/${imageSrc}`"
-      contain
-      max-height="300"
-      max-width="300"
-    ></v-img>
-    <v-img
-      v-else
-      :src="require(`./../assets/img/${imageSrc}`)"
-      contain
-      max-height="300"
-      max-width="300"
-    ></v-img>
+  <div class="image-container">
+    <img v-if="mode === 'production'" :src="`/images/${imageSrc}`"  alt=""/>
+    <img v-else :src="require(`./../assets/img/${imageSrc}`)"  alt=""/>
   </div>
 </template>
 
@@ -34,4 +22,17 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.image-container {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    max-width: 300px;
+    max-height: 200px;
+  }
+}
+</style>
