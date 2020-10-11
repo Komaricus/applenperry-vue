@@ -1,11 +1,7 @@
 <template>
   <div class="file-picker-container">
     <v-row v-if="!loading">
-      <v-col
-        v-for="file in files"
-        :key="file.id"
-        class="d-flex child-flex card-col"
-      >
+      <v-col v-for="file in files" :key="file.id" class="d-flex child-flex card-col">
         <v-card max-width="332">
           <v-card-title class="image-title text--main">
             <span>{{ file.originalName | cropName }}</span>

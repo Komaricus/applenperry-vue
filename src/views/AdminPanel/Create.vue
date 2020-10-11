@@ -1,5 +1,5 @@
 <template>
-  <div id="create" class="pa-5">
+  <div id="create">
     <admin-form :id="$route.params.type" :type="'create'" @closeForm="closeForm"></admin-form>
   </div>
 </template>

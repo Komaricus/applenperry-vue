@@ -13,30 +13,34 @@
       :rules="rules"
       ref="file-field"
     ></v-file-input>
-    <div class="d-flex align-center">
+    <div class="d-flex align-center mb-3">
       <div class="text--main">Или выберите из уже загруженных файлов:</div>
       <v-btn class="ml-5" color="white" @click="libraryDialog = true">Открыть изображения</v-btn>
     </div>
     <div v-if="files.length && !loading" class="my-3">
-      <h3 class="text--title">Загруженные файлы</h3>
-      <v-card v-for="(file, index) in files" :key="file.id" width="300px">
-        <v-card-title class="image-title text--main">
-          <span>{{ file.originalName | cropName }}</span>
-          <v-spacer />
-          <span class="file-size text--inactive">{{ file.size | humanFileSize }}</span>
-        </v-card-title>
-        <v-card-text class="image-preview">
-          <image-preview :image-src="file.path"></image-preview>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn small icon color="admin-primary" @click="files.splice(index, 1)">
-            <v-icon small>
-              fa-trash
-            </v-icon>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <h3 class="text--title">Загруженные файлы:</h3>
+      <v-row>
+        <v-col v-for="file in files" :key="file.id" class="d-flex child-flex card-col">
+          <v-card max-width="332">
+            <v-card-title class="image-title text--main">
+              <span>{{ file.originalName | cropName }}</span>
+              <v-spacer />
+              <span class="file-size text--inactive">{{ file.size | humanFileSize }}</span>
+            </v-card-title>
+            <v-card-text class="image-preview">
+              <image-preview :image-src="file.path"></image-preview>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn small icon color="admin-primary" @click="files.splice(index, 1)">
+                <v-icon small>
+                  fa-trash
+                </v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
     </div>
     <div v-if="loading" class="text-center">
       <v-progress-circular indeterminate class="mt-5" color="admin-primary"></v-progress-circular>
@@ -138,6 +142,8 @@ export default {
     filePicked(file) {
       this.files = [file]
       this.libraryDialog = false
+      this.$refs['file-field'].validate(true)
+      this.emitInputChange()
     }
   }
 }

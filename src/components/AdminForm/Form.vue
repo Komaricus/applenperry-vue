@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="d-flex">
+    <div class="d-flex pa-5 top">
       <h1 class="text--title">{{ title }}</h1>
       <v-spacer />
       <v-btn class="ml-2" color="admin-secondary" @click="cancelButtonClicked" v-ripple="false"
@@ -17,7 +17,7 @@
         >Удалить</v-btn
       >
     </div>
-    <div v-if="Array.isArray(this.fields) && this.fields.length" class="overflow-auto pa-1">
+    <div v-if="Array.isArray(this.fields) && this.fields.length" class="overflow-y-auto form">
       <v-form ref="form" v-model="valid" lazy-validation>
         <component
           v-for="field in fields"
@@ -59,6 +59,7 @@ import TextField from './Fields/TextField'
 import SelectField from './Fields/SelectField'
 import NumberField from './Fields/NumberField'
 import FilesField from './Fields/FilesField'
+import HTMLField from './Fields/HTMLField'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -82,7 +83,8 @@ export default {
     'text-field': TextField,
     'select-field': SelectField,
     'number-field': NumberField,
-    'files-field': FilesField
+    'files-field': FilesField,
+    'html-field': HTMLField
   },
   data() {
     return {
@@ -141,7 +143,7 @@ export default {
         })
         .catch(error => {
           console.error(error)
-          this.showSnackbar({ text: 'Произошла ошибка', color: '$error' })
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
     },
     create() {
@@ -153,7 +155,7 @@ export default {
         })
         .catch(error => {
           console.error(error)
-          this.showSnackbar({ text: 'Произошла ошибка', color: '$error' })
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
     },
     openDeleteDialog() {
@@ -168,14 +170,16 @@ export default {
         })
         .catch(error => {
           console.error(error)
-          this.showSnackbar({ text: 'Произошла ошибка', color: '$error' })
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import 'src/assets/colors';
+
 h1 {
   font-family: 'Roboto', sans-serif;
   margin-bottom: 10px;
@@ -183,5 +187,14 @@ h1 {
 
 .delete-text {
   font-size: 16px;
+}
+
+.form {
+  max-height: calc(100vh - 151px);
+  padding: 20px;
+}
+
+.top {
+  border-bottom: 1px solid $border;
 }
 </style>

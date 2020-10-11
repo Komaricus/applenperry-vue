@@ -4,6 +4,7 @@ import countries from './countries'
 import homeSlider from './home-slider'
 import vendors from './vendors'
 import newsSections from './news-sections'
+import news from './news'
 
 export const formsSettings = {
   categories,
@@ -11,5 +12,6 @@ export const formsSettings = {
   countries,
   'home-slider': homeSlider,
   vendors,
-  'news-sections': newsSections
+  'news-sections': newsSections,
+  news
 }

@@ -1,8 +1,7 @@
 <template>
-  <div id="edit" class="pa-5">
+  <div id="edit">
     <admin-form
       v-if="item.id"
-      v
       :id="$route.params.type"
       :type="'edit'"
       @closeForm="closeForm"
