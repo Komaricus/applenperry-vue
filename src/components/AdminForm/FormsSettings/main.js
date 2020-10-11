@@ -3,11 +3,13 @@ import aboutCider from './about-cider'
 import countries from './countries'
 import homeSlider from './home-slider'
 import vendors from './vendors'
+import newsSections from './news-sections'
 
 export const formsSettings = {
   categories,
   'about-cider': aboutCider,
   countries,
   'home-slider': homeSlider,
-  vendors
+  vendors,
+  'news-sections': newsSections
 }

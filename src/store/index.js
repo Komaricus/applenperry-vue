@@ -35,6 +35,10 @@ export default new Vuex.Store({
       {
         id: 'vendors',
         name: 'Производители'
+      },
+      {
+        id: 'news-sections',
+        name: 'Разделы новостей'
       }
     ]
   },
