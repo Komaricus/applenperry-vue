@@ -51,11 +51,10 @@ export default {
       type: 'html-field',
       label: 'Контент',
       placeholder: 'Введите текст новости и загрузите изображения',
-      required: true,
       tooltip: 'Контент новости для отображения на странице новости'
     }
   ],
-  creationTitle: 'Создание слайда',
-  editTitle: 'Редактирование слайда',
-  deleteDialogText: 'Вы действительно хотите удалить данный слайд?'
+  creationTitle: 'Создание новости',
+  editTitle: 'Редактирование новости',
+  deleteDialogText: 'Вы действительно хотите удалить данную новость?'
 }
