@@ -1,37 +1,42 @@
 <template>
   <div class="file-picker-container">
-    <v-row v-if="!loading">
-      <v-col v-for="file in files" :key="file.id" class="d-flex child-flex card-col">
-        <v-card max-width="332">
-          <v-card-title class="image-title text--main">
-            <span>{{ file.originalName | cropName }}</span>
-            <v-spacer />
-            <span class="file-size text--inactive">{{ file.size | humanFileSize }}</span>
-          </v-card-title>
-          <v-card-text class="image-preview">
-            <image-preview :image-src="file.path"></image-preview>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              v-if="mode === 'pick'"
-              color="admin-secondary"
-              small
-              @click="$emit('file-picked', file)"
-              >Выбрать</v-btn
-            >
-            <v-spacer />
-            <v-btn small icon color="admin-primary" @click="openDeleteDialog(file)">
-              <v-icon small>
-                fa-trash
-              </v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row v-else class="fill-height ma-0" align="center" justify="center">
-      <v-progress-circular class="mt-5" indeterminate color="admin-primary"></v-progress-circular>
-    </v-row>
+    <div v-if="files.length">
+      <v-row v-if="!loading">
+        <v-col v-for="file in files" :key="file.id" class="d-flex child-flex card-col">
+          <v-card max-width="332">
+            <v-card-title class="image-title text--main">
+              <span>{{ file.originalName | cropName }}</span>
+              <v-spacer />
+              <span class="file-size text--inactive">{{ file.size | humanFileSize }}</span>
+            </v-card-title>
+            <v-card-text class="image-preview">
+              <image-preview :image-src="file.path"></image-preview>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                v-if="mode === 'pick'"
+                color="admin-secondary"
+                small
+                @click="$emit('file-picked', file)"
+                >Выбрать</v-btn
+              >
+              <v-spacer />
+              <v-btn small icon color="admin-primary" @click="openDeleteDialog(file)">
+                <v-icon small>
+                  fa-trash
+                </v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row v-else class="fill-height ma-0" align="center" justify="center">
+        <v-progress-circular class="mt-5" indeterminate color="admin-primary"></v-progress-circular>
+      </v-row>
+    </div>
+    <div v-else>
+      <p>Изображения пока не загружены</p>
+    </div>
 
     <v-dialog v-model="deleteDialog" max-width="500px">
       <v-card>

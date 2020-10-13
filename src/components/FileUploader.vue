@@ -66,30 +66,37 @@ export default {
       if (!files || !files.length) return
 
       this.loading = true
-      const formData = new FormData()
-      let filesToUpload = []
+      let promises = []
+
       for (let i = 0; i < files.length; i++) {
-        if (files[i].size > 1048576 * 8)
+        if (files[i].size > 1048576 * 8) {
           this.showSnackbar({
             text: 'Размер файла не должен превышать 8 Мбайт',
             color: 'warning'
           })
-        else filesToUpload.push(files[i])
+          continue
+        }
+
+        const formData = new FormData()
+        formData.append('files', files[i])
+        promises.push(
+          this.$api.post('/files/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+        )
       }
 
-      for (const file of filesToUpload) {
-        formData.append('files', file)
-      }
-
-      await this.$api
-        .post('/files/upload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
+      Promise.all(promises)
+        .then(responses => {
+          let filesUploaded = []
+          for (let { data } of responses) {
+            filesUploaded.push(...data)
           }
-        })
-        .then(({ data }) => {
           setTimeout(() => {
-            this.$root.$emit('files-uploaded', { files: data })
+            console.log(filesUploaded)
+            this.$root.$emit('files-uploaded', { files: filesUploaded })
             this.loading = false
             this.showSnackbar({ text: 'Файлы успешно загружены', color: 'success' })
           }, 1000)
