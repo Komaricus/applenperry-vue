@@ -260,7 +260,7 @@ export default {
       this.command = command
     },
     filePicked(file) {
-      if (Array.isArray(file)) file = file[0]
+      if (Object.prototype.hasOwnProperty.call(file, 'files')) file = file.files[0]
       let src = `/images/${file.path}`
       this.command({ src })
       this.dialog = false
@@ -326,7 +326,7 @@ export default {
   }
 
   img {
-    margin: 0 auto;
+    max-width: 100%;
   }
 }
 
