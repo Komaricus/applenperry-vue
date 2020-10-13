@@ -1,6 +1,6 @@
 <template>
   <div class="field-label d-flex">
-    <span class="text--main">{{ field.label }}</span
+    <span class="text--main font-weight-bold">{{ field.label }}</span
     ><span v-if="field.required" v-show="show" class="text--error ml-1">*</span>
     <v-spacer />
     <v-tooltip left v-if="field.tooltip" max-width="400">

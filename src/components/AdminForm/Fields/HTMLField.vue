@@ -132,11 +132,22 @@
     </editor-menu-bar>
     <editor-content :editor="editor" class="editor elevation-2 pa-5" />
 
-    <v-dialog v-model="dialog" max-width="1100">
+    <v-dialog v-model="dialog" max-width="1110">
       <v-card>
         <v-card-title class="text--title text-roboto">Выбор изображения</v-card-title>
         <v-card-text>
-          <file-picker :mode="'pick'" @file-picked="filePicked"></file-picker>
+          <v-tabs v-model="tab">
+            <v-tab>Загрузить</v-tab>
+            <v-tab>Выбрать</v-tab>
+          </v-tabs>
+          <v-tabs-items v-model="tab">
+            <v-tab-item class="pa-3">
+              <file-uploader :multiple="false" @files-uploaded="filePicked"></file-uploader>
+            </v-tab-item>
+            <v-tab-item class="pa-3">
+              <file-picker :mode="'pick'" @file-picked="filePicked"></file-picker>
+            </v-tab-item>
+          </v-tabs-items>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -146,6 +157,7 @@
 <script>
 import FieldLabel from '@/components/AdminForm/Fields/FieldLabel'
 import FilePicker from '@/components/FilePicker'
+import FileUploader from '@/components/FileUploader'
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   Blockquote,
@@ -181,7 +193,8 @@ export default {
     FieldLabel,
     FilePicker,
     EditorMenuBar,
-    EditorContent
+    EditorContent,
+    FileUploader
   },
   data() {
     return {
@@ -227,7 +240,8 @@ export default {
       }),
       content: ``,
       dialog: false,
-      command: null
+      command: null,
+      tab: 0
     }
   },
   created() {
@@ -246,6 +260,7 @@ export default {
       this.command = command
     },
     filePicked(file) {
+      if (Array.isArray(file)) file = file[0]
       let src = `/images/${file.path}`
       this.command({ src })
       this.dialog = false

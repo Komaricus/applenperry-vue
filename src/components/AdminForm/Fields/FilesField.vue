@@ -20,7 +20,7 @@
     <div v-if="files.length && !loading" class="my-3">
       <h3 class="text--title">Загруженные файлы:</h3>
       <v-row>
-        <v-col v-for="file in files" :key="file.id" class="d-flex child-flex card-col">
+        <v-col v-for="(file, index) in files" :key="file.id" class="d-flex child-flex card-col">
           <v-card max-width="332">
             <v-card-title class="image-title text--main">
               <span>{{ file.originalName | cropName }}</span>

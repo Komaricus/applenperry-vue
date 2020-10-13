@@ -17,6 +17,12 @@
 import { mapMutations } from 'vuex'
 export default {
   name: 'FileUploader',
+  props: {
+    multiple: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       dragover: false,
@@ -52,7 +58,7 @@ export default {
     clicked() {
       const input = document.createElement('input')
       input.type = 'file'
-      input.setAttribute('multiple', true)
+      if (this.multiple) input.setAttribute('multiple', true)
       input.setAttribute('accept', 'image/*')
 
       input.onchange = async e => {
@@ -95,8 +101,8 @@ export default {
             filesUploaded.push(...data)
           }
           setTimeout(() => {
-            console.log(filesUploaded)
             this.$root.$emit('files-uploaded', { files: filesUploaded })
+            this.$emit('files-uploaded', { files: filesUploaded })
             this.loading = false
             this.showSnackbar({ text: 'Файлы успешно загружены', color: 'success' })
           }, 1000)
