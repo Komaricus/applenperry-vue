@@ -111,6 +111,11 @@ export default {
     }
   },
   async created() {
+    this.$root.$on('files-uploaded', async payload => {
+      if (payload.files && payload.files.length) {
+        await this.getFiles()
+      }
+    })
     await this.getFiles()
   },
   methods: {

@@ -46,7 +46,7 @@
       <v-progress-circular indeterminate class="mt-5" color="admin-primary"></v-progress-circular>
     </div>
 
-    <v-dialog v-model="libraryDialog" max-width="1200">
+    <v-dialog v-model="libraryDialog" max-width="1100">
       <v-card>
         <v-card-title class="text--title text-roboto">Выбор изображения</v-card-title>
         <v-card-text>

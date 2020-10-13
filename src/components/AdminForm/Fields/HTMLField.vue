@@ -132,7 +132,7 @@
     </editor-menu-bar>
     <editor-content :editor="editor" class="editor elevation-2 pa-5" />
 
-    <v-dialog v-model="dialog" max-width="1200">
+    <v-dialog v-model="dialog" max-width="1100">
       <v-card>
         <v-card-title class="text--title text-roboto">Выбор изображения</v-card-title>
         <v-card-text>
