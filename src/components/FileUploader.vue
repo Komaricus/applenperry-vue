@@ -75,7 +75,7 @@ export default {
       let promises = []
 
       for (let i = 0; i < files.length; i++) {
-        if (files[i].size > 1048576 * 8) {
+        if (files[i].size > 8388608) {
           this.showSnackbar({
             text: 'Размер файла не должен превышать 8 Мбайт',
             color: 'warning'
