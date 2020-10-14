@@ -132,14 +132,15 @@
     </editor-menu-bar>
     <editor-content :editor="editor" class="editor elevation-2 pa-5" />
 
-    <v-dialog v-model="dialog" max-width="1110">
+    <v-dialog v-model="dialog" max-width="1110" scrollable>
       <v-card>
-        <v-card-title class="text--title text-roboto">Выбор изображения</v-card-title>
-        <v-card-text>
-          <v-tabs v-model="tab">
+        <v-card-title class="text--title text-roboto"
+          >Выбор изображения<v-tabs v-model="tab" fixed-tabs>
             <v-tab>Загрузить</v-tab>
             <v-tab>Выбрать</v-tab>
-          </v-tabs>
+          </v-tabs></v-card-title
+        >
+        <v-card-text>
           <v-tabs-items v-model="tab">
             <v-tab-item class="pa-3">
               <file-uploader :multiple="false" @files-uploaded="filePicked"></file-uploader>

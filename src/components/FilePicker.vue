@@ -38,7 +38,7 @@
       <p>Изображения пока не загружены</p>
     </div>
 
-    <v-dialog v-model="deleteDialog" max-width="500px">
+    <v-dialog v-model="deleteDialog" max-width="500px" scrollable>
       <v-card>
         <v-card-title>
           <span class="text--title">{{
