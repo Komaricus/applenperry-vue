@@ -30,12 +30,23 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row v-else class="fill-height ma-0" align="center" justify="center">
-        <v-progress-circular class="mt-5" indeterminate color="admin-primary"></v-progress-circular>
-      </v-row>
+      <div
+        v-else
+        class="d-flex align-center fill-height justify-center"
+        :class="mode !== 'pick' ? 'file-picker' : ''"
+      >
+        <v-progress-circular indeterminate color="admin-primary"></v-progress-circular>
+      </div>
     </div>
     <div v-else>
-      <p>Изображения пока не загружены</p>
+      <p class="text-center text--inactive mt-4">Изображения не найдены</p>
+    </div>
+    <div v-if="files.length && !loading && mode !== 'pick'" class="text-center">
+      <v-row justify="center">
+        <v-col cols="8">
+          <v-pagination v-model="page" :length="totalPages"></v-pagination>
+        </v-col>
+      </v-row>
     </div>
 
     <v-dialog v-model="deleteDialog" max-width="500px" scrollable>
@@ -115,6 +126,14 @@ export default {
     mode: {
       type: String,
       default: ''
+    },
+    itemsPerPage: {
+      type: Number,
+      default: 0
+    },
+    searchValue: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -127,10 +146,16 @@ export default {
       countries: [],
       homeSlides: [],
       vendors: [],
-      news: []
+      news: [],
+      page: 1,
+      totalPages: 1,
+      perPage: 8,
+      total: 0,
+      search: ''
     }
   },
   async created() {
+    if (this.mode === 'pick') this.perPage = -1
     this.$root.$on('files-uploaded', async payload => {
       if (payload.files && payload.files.length) {
         await this.getFiles()
@@ -141,11 +166,20 @@ export default {
   methods: {
     ...mapMutations(['showSnackbar']),
     async getFiles() {
+      if (this.loading) return
       this.loading = true
       await this.$api
-        .get('/files/')
+        .get('/files/', {
+          params: {
+            page: this.page,
+            perPage: this.perPage,
+            search: this.search
+          }
+        })
         .then(({ data }) => {
-          this.files = data
+          this.files = data.files
+          this.total = data.total
+          this.totalPages = Math.ceil(this.total / this.perPage)
         })
         .catch(error => {
           console.error(error)
@@ -194,11 +228,31 @@ export default {
           this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
     }
+  },
+  watch: {
+    async page() {
+      await this.getFiles()
+    },
+    async itemsPerPage() {
+      if (this.itemsPerPage === 0) return
+      this.perPage = this.itemsPerPage
+      this.page = 1
+      await this.getFiles()
+    },
+    async searchValue() {
+      this.search = this.searchValue
+      this.page = 1
+      await this.getFiles()
+    }
   }
 }
 </script>
 
 <style scoped>
+.file-picker {
+  height: calc(100vh - 132px);
+}
+
 .file-picker-container {
   max-width: 1424px;
   margin: 0 auto;

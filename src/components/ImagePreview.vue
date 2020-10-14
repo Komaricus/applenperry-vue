@@ -25,14 +25,14 @@ export default {
 <style scoped lang="scss">
 .image-container {
   width: 300px;
-  height: 200px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
 
   img {
     max-width: 300px;
-    max-height: 200px;
+    max-height: 150px;
   }
 }
 </style>
