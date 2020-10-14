@@ -56,19 +56,33 @@
             <div v-if="countries.length">
               <span class="text--title font-weight-bold">Страны:</span>
               <div class="mt-1 ml-3" v-for="country in countries" :key="country.id">
-                {{ country.name }}
+                <router-link :to="`/apple-admin/panel/list/news/edit/${country.id}`">{{
+                  country.name
+                }}</router-link>
               </div>
             </div>
             <div v-if="homeSlides.length">
               <span class="text--title font-weight-bold">Слайды на главной странице:</span>
               <div class="mt-1 ml-3" v-for="slide in homeSlides" :key="slide.id">
-                {{ slide.name }}
+                <router-link :to="`/apple-admin/panel/list/news/edit/${slide.id}`">{{
+                  slide.name
+                }}</router-link>
               </div>
             </div>
             <div v-if="vendors.length">
               <span class="text--title font-weight-bold">Производители:</span>
               <div class="mt-1 ml-3" v-for="vendor in vendors" :key="vendor.id">
-                {{ vendor.name }}
+                <router-link :to="`/apple-admin/panel/list/news/edit/${vendor.id}`">{{
+                  vendor.name
+                }}</router-link>
+              </div>
+            </div>
+            <div v-if="news.length">
+              <span class="text--title font-weight-bold">Новости:</span>
+              <div class="mt-1 ml-3" v-for="n in news" :key="n.id">
+                <router-link :to="`/apple-admin/panel/list/news/edit/${n.id}`">{{
+                  n.name
+                }}</router-link>
               </div>
             </div>
           </div>
@@ -112,7 +126,8 @@ export default {
       status: 'deletable',
       countries: [],
       homeSlides: [],
-      vendors: []
+      vendors: [],
+      news: []
     }
   },
   async created() {
@@ -170,6 +185,7 @@ export default {
             this.countries = data.countries
             this.homeSlides = data.homeSlides
             this.vendors = data.vendors
+            this.news = data.news
           }
           this.deleteDialog = true
         })
