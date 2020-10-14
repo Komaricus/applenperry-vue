@@ -44,6 +44,12 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Admin',
+  async created() {
+    if (window.location.pathname !== '/apple-admin')
+      await this.$api.get('/admins/heartbeat').catch(error => {
+        console.error(error)
+      })
+  },
   computed: {
     ...mapState(['snackbar', 'snackbarText', 'snackbarColor'])
   }

@@ -226,10 +226,7 @@ export default {
             showOnlyCurrent: true
           })
         ],
-        content: `
-          <h1>Yay Headlines!</h1>
-          <p>All these <strong>cool tags</strong> are working now.</p>
-        `,
+        content: ``,
         onUpdate: ({ getHTML }) => {
           this.content = getHTML()
           this.$emit('fieldValueChanged', {

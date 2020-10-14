@@ -55,6 +55,7 @@ client.interceptors.response.use(
 
       localStorageService.clearToken()
       router.replace('/apple-admin')
+      return Promise.reject(error)
     }
 
     return Promise.reject(error)
