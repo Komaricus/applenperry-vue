@@ -146,7 +146,23 @@
               <file-uploader :multiple="false" @files-uploaded="filePicked"></file-uploader>
             </v-tab-item>
             <v-tab-item class="pa-3">
-              <file-picker :mode="'pick'" @file-picked="filePicked"></file-picker>
+              <div class="d-flex justify-center">
+                <v-text-field
+                  v-model="search"
+                  placeholder="Поиск"
+                  prepend-inner-icon="fa-search"
+                  solo
+                  dense
+                  hide-details
+                  class="search mx-3"
+                  clearable
+                ></v-text-field>
+              </div>
+              <file-picker
+                :mode="'pick'"
+                :search-value="search"
+                @file-picked="filePicked"
+              ></file-picker>
             </v-tab-item>
           </v-tabs-items>
         </v-card-text>
@@ -239,7 +255,8 @@ export default {
       content: ``,
       dialog: false,
       command: null,
-      tab: 0
+      tab: 0,
+      search: ''
     }
   },
   created() {
@@ -334,5 +351,9 @@ export default {
   color: #aaa;
   pointer-events: none;
   height: 0;
+}
+
+.search {
+  max-width: 360px;
 }
 </style>

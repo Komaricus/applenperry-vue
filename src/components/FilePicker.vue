@@ -33,7 +33,7 @@
       <div
         v-else
         class="d-flex align-center fill-height justify-center"
-        :class="mode !== 'pick' ? 'file-picker' : ''"
+        :class="mode !== 'pick' ? 'file-picker' : 'my-5'"
       >
         <v-progress-circular indeterminate color="admin-primary"></v-progress-circular>
       </div>
@@ -166,7 +166,6 @@ export default {
   methods: {
     ...mapMutations(['showSnackbar']),
     async getFiles() {
-      if (this.loading) return
       this.loading = true
       await this.$api
         .get('/files/', {
@@ -186,7 +185,9 @@ export default {
           this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
         .finally(() => {
-          this.loading = false
+          setTimeout(() => {
+            this.loading = false
+          }, 300)
         })
     },
     async deleteFile() {
