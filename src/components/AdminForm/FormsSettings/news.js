@@ -7,7 +7,23 @@ export default {
       placeholder: 'Введите название',
       tooltip: 'Название новости для отображения в списке новостей и на странице новости',
       required: true,
-      counter: 300
+      counter: 300,
+      slugSource: true
+    },
+    {
+      id: 'url',
+      type: 'slug-field',
+      label: 'Ссылка',
+      placeholder: 'Укажите ссылку',
+      required: true,
+      counter: 200,
+      tooltip: 'URL для навигации внутри сайта. Допустимы английские буквы, цифры и дефисы',
+      rules: [
+        value => {
+          const pattern = /^[a-z0-9-]+$/
+          return pattern.test(value) || 'Неверная ссылка'
+        }
+      ]
     },
     {
       id: 'subheader',

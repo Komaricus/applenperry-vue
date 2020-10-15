@@ -1,6 +1,7 @@
 <template>
   <div>
     <field-label :field="field" :show="!input" />
+    <v-btn @click="generate" color="admin-primary" class="my-2 text--white">Сгенерировать</v-btn>
     <v-text-field
       color="admin-primary"
       type="text"
@@ -17,10 +18,11 @@
 
 <script>
 import FieldLabel from './FieldLabel'
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import { urlSlug } from '@/plugins/urlSlug'
 
 export default {
-  name: 'InputField',
+  name: 'SlugField',
   props: {
     field: {
       type: Object,
@@ -59,9 +61,17 @@ export default {
         id: this.field.id,
         value: this.input
       })
-
-      if (this.field.slugSource) this.setSlugSource(this.input)
+    },
+    generate() {
+      this.input = urlSlug(this.slugSource)
+      this.emitInputChange()
     }
+  },
+  computed: {
+    ...mapState(['slugSource'])
+  },
+  beforeDestroy() {
+    this.setSlugSource('')
   }
 }
 </script>

@@ -7,11 +7,12 @@ export default {
       placeholder: 'Введите название категории',
       required: true,
       counter: 200,
-      tooltip: 'Название категории для отображения'
+      tooltip: 'Название категории для отображения',
+      slugSource: true
     },
     {
       id: 'url',
-      type: 'input-field',
+      type: 'slug-field',
       label: 'Ссылка',
       placeholder: 'Укажите ссылку',
       required: true,

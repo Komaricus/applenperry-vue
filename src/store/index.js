@@ -44,7 +44,8 @@ export default new Vuex.Store({
         id: 'news',
         name: 'Новости'
       }
-    ]
+    ],
+    slugSource: ''
   },
   getters: {
     lists: state => {
@@ -68,6 +69,9 @@ export default new Vuex.Store({
       setTimeout(() => {
         state.snackbar = false
       }, 3000)
+    },
+    setSlugSource(state, payload) {
+      state.slugSource = payload
     }
   },
   actions: {},

@@ -7,11 +7,12 @@ export default {
       placeholder: 'Введите название',
       required: true,
       counter: 200,
-      tooltip: 'Название производителя для отображения'
+      tooltip: 'Название производителя для отображения',
+      slugSource: true
     },
     {
       id: 'url',
-      type: 'input-field',
+      type: 'slug-field',
       label: 'Ссылка',
       placeholder: 'Укажите ссылку',
       required: true,

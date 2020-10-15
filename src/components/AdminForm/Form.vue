@@ -60,6 +60,7 @@ import SelectField from './Fields/SelectField'
 import NumberField from './Fields/NumberField'
 import FilesField from './Fields/FilesField'
 import HTMLField from './Fields/HTMLField'
+import SlugField from './Fields/SlugField'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -84,7 +85,8 @@ export default {
     'select-field': SelectField,
     'number-field': NumberField,
     'files-field': FilesField,
-    'html-field': HTMLField
+    'html-field': HTMLField,
+    'slug-field': SlugField
   },
   data() {
     return {
@@ -142,8 +144,16 @@ export default {
           this.$emit('closeForm')
         })
         .catch(error => {
-          console.error(error)
-          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
+          if (
+            error.response.data.error.includes(
+              'ERROR: duplicate key value violates unique constraint'
+            )
+          )
+            this.showSnackbar({ text: 'Ссылка должна быть уникальной!', color: 'warning' })
+          else {
+            console.error(error)
+            this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
+          }
         })
     },
     create() {
@@ -154,8 +164,16 @@ export default {
           this.$emit('closeForm')
         })
         .catch(error => {
-          console.error(error)
-          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
+          if (
+            error.response.data.error.includes(
+              'ERROR: duplicate key value violates unique constraint'
+            )
+          )
+            this.showSnackbar({ text: 'Ссылка должна быть уникальной!', color: 'warning' })
+          else {
+            console.error(error)
+            this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
+          }
         })
     },
     openDeleteDialog() {
