@@ -60,7 +60,7 @@
           <div v-if="status === 'deletable'" class="delete-text">
             <p>Вы уверены что хотите удалить файл {{ selectedFile.originalName || '' }}?</p>
           </div>
-          <div v-else class="overflow-auto">
+          <div v-else>
             <p>
               Файл невозможно удалить, так как он привязан к следующим объектам:
             </p>

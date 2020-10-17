@@ -14,6 +14,7 @@
         dark
         @click="openDeleteDialog"
         v-ripple="false"
+        :loading="deleteLoading"
         >Удалить</v-btn
       >
     </div>
@@ -29,8 +30,8 @@
       </v-form>
     </div>
 
-    <v-dialog v-model="deleteDialog" max-width="500px">
-      <v-card>
+    <v-dialog v-model="deleteDialog" max-width="500px" scrollable>
+      <v-card v-if="status === 'deletable'">
         <v-card-title>
           <span class="text--title">Подтверждение удаления</span>
         </v-card-title>
@@ -44,6 +45,42 @@
           </v-btn>
           <v-btn @click="deleteDialog = false" v-ripple="false">
             Нет
+          </v-btn>
+          <v-spacer />
+        </v-card-actions>
+      </v-card>
+
+      <v-card v-else>
+        <v-card-title>
+          <span class="text--title">Невозможно удалить объект</span>
+        </v-card-title>
+        <v-card-text class="text--main">
+          <p>
+            Объект невозможно удалить, так как он привязан к следующим объектам:
+          </p>
+          <div v-for="(value, key) in deleteConflicts" :key="key">
+            <div v-if="Array.isArray(value) && value.length">
+              <span class="text--title font-weight-bold">{{ itemNameById(key) }}:</span>
+              <div class="mt-1 ml-3" v-for="item in value" :key="item.id">
+                <a v-if="key === id" :href="`/apple-admin/panel/list/${key}/edit/${item.id}`">
+                  {{ item.name }}
+                </a>
+                <router-link v-else :to="`/apple-admin/panel/list/${key}/edit/${item.id}`">
+                  {{ item.name }}
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            class="text--white"
+            color="admin-primary"
+            @click="deleteDialog = false"
+            v-ripple="false"
+          >
+            Закрыть
           </v-btn>
           <v-spacer />
         </v-card-actions>
@@ -62,7 +99,7 @@ import FilesField from './Fields/FilesField'
 import HTMLField from './Fields/HTMLField'
 import SlugField from './Fields/SlugField'
 import CategoriesField from './Fields/CategoriesField'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Form',
@@ -97,7 +134,10 @@ export default {
       valid: true,
       body: {},
       deleteDialog: false,
-      deleteDialogText: ''
+      deleteDialogText: '',
+      deleteLoading: false,
+      status: 'not_deletable',
+      deleteConflicts: {}
     }
   },
   created() {
@@ -178,8 +218,26 @@ export default {
           }
         })
     },
-    openDeleteDialog() {
-      this.deleteDialog = true
+    async openDeleteDialog() {
+      if (formsSettings[this.id].checkPossibleToDelete) {
+        this.deleteLoading = true
+        this.$api
+          .get(`${this.id}/${this.body.id}/deletable`)
+          .then(({ data }) => {
+            this.status = data.status
+            this.deleteConflicts = data.deleteConflicts
+            this.deleteDialog = true
+          })
+          .catch(error => {
+            console.error(error)
+            this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
+          })
+          .finally(() => {
+            this.deleteLoading = false
+          })
+      } else {
+        this.deleteDialog = true
+      }
     },
     del() {
       this.$api
@@ -193,6 +251,9 @@ export default {
           this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
         })
     }
+  },
+  computed: {
+    ...mapGetters(['itemNameById'])
   }
 }
 </script>

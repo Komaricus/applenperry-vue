@@ -64,6 +64,9 @@ export default new Vuex.Store({
       return state.items.map(e => {
         return e.id
       })
+    },
+    itemNameById: state => id => {
+      return state.items.find(i => i.id === id).name
     }
   },
   mutations: {
