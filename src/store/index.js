@@ -43,6 +43,10 @@ export default new Vuex.Store({
       {
         id: 'news',
         name: 'Новости'
+      },
+      {
+        id: 'products-types',
+        name: 'Типы продуктов'
       }
     ],
     slugSource: ''
