@@ -61,6 +61,7 @@ import NumberField from './Fields/NumberField'
 import FilesField from './Fields/FilesField'
 import HTMLField from './Fields/HTMLField'
 import SlugField from './Fields/SlugField'
+import CategoriesField from './Fields/CategoriesField'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -86,7 +87,8 @@ export default {
     'number-field': NumberField,
     'files-field': FilesField,
     'html-field': HTMLField,
-    'slug-field': SlugField
+    'slug-field': SlugField,
+    'categories-field': CategoriesField
   },
   data() {
     return {

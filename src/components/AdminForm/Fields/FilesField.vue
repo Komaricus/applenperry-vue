@@ -45,7 +45,7 @@
         <div
           v-for="(file, index) in files"
           :key="file.id"
-          class="d-inline-block child-flex card-col ma-4"
+          class="d-inline-block child-flex card-col ma-4 pointer"
         >
           <v-card max-width="332">
             <v-card-title class="image-title text--main">
@@ -200,6 +200,7 @@ export default {
       this.emitInputChange()
     },
     errorUpdated(value) {
+      this.error = ''
       if (value)
         for (let rule of this.rules) {
           if (rule()) this.error = rule()
@@ -234,5 +235,9 @@ h3 {
 
 .search {
   max-width: 360px;
+}
+
+.pointer {
+  cursor: pointer;
 }
 </style>
