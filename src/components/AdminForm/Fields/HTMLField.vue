@@ -260,7 +260,7 @@ export default {
     }
   },
   created() {
-    if (this.field.value) {
+    if (Object.prototype.hasOwnProperty.call(this.field, 'value')) {
       this.content = this.field.value
       this.editor.setContent(this.content)
     }

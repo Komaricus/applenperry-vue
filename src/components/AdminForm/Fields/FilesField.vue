@@ -14,7 +14,7 @@
       <div class="error--text pl-3 err">{{ error }}</div>
     </div>
 
-    <div v-if="files.length && !loading" class="my-3">
+    <div v-if="files.length && !loading && !field.multiple" class="my-3">
       <div class="text--inactive caption">Загруженные файлы:</div>
       <v-row>
         <v-col v-for="(file, index) in files" :key="file.id" class="d-flex child-flex card-col">
@@ -39,6 +39,36 @@
         </v-col>
       </v-row>
     </div>
+    <div v-if="files.length && !loading && field.multiple" class="my-3">
+      <div class="text--inactive caption">Загруженные файлы:</div>
+      <draggable v-model="files" group="files" @start="drag = true" @end="drag = false">
+        <div
+          v-for="(file, index) in files"
+          :key="file.id"
+          class="d-inline-block child-flex card-col ma-4"
+        >
+          <v-card max-width="332">
+            <v-card-title class="image-title text--main">
+              <span>{{ file.originalName | cropName }}</span>
+              <v-spacer />
+              <span class="file-size text--inactive">{{ file.size | humanFileSize }}</span>
+            </v-card-title>
+            <v-card-text class="image-preview">
+              <image-preview :image-src="file.path"></image-preview>
+            </v-card-text>
+            <v-card-actions>
+              <span class="text--inactive ml-3">{{ index + 1 }}</span>
+              <v-spacer />
+              <v-btn small icon color="admin-primary" @click="files.splice(index, 1)">
+                <v-icon small>
+                  fa-trash
+                </v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
+      </draggable>
+    </div>
     <div v-if="loading" class="text-center">
       <v-progress-circular indeterminate class="mt-5" color="admin-primary"></v-progress-circular>
     </div>
@@ -55,7 +85,10 @@
         <v-card-text>
           <v-tabs-items v-model="tab">
             <v-tab-item class="pa-3">
-              <file-uploader :multiple="false" @files-uploaded="filePicked"></file-uploader>
+              <file-uploader
+                :multiple="field.multiple"
+                @files-uploaded="filePicked"
+              ></file-uploader>
             </v-tab-item>
             <v-tab-item class="pa-3">
               <div class="d-flex justify-center">
@@ -88,6 +121,7 @@ import FieldLabel from './FieldLabel'
 import ImagePreview from '../../ImagePreview'
 import FilePicker from '../../FilePicker'
 import FileUploader from '@/components/FileUploader'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'FilesField',
@@ -101,7 +135,8 @@ export default {
     FieldLabel,
     ImagePreview,
     FilePicker,
-    FileUploader
+    FileUploader,
+    draggable
   },
   data() {
     return {
@@ -111,13 +146,17 @@ export default {
       dialog: false,
       tab: 0,
       error: '',
-      search: ''
+      search: '',
+      drag: false
     }
   },
   created() {
     if (this.field.required) this.rules.push(() => this.files.length > 0 || 'Обязательное поле')
 
-    if (this.field.value) this.files = [this.field.value]
+    if (Object.prototype.hasOwnProperty.call(this.field, 'value')) {
+      if (this.field.multiple) this.files = this.field.value
+      else this.files = [this.field.value]
+    }
 
     if (Array.isArray(this.field.rules) && this.field.rules.length)
       this.rules = [...this.rules, ...this.field.rules]
@@ -126,20 +165,36 @@ export default {
   },
   methods: {
     emitInputChange() {
-      let ids = this.files.map(f => {
-        return f.id
-      })
-
-      if (this.files.length === 1) ids = this.files[0].id
+      let value = null
+      if (this.field.multiple) value = this.files
+      else if (this.files.length === 1) value = this.files[0].id
 
       this.$emit('fieldValueChanged', {
         id: this.field.id,
-        value: ids
+        value: value
       })
     },
     filePicked(file) {
-      if (Object.prototype.hasOwnProperty.call(file, 'files')) this.files = file.files
-      else this.files = [file]
+      if (this.field.multiple) {
+        if (Object.prototype.hasOwnProperty.call(file, 'files')) {
+          for (const f of file.files) {
+            if (!this.files.some(e => e.id === f.id)) {
+              this.files.push(f)
+            }
+          }
+        } else {
+          if (!this.files.some(e => e.id === file.id)) {
+            this.files.push(file)
+          }
+        }
+      } else {
+        if (Object.prototype.hasOwnProperty.call(file, 'files')) {
+          this.files = file.files
+        } else {
+          this.files = [file]
+        }
+      }
+
       this.dialog = false
       this.$refs['file-field'].validate(true)
       this.emitInputChange()
@@ -149,6 +204,11 @@ export default {
         for (let rule of this.rules) {
           if (rule()) this.error = rule()
         }
+    }
+  },
+  watch: {
+    drag() {
+      this.emitInputChange()
     }
   }
 }

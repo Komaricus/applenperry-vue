@@ -58,10 +58,11 @@ export default {
         .finally(() => {
           setTimeout(() => {
             this.loading = false
-            if (this.field.value) this.select = this.field.value
           }, 200)
         })
     }
+
+    if (Object.prototype.hasOwnProperty.call(this.field, 'value')) this.select = this.field.value
 
     if (this.field.required) this.rules.push(value => !!value || 'Обязательное поле')
 

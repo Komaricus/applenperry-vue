@@ -44,8 +44,9 @@ export default {
           (value || '').length <= this.field.counter || `Максимум ${this.field.counter} символов`
       )
 
-    if (this.field.value) this.num = this.field.value
-    else if (this.field.default) this.num = this.field.default
+    if (Object.prototype.hasOwnProperty.call(this.field, 'value')) this.num = this.field.value
+    else if (Object.prototype.hasOwnProperty.call(this.field, 'default'))
+      this.num = this.field.default
 
     if (Array.isArray(this.field.rules) && this.field.rules.length)
       this.rules = [...this.rules, ...this.field.rules]

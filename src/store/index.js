@@ -46,11 +46,15 @@ export default new Vuex.Store({
       },
       {
         id: 'products-types',
-        name: 'Типы продуктов'
+        name: 'Типы товаров'
       },
       {
         id: 'products-sugar-types',
-        name: 'Типы сахара продутов'
+        name: 'Сахар'
+      },
+      {
+        id: 'products',
+        name: 'Товары'
       }
     ],
     slugSource: ''

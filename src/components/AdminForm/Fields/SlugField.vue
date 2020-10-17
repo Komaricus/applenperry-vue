@@ -47,7 +47,7 @@ export default {
           (value || '').length <= this.field.counter || `Максимум ${this.field.counter} символов`
       )
 
-    if (this.field.value) this.input = this.field.value
+    if (Object.prototype.hasOwnProperty.call(this.field, 'value')) this.input = this.field.value
 
     if (Array.isArray(this.field.rules) && this.field.rules.length)
       this.rules = [...this.rules, ...this.field.rules]
