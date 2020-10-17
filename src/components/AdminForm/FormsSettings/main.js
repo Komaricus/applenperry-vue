@@ -7,6 +7,7 @@ import newsSections from './news-sections'
 import news from './news'
 import productsTypes from './products-types'
 import productsSugarTypes from './products-sugar-types'
+import products from './products'
 
 export const formsSettings = {
   categories,
@@ -17,5 +18,6 @@ export const formsSettings = {
   'news-sections': newsSections,
   news,
   'products-types': productsTypes,
-  'products-sugar-types': productsSugarTypes
+  'products-sugar-types': productsSugarTypes,
+  products
 }
