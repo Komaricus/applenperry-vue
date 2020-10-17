@@ -37,6 +37,13 @@ export default {
       if (this.$route.path.indexOf(this.items[i].id) !== -1) this.index = i
     }
   },
+  watch: {
+    async $route() {
+      if (this.$route.path === '/apple-admin/panel') {
+        this.index = -1
+      }
+    }
+  },
   methods: {
     async categoryChanged() {
       if (this.index === undefined || Number(this.index) < 0) {

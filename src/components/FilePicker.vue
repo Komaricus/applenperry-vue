@@ -64,36 +64,14 @@
             <p>
               Файл невозможно удалить, так как он привязан к следующим объектам:
             </p>
-            <div v-if="countries.length">
-              <span class="text--title font-weight-bold">Страны:</span>
-              <div class="mt-1 ml-3" v-for="country in countries" :key="country.id">
-                <router-link :to="`/apple-admin/panel/list/news/edit/${country.id}`">{{
-                  country.name
-                }}</router-link>
-              </div>
-            </div>
-            <div v-if="homeSlides.length">
-              <span class="text--title font-weight-bold">Слайды на главной странице:</span>
-              <div class="mt-1 ml-3" v-for="slide in homeSlides" :key="slide.id">
-                <router-link :to="`/apple-admin/panel/list/news/edit/${slide.id}`">{{
-                  slide.name
-                }}</router-link>
-              </div>
-            </div>
-            <div v-if="vendors.length">
-              <span class="text--title font-weight-bold">Производители:</span>
-              <div class="mt-1 ml-3" v-for="vendor in vendors" :key="vendor.id">
-                <router-link :to="`/apple-admin/panel/list/news/edit/${vendor.id}`">{{
-                  vendor.name
-                }}</router-link>
-              </div>
-            </div>
-            <div v-if="news.length">
-              <span class="text--title font-weight-bold">Новости:</span>
-              <div class="mt-1 ml-3" v-for="n in news" :key="n.id">
-                <router-link :to="`/apple-admin/panel/list/news/edit/${n.id}`">{{
-                  n.name
-                }}</router-link>
+            <div v-for="(value, key) in deleteConflicts" :key="key">
+              <div v-if="Array.isArray(value) && value.length">
+                <span class="text--title font-weight-bold">{{ itemNameById(key) }}:</span>
+                <div class="mt-1 ml-3" v-for="item in value" :key="item.id">
+                  <a :href="`/apple-admin/panel/list/${key}/edit/${item.id}`">
+                    {{ item.name }}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -115,7 +93,7 @@
 
 <script>
 import ImagePreview from './ImagePreview'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'FilePicker',
@@ -143,10 +121,7 @@ export default {
       deleteDialog: false,
       selectedFile: {},
       status: 'deletable',
-      countries: [],
-      homeSlides: [],
-      vendors: [],
-      news: [],
+      deleteConflicts: {},
       page: 1,
       totalPages: 1,
       perPage: 8,
@@ -209,18 +184,15 @@ export default {
     },
     async openDeleteDialog(file) {
       this.selectedFile = file
-      this.countries = []
       this.status = 'deletable'
+      this.deleteConflicts = {}
 
       await this.$api
         .get(`/files/deletable/${this.selectedFile.id}`)
         .then(({ data }) => {
           this.status = data.status
           if (this.status === 'not_deletable') {
-            this.countries = data.countries
-            this.homeSlides = data.homeSlides
-            this.vendors = data.vendors
-            this.news = data.news
+            this.deleteConflicts = data.deleteConflicts
           }
           this.deleteDialog = true
         })
@@ -245,6 +217,9 @@ export default {
       this.page = 1
       await this.getFiles()
     }
+  },
+  computed: {
+    ...mapGetters(['itemNameById'])
   }
 }
 </script>

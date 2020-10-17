@@ -12,5 +12,6 @@ export default {
   ],
   creationTitle: 'Создание нового типа сахара товара',
   editTitle: 'Редактирование типа сахара товара',
-  deleteDialogText: 'Вы действительно хотите удалить данный тип сахара товара?'
+  deleteDialogText: 'Вы действительно хотите удалить данный тип сахара товара?',
+  checkPossibleToDelete: true
 }

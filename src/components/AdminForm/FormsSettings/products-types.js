@@ -12,5 +12,6 @@ export default {
   ],
   creationTitle: 'Создание нового типа товара',
   editTitle: 'Редактирование типа товара',
-  deleteDialogText: 'Вы действительно хотите удалить данный тип товара?'
+  deleteDialogText: 'Вы действительно хотите удалить данный тип товара?',
+  checkPossibleToDelete: true
 }

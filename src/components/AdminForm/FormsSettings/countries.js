@@ -19,5 +19,6 @@ export default {
   ],
   creationTitle: 'Создание страны',
   editTitle: 'Редактирование страны',
-  deleteDialogText: 'Вы действительно хотите удалить данную страну?'
+  deleteDialogText: 'Вы действительно хотите удалить данную страну?',
+  checkPossibleToDelete: true
 }

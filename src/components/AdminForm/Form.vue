@@ -62,12 +62,9 @@
             <div v-if="Array.isArray(value) && value.length">
               <span class="text--title font-weight-bold">{{ itemNameById(key) }}:</span>
               <div class="mt-1 ml-3" v-for="item in value" :key="item.id">
-                <a v-if="key === id" :href="`/apple-admin/panel/list/${key}/edit/${item.id}`">
+                <a :href="`/apple-admin/panel/list/${key}/edit/${item.id}`">
                   {{ item.name }}
                 </a>
-                <router-link v-else :to="`/apple-admin/panel/list/${key}/edit/${item.id}`">
-                  {{ item.name }}
-                </router-link>
               </div>
             </div>
           </div>
@@ -136,7 +133,7 @@ export default {
       deleteDialog: false,
       deleteDialogText: '',
       deleteLoading: false,
-      status: 'not_deletable',
+      status: 'deletable',
       deleteConflicts: {}
     }
   },
@@ -221,11 +218,15 @@ export default {
     async openDeleteDialog() {
       if (formsSettings[this.id].checkPossibleToDelete) {
         this.deleteLoading = true
+        this.deleteConflicts = {}
+        this.status = 'deletable'
         this.$api
           .get(`${this.id}/${this.body.id}/deletable`)
           .then(({ data }) => {
             this.status = data.status
-            this.deleteConflicts = data.deleteConflicts
+            if (this.status === 'not_deletable') {
+              this.deleteConflicts = data.deleteConflicts
+            }
             this.deleteDialog = true
           })
           .catch(error => {

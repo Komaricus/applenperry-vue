@@ -54,5 +54,6 @@ export default {
   ],
   creationTitle: 'Создание нового производителя',
   editTitle: 'Редактирование производителя',
-  deleteDialogText: 'Вы действительно хотите удалить данного производителя?'
+  deleteDialogText: 'Вы действительно хотите удалить данного производителя?',
+  checkPossibleToDelete: true
 }
