@@ -1,7 +1,7 @@
 <template>
   <div class="file-picker-container">
     <div v-if="files.length">
-      <v-row v-if="!loading">
+      <v-row v-if="!loading" class="d-flex justify-center">
         <v-col v-for="file in files" :key="file.id" class="d-flex child-flex card-col">
           <v-card max-width="332">
             <v-card-title class="image-title text--main">
@@ -13,13 +13,17 @@
               <image-preview :image-src="file.path"></image-preview>
             </v-card-text>
             <v-card-actions>
-              <v-btn
-                v-if="mode === 'pick'"
-                color="admin-secondary"
-                small
-                @click="$emit('file-picked', file)"
-                >Выбрать</v-btn
-              >
+              <div v-if="mode === 'pick'">
+                <v-btn v-if="selected.includes(file.id)" small disabled>Выбран</v-btn>
+                <v-btn
+                  v-else
+                  color="admin-secondary"
+                  small
+                  @click="$emit('file-picked', file)"
+                  v-ripple="false"
+                  >Выбрать</v-btn
+                >
+              </div>
               <v-spacer />
               <v-btn small icon color="admin-primary" @click="openDeleteDialog(file)">
                 <v-icon small>
@@ -112,6 +116,10 @@ export default {
     searchValue: {
       type: String,
       default: ''
+    },
+    selected: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -243,6 +251,7 @@ export default {
 }
 
 .card-col {
-  max-width: 354px;
+  max-width: 330px;
+  margin: 8px;
 }
 </style>

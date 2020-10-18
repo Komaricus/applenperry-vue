@@ -132,26 +132,25 @@
           >Выбор изображения<v-tabs v-model="tab" fixed-tabs>
             <v-tab>Загрузить</v-tab>
             <v-tab>Выбрать</v-tab>
-          </v-tabs></v-card-title
-        >
+          </v-tabs>
+          <v-text-field
+            v-if="tab === 1"
+            v-model="search"
+            placeholder="Поиск"
+            prepend-inner-icon="fa-search"
+            solo
+            dense
+            hide-details
+            class="search mx-auto mt-3"
+            clearable
+          ></v-text-field>
+        </v-card-title>
         <v-card-text>
           <v-tabs-items v-model="tab">
             <v-tab-item class="pa-3">
               <file-uploader :multiple="false" @files-uploaded="filePicked"></file-uploader>
             </v-tab-item>
             <v-tab-item class="pa-3">
-              <div class="d-flex justify-center">
-                <v-text-field
-                  v-model="search"
-                  placeholder="Поиск"
-                  prepend-inner-icon="fa-search"
-                  solo
-                  dense
-                  hide-details
-                  class="search mx-3"
-                  clearable
-                ></v-text-field>
-              </div>
               <file-picker
                 :mode="'pick'"
                 :search-value="search"

@@ -80,8 +80,19 @@
           <v-tabs v-model="tab" fixed-tabs>
             <v-tab>Загрузить</v-tab>
             <v-tab>Выбрать</v-tab>
-          </v-tabs></v-card-title
-        >
+          </v-tabs>
+          <v-text-field
+            v-if="tab === 1"
+            v-model="search"
+            placeholder="Поиск"
+            prepend-inner-icon="fa-search"
+            solo
+            dense
+            hide-details
+            class="search mx-auto mt-3"
+            clearable
+          ></v-text-field>
+        </v-card-title>
         <v-card-text>
           <v-tabs-items v-model="tab">
             <v-tab-item class="pa-3">
@@ -91,22 +102,15 @@
               ></file-uploader>
             </v-tab-item>
             <v-tab-item class="pa-3">
-              <div class="d-flex justify-center">
-                <v-text-field
-                  v-model="search"
-                  placeholder="Поиск"
-                  prepend-inner-icon="fa-search"
-                  solo
-                  dense
-                  hide-details
-                  class="search mx-3"
-                  clearable
-                ></v-text-field>
-              </div>
               <file-picker
                 :mode="'pick'"
                 :search-value="search"
                 @file-picked="filePicked"
+                :selected="
+                  this.files.map(e => {
+                    return e.id
+                  })
+                "
               ></file-picker>
             </v-tab-item>
           </v-tabs-items>
@@ -182,6 +186,7 @@ export default {
               this.files.push(f)
             }
           }
+          this.dialog = false
         } else {
           if (!this.files.some(e => e.id === file.id)) {
             this.files.push(file)
@@ -193,9 +198,10 @@ export default {
         } else {
           this.files = [file]
         }
+
+        this.dialog = false
       }
 
-      this.dialog = false
       this.$refs['file-field'].validate(true)
       this.emitInputChange()
     },
