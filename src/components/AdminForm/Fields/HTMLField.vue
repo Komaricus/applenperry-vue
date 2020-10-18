@@ -1,131 +1,132 @@
 <template>
   <div>
     <field-label :field="field" :show="!content" />
-    <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-      <div class="menubar elevation-2 pa-1 mb-5">
-        <v-btn text small class="menubar__button" @click="commands.undo">
-          <v-icon small>fa-undo-alt</v-icon>
-        </v-btn>
+    <div class="elevation-2">
+      <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
+        <div class="menubar pa-1">
+          <v-btn text small class="menubar__button" @click="commands.undo">
+            <v-icon small>fa-undo-alt</v-icon>
+          </v-btn>
 
-        <v-btn text small class="menubar__button" @click="commands.redo">
-          <v-icon small>fa-redo-alt</v-icon>
-        </v-btn>
+          <v-btn text small class="menubar__button" @click="commands.redo">
+            <v-icon small>fa-redo-alt</v-icon>
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.bold() }"
-          @click="commands.bold"
-        >
-          <v-icon small>fa-bold</v-icon>
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.bold() }"
+            @click="commands.bold"
+          >
+            <v-icon small>fa-bold</v-icon>
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.italic() }"
-          @click="commands.italic"
-        >
-          <v-icon small>fa-italic</v-icon>
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.italic() }"
+            @click="commands.italic"
+          >
+            <v-icon small>fa-italic</v-icon>
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.strike() }"
-          @click="commands.strike"
-        >
-          <v-icon small>fa-strikethrough</v-icon>
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.strike() }"
+            @click="commands.strike"
+          >
+            <v-icon small>fa-strikethrough</v-icon>
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.underline() }"
-          @click="commands.underline"
-        >
-          <v-icon small>fa-underline</v-icon>
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.underline() }"
+            @click="commands.underline"
+          >
+            <v-icon small>fa-underline</v-icon>
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.paragraph() }"
-          @click="commands.paragraph"
-        >
-          <v-icon small>fa-paragraph</v-icon>
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.paragraph() }"
+            @click="commands.paragraph"
+          >
+            <v-icon small>fa-paragraph</v-icon>
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.heading({ level: 1 }) }"
-          @click="commands.heading({ level: 1 })"
-        >
-          H1
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.heading({ level: 1 }) }"
+            @click="commands.heading({ level: 1 })"
+          >
+            H1
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.heading({ level: 2 }) }"
-          @click="commands.heading({ level: 2 })"
-        >
-          H2
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.heading({ level: 2 }) }"
+            @click="commands.heading({ level: 2 })"
+          >
+            H2
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.heading({ level: 3 }) }"
-          @click="commands.heading({ level: 3 })"
-        >
-          H3
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.heading({ level: 3 }) }"
+            @click="commands.heading({ level: 3 })"
+          >
+            H3
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.bullet_list() }"
-          @click="commands.bullet_list"
-        >
-          <v-icon small>fa-list-ul</v-icon>
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.bullet_list() }"
+            @click="commands.bullet_list"
+          >
+            <v-icon small>fa-list-ul</v-icon>
+          </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.ordered_list() }"
-          @click="commands.ordered_list"
-        >
-          <v-icon small>fa-list-ol</v-icon>
-        </v-btn>
+          <v-btn
+            text
+            small
+            class="menubar__button"
+            :class="{ act: isActive.ordered_list() }"
+            @click="commands.ordered_list"
+          >
+            <v-icon small>fa-list-ol</v-icon>
+          </v-btn>
 
-        <v-btn text small class="menubar__button" @click="commands.horizontal_rule">
-          <v-icon small>far fa-window-minimize</v-icon>
-        </v-btn>
+          <v-btn text small class="menubar__button" @click="commands.horizontal_rule">
+            <v-icon small>far fa-window-minimize</v-icon>
+          </v-btn>
 
-        <v-btn text small class="menubar__button" @click="showChooseImageDialog(commands.image)">
-          <v-icon small>far fa-image</v-icon>
-        </v-btn>
+          <v-btn text small class="menubar__button" @click="showChooseImageDialog(commands.image)">
+            <v-icon small>far fa-image</v-icon>
+          </v-btn>
 
-        <v-btn text small class="menubar__button" @click="fullScreenDialog = true">
-          <v-icon small>fa-expand-alt</v-icon>
-        </v-btn>
-      </div>
-    </editor-menu-bar>
-    <editor-content :editor="editor" class="editor elevation-2 pa-5" />
-
+          <v-btn text small class="menubar__button" @click="fullScreenDialog = true">
+            <v-icon small>fa-expand-alt</v-icon>
+          </v-btn>
+        </div>
+      </editor-menu-bar>
+      <editor-content :editor="editor" class="editor pa-5 mb-5" />
+    </div>
     <v-dialog v-model="dialog" max-width="1110" scrollable>
       <v-card>
         <v-card-title class="text--title text-roboto"

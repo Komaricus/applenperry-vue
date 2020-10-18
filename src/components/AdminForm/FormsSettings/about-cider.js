@@ -11,11 +11,9 @@ export default {
     },
     {
       id: 'description',
-      type: 'text-field',
+      type: 'html-field',
       label: 'Описание',
       placeholder: 'Введите описание',
-      required: true,
-      counter: 3000,
       tooltip: 'Описание для отображения при клике на название'
     },
     {

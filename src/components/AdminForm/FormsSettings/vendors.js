@@ -35,11 +35,9 @@ export default {
     },
     {
       id: 'description',
-      type: 'text-field',
+      type: 'html-field',
       label: 'Краткое описание',
       placeholder: 'Краткое описание производителя',
-      required: false,
-      counter: 1000,
       tooltip: 'Описание категории для отображения'
     },
     {

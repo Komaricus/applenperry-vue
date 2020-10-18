@@ -20,15 +20,6 @@ export default {
       tooltip: 'Для отображения под названием в карточке товара'
     },
     {
-      id: 'description',
-      type: 'text-field',
-      label: 'Краткое описание',
-      placeholder: 'Введите описание',
-      required: true,
-      counter: 3000,
-      tooltip: 'Описание для отображения на странице товара'
-    },
-    {
       id: 'url',
       type: 'slug-field',
       label: 'Ссылка',
@@ -42,6 +33,13 @@ export default {
           return pattern.test(value) || 'Неверная ссылка'
         }
       ]
+    },
+    {
+      id: 'description',
+      type: 'html-field',
+      label: 'Краткое описание',
+      placeholder: 'Введите описание',
+      tooltip: 'Описание для отображения на странице товара'
     },
     {
       id: 'typeId',

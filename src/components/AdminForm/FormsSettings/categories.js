@@ -27,11 +27,10 @@ export default {
     },
     {
       id: 'description',
-      type: 'text-field',
+      type: 'html-field',
       label: 'Описание',
       placeholder: 'Описание категории',
       required: false,
-      counter: 3000,
       tooltip: 'Описание категории для отображения'
     },
     {
