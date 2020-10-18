@@ -176,9 +176,11 @@ export default {
         this.fields = [
           ...formsSettings[this.id].fields.map(field => {
             if (field.type === 'files-field' && !field.multiple) {
-              return Object.assign({}, field, { value: this.form.image })
+              if (this.form.image) return Object.assign({}, field, { value: this.form.image })
+              else return field
             }
-            return Object.assign({}, field, { value: this.form[field.id] })
+            if (this.form[field.id]) return Object.assign({}, field, { value: this.form[field.id] })
+            else return field
           })
         ]
       } else {

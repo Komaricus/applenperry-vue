@@ -47,13 +47,8 @@
           <div class="separator"></div>
           <div v-if="!loading && items.length">
             <v-list-item v-for="(item, i) in items" :key="i">
-              <v-list-item-icon v-if="item.image && item.image.path">
-                <v-img
-                  :src="require(`./../../assets/img/${item.image.path}`)"
-                  max-width="60"
-                  max-height="32"
-                  contain
-                ></v-img>
+              <v-list-item-icon v-if="item.image && item.image.path" class="list-image-container">
+                <image-preview class="list-image" :image-src="item.image.path"></image-preview>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
@@ -88,9 +83,13 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import ImagePreview from '@/components/ImagePreview'
 
 export default {
   name: 'List',
+  components: {
+    ImagePreview
+  },
   data() {
     return {
       id: '',
@@ -185,5 +184,14 @@ export default {
   margin: 5px 0;
   border-bottom: 1px solid $border;
   width: 100%;
+}
+
+.list-image-container {
+  margin: 12px 8px 12px 0;
+}
+
+.list-image {
+  width: 40px;
+  height: 30px;
 }
 </style>

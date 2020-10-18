@@ -1,7 +1,7 @@
 <template>
   <div>
     <field-label :field="field" :show="!select"></field-label>
-    <v-select
+    <v-autocomplete
       color="admin-primary"
       v-model="select"
       item-text="name"
@@ -15,12 +15,32 @@
       clearable
       :loading="loading"
       :disabled="loading"
-    ></v-select>
+    >
+      <template v-slot:selection="data">
+        <image-preview
+          v-if="data.item.hasOwnProperty('image') && data.item.image.path"
+          class="select-image"
+          :image-src="data.item.image.path"
+        ></image-preview>
+        <span>{{ data.item.name }}</span>
+      </template>
+      <template v-slot:item="data">
+        <v-list-item-content class="d-flex align-center justify-start flex-row flex-nowrap">
+          <image-preview
+            v-if="data.item.hasOwnProperty('image') && data.item.image.path"
+            class="select-image"
+            :image-src="data.item.image.path"
+          ></image-preview>
+          <v-list-item-title>{{ data.item.name }}</v-list-item-title>
+        </v-list-item-content>
+      </template>
+    </v-autocomplete>
   </div>
 </template>
 
 <script>
 import FieldLabel from './FieldLabel'
+import ImagePreview from '@/components/ImagePreview'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -32,7 +52,8 @@ export default {
     }
   },
   components: {
-    'field-label': FieldLabel
+    'field-label': FieldLabel,
+    ImagePreview
   },
   data() {
     return {
@@ -47,7 +68,11 @@ export default {
       this.$api
         .get(this.field.itemsURL)
         .then(({ data }) => {
-          this.items = data
+          if (this.field.id === 'parentId') {
+            this.items = data.filter(e => e.parentId !== this.$route.params.id)
+          } else {
+            this.items = data
+          }
           const index = this.items.findIndex(e => e.id === this.$route.params.id)
           if (index !== -1) this.items.splice(index, 1)
         })
@@ -83,4 +108,11 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.select-image {
+  display: inline-flex;
+  width: 40px;
+  height: 30px;
+  margin-right: 8px;
+}
+</style>
