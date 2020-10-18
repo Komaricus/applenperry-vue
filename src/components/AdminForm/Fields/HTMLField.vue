@@ -2,7 +2,7 @@
   <div>
     <field-label :field="field" :show="!content" />
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-      <div class="menubar elevation-2 pa-1">
+      <div class="menubar elevation-2 pa-1 mb-5">
         <v-btn text small class="menubar__button" @click="commands.undo">
           <v-icon small>fa-undo-alt</v-icon>
         </v-btn>
@@ -111,22 +111,16 @@
           <v-icon small>fa-list-ol</v-icon>
         </v-btn>
 
-        <v-btn
-          text
-          small
-          class="menubar__button"
-          :class="{ act: isActive.blockquote() }"
-          @click="commands.blockquote"
-        >
-          <v-icon small>fa-quote-right</v-icon>
-        </v-btn>
-
         <v-btn text small class="menubar__button" @click="commands.horizontal_rule">
           <v-icon small>far fa-window-minimize</v-icon>
         </v-btn>
 
         <v-btn text small class="menubar__button" @click="showChooseImageDialog(commands.image)">
           <v-icon small>far fa-image</v-icon>
+        </v-btn>
+
+        <v-btn text small class="menubar__button" @click="fullScreenDialog = true">
+          <v-icon small>fa-expand-alt</v-icon>
         </v-btn>
       </div>
     </editor-menu-bar>
@@ -168,6 +162,153 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+
+    <v-dialog
+      v-model="fullScreenDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+      <v-card>
+        <v-toolbar dark color="admin-primary">
+          <v-toolbar-title>{{ field.label }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <editor-menu-bar :editor="editor1" v-slot="{ commands, isActive }">
+            <div class="menubar pa-1 ml-5">
+              <v-btn text small class="menubar__button" @click="commands.undo">
+                <v-icon small>fa-undo-alt</v-icon>
+              </v-btn>
+
+              <v-btn text small class="menubar__button" @click="commands.redo">
+                <v-icon small>fa-redo-alt</v-icon>
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.bold() }"
+                @click="commands.bold"
+              >
+                <v-icon small>fa-bold</v-icon>
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.italic() }"
+                @click="commands.italic"
+              >
+                <v-icon small>fa-italic</v-icon>
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.strike() }"
+                @click="commands.strike"
+              >
+                <v-icon small>fa-strikethrough</v-icon>
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.underline() }"
+                @click="commands.underline"
+              >
+                <v-icon small>fa-underline</v-icon>
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.paragraph() }"
+                @click="commands.paragraph"
+              >
+                <v-icon small>fa-paragraph</v-icon>
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.heading({ level: 1 }) }"
+                @click="commands.heading({ level: 1 })"
+              >
+                H1
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.heading({ level: 2 }) }"
+                @click="commands.heading({ level: 2 })"
+              >
+                H2
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.heading({ level: 3 }) }"
+                @click="commands.heading({ level: 3 })"
+              >
+                H3
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.bullet_list() }"
+                @click="commands.bullet_list"
+              >
+                <v-icon small>fa-list-ul</v-icon>
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                :class="{ act: isActive.ordered_list() }"
+                @click="commands.ordered_list"
+              >
+                <v-icon small>fa-list-ol</v-icon>
+              </v-btn>
+
+              <v-btn text small class="menubar__button" @click="commands.horizontal_rule">
+                <v-icon small>far fa-window-minimize</v-icon>
+              </v-btn>
+
+              <v-btn
+                text
+                small
+                class="menubar__button"
+                @click="showChooseImageDialog(commands.image)"
+              >
+                <v-icon small>far fa-image</v-icon>
+              </v-btn>
+            </div>
+          </editor-menu-bar>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn icon dark @click="fullScreenDialog = false">
+              <v-icon>fa-times</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+        <div>
+          <editor-content :editor="editor1" class="editor pa-5" />
+        </div>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -177,7 +318,6 @@ import FilePicker from '@/components/FilePicker'
 import FileUploader from '@/components/FileUploader'
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
-  Blockquote,
   CodeBlock,
   HardBreak,
   Heading,
@@ -217,7 +357,6 @@ export default {
     return {
       editor: new Editor({
         extensions: [
-          new Blockquote(),
           new BulletList(),
           new CodeBlock(),
           new HardBreak(),
@@ -246,6 +385,44 @@ export default {
         content: ``,
         onUpdate: ({ getHTML }) => {
           this.content = getHTML()
+          this.editor1.setContent(this.content)
+          this.$emit('fieldValueChanged', {
+            id: this.field.id,
+            value: this.content
+          })
+        }
+      }),
+      editor1: new Editor({
+        extensions: [
+          new BulletList(),
+          new CodeBlock(),
+          new HardBreak(),
+          new Heading({ levels: [1, 2, 3] }),
+          new HorizontalRule(),
+          new ListItem(),
+          new OrderedList(),
+          new TodoItem(),
+          new TodoList(),
+          new Link(),
+          new Bold(),
+          new Code(),
+          new Italic(),
+          new Strike(),
+          new Underline(),
+          new History(),
+          new Image(),
+          new Placeholder({
+            emptyEditorClass: 'is-editor-empty',
+            emptyNodeClass: 'is-empty',
+            emptyNodeText: this.field.placeholder,
+            showOnlyWhenEditable: true,
+            showOnlyCurrent: true
+          })
+        ],
+        content: ``,
+        onUpdate: ({ getHTML }) => {
+          this.content = getHTML()
+          this.editor.setContent(this.content)
           this.$emit('fieldValueChanged', {
             id: this.field.id,
             value: this.content
@@ -256,7 +433,8 @@ export default {
       dialog: false,
       command: null,
       tab: 0,
-      search: ''
+      search: '',
+      fullScreenDialog: false
     }
   },
   created() {
@@ -288,7 +466,6 @@ export default {
 </script>
 <style lang="scss">
 .menubar {
-  margin-bottom: 1rem;
   border-radius: 5px;
   transition: visibility 0.2s 0.4s, opacity 0.2s 0.4s;
 
