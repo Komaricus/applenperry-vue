@@ -191,7 +191,7 @@ export default {
 }
 
 .list-image {
-  width: 40px;
-  height: 30px;
+  width: 40px !important;
+  height: 30px !important;
 }
 </style>

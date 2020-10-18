@@ -234,8 +234,8 @@ export default {
 
 <style scoped>
 .image-preview {
-  width: 300px;
-  height: 150px;
+  width: 300px !important;
+  height: 150px !important;
 }
 
 .file-picker {

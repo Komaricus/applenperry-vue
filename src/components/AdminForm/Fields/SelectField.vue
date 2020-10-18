@@ -25,7 +25,7 @@
         <span>{{ data.item.name }}</span>
       </template>
       <template v-slot:item="data">
-        <v-list-item-content class="d-flex align-center justify-start flex-row flex-nowrap">
+        <v-list-item-content class="d-flex align-center justify-start flex-nowrap">
           <image-preview
             v-if="data.item.hasOwnProperty('image') && data.item.image.path"
             class="select-image"
@@ -111,8 +111,9 @@ export default {
 <style scoped>
 .select-image {
   display: inline-flex;
-  width: 40px;
-  height: 30px;
+  max-width: 40px !important;
+  width: 40px !important;
+  height: 30px !important;
   margin-right: 8px;
 }
 </style>
