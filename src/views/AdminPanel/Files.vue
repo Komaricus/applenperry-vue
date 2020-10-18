@@ -33,7 +33,7 @@
       <v-card>
         <v-card-title>Загрузка изображений</v-card-title>
         <v-card-text>
-          <file-uploader></file-uploader>
+          <file-uploader multiple></file-uploader>
         </v-card-text>
       </v-card>
     </v-dialog>

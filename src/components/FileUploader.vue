@@ -20,7 +20,7 @@ export default {
   props: {
     multiple: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   data() {
