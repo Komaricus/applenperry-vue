@@ -2,6 +2,7 @@ import axios from 'axios'
 import router from '../router'
 import LocalStorageService from './LocalStorageService'
 const localStorageService = LocalStorageService.getService()
+import store from '@/store/index'
 
 const client = axios.create({
   baseURL:
@@ -49,11 +50,17 @@ client.interceptors.response.use(
           .catch(error => {
             console.error(error)
             localStorageService.clearToken()
+            setTimeout(() => {
+              store.commit('setNeedsAlert', true)
+            }, 100)
             return Promise.reject(error)
           })
       }
 
       localStorageService.clearToken()
+      setTimeout(() => {
+        store.commit('setNeedsAlert', true)
+      }, 100)
       router.replace('/apple-admin')
       return Promise.reject(error)
     }

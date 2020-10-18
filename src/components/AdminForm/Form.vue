@@ -62,7 +62,10 @@
             <div v-if="Array.isArray(value) && value.length">
               <span class="text--title font-weight-bold">{{ itemNameById(key) }}:</span>
               <div class="mt-1 ml-3" v-for="item in value" :key="item.id">
-                <a :href="`/apple-admin/panel/list/${key}/edit/${item.id}`">
+                <a
+                  :href="`/apple-admin/panel/list/${key}/edit/${item.id}`"
+                  @click="setNeedsAlert(false)"
+                >
                   {{ item.name }}
                 </a>
               </div>
@@ -96,7 +99,7 @@ import FilesField from './Fields/FilesField'
 import HTMLField from './Fields/HTMLField'
 import SlugField from './Fields/SlugField'
 import CategoriesField from './Fields/CategoriesField'
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Form',
@@ -138,31 +141,62 @@ export default {
     }
   },
   created() {
+    if (this.formId === '') {
+      this.setFormId(this.id)
+    }
+    this.setMode(this.type)
     if (this.type === 'edit') {
       this.title = formsSettings[this.id].editTitle
       if (Object.prototype.hasOwnProperty.call(this.item, 'id')) {
         this.body.id = this.item.id
-        this.fields = [
-          ...formsSettings[this.id].fields.map(field => {
-            if (field.type === 'files-field' && !field.multiple) {
-              return Object.assign({}, field, { value: this.item.image })
-            }
-            return Object.assign({}, field, { value: this.item[field.id] })
-          })
-        ]
+        if (this.form !== null) {
+          this.fields = [
+            ...formsSettings[this.id].fields.map(field => {
+              if (field.type === 'files-field' && !field.multiple) {
+                return Object.assign({}, field, { value: this.form.image })
+              }
+              return Object.assign({}, field, { value: this.form[field.id] })
+            })
+          ]
+        } else {
+          this.fields = [
+            ...formsSettings[this.id].fields.map(field => {
+              if (field.type === 'files-field' && !field.multiple) {
+                return Object.assign({}, field, { value: this.item.image })
+              }
+              return Object.assign({}, field, { value: this.item[field.id] })
+            })
+          ]
+        }
       }
       this.deleteDialogText = formsSettings[this.id].deleteDialogText
     } else {
       this.title = formsSettings[this.id].creationTitle
-      this.fields = [...formsSettings[this.id].fields]
+      if (this.form !== null) {
+        this.fields = [
+          ...formsSettings[this.id].fields.map(field => {
+            if (field.type === 'files-field' && !field.multiple) {
+              return Object.assign({}, field, { value: this.form.image })
+            }
+            return Object.assign({}, field, { value: this.form[field.id] })
+          })
+        ]
+      } else {
+        this.fields = [...formsSettings[this.id].fields]
+      }
     }
+    this.setNeedsAlert(true)
   },
   methods: {
-    ...mapMutations(['showSnackbar']),
+    ...mapMutations(['showSnackbar', 'setForm', 'setFormId', 'setNeedsAlert', 'setMode']),
     onFieldValueChanged(args) {
       this.body[args.id] = args.value
+      if (this.form === null) this.setForm(Object.assign({}, this.body))
+      else this.setForm(Object.assign(this.form, this.body))
     },
     cancelButtonClicked() {
+      this.setForm(null)
+      this.setFormId('')
       this.$emit('closeForm')
     },
     save() {
@@ -180,6 +214,8 @@ export default {
         .put(`/${this.id}/`, this.body)
         .then(() => {
           this.showSnackbar({ text: 'Запись успешно отредактирована', color: 'success' })
+          this.setForm(null)
+          this.setFormId('')
           this.$emit('closeForm')
         })
         .catch(error => {
@@ -200,6 +236,8 @@ export default {
         .post(`/${this.id}/`, this.body)
         .then(() => {
           this.showSnackbar({ text: 'Запись успешно создана', color: 'success' })
+          this.setForm(null)
+          this.setFormId('')
           this.$emit('closeForm')
         })
         .catch(error => {
@@ -245,6 +283,8 @@ export default {
         .delete(`/${this.id}/${this.body.id}`)
         .then(() => {
           this.showSnackbar({ text: 'Запись успешно удалена', color: 'success' })
+          this.setForm(null)
+          this.setFormId('')
           this.$emit('closeForm')
         })
         .catch(error => {
@@ -254,7 +294,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['itemNameById'])
+    ...mapGetters(['itemNameById']),
+    ...mapState(['form', 'formId', 'needsAlert'])
+  },
+  beforeDestroy() {
+    this.setNeedsAlert(false)
   }
 }
 </script>

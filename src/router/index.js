@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LocalStorageService from '../plugins/LocalStorageService'
 const localStorageService = LocalStorageService.getService()
+import store from '@/store/index'
 
 Vue.use(VueRouter)
 
@@ -53,6 +54,13 @@ const routes = [
               title: 'Админка',
               needToken: true,
               layout: 'admin'
+            },
+            beforeEnter(to, from, next) {
+              if (!store.state.needsAlert) {
+                store.commit('setForm', null)
+                store.commit('setFormId', '')
+              }
+              next()
             }
           },
           {
@@ -62,6 +70,13 @@ const routes = [
               title: 'Админка',
               needToken: true,
               layout: 'admin'
+            },
+            beforeEnter(to, from, next) {
+              if (!store.state.needsAlert) {
+                store.commit('setForm', null)
+                store.commit('setFormId', '')
+              }
+              next()
             }
           }
         ]

@@ -19,20 +19,44 @@
         <router-view></router-view>
       </v-col>
     </v-row>
+    <v-dialog v-model="dialog" max-width="420">
+      <v-card>
+        <v-card-title>
+          У вас есть несохраненные изменения
+        </v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="danger"
+            class="text--white"
+            @click="
+              dialog = false
+              setNeedsAlert(false)
+            "
+            >Удалить</v-btn
+          >
+          <v-btn color="success" class="text--white" @click="navigate">Перейти</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'HomePanel',
   data() {
     return {
-      index: -1
+      index: -1,
+      dialog: false
     }
   },
   created() {
+    if (this.needsAlert && this.$route.path !== this.link) this.dialog = true
+
     for (let i = 0; i < this.items.length; i++) {
       if (this.$route.path.indexOf(this.items[i].id) !== -1) this.index = i
     }
@@ -45,6 +69,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setNeedsAlert']),
     async categoryChanged() {
       if (this.index === undefined || Number(this.index) < 0) {
         await this.$router.push('/apple-admin/panel')
@@ -52,10 +77,19 @@ export default {
       }
 
       await this.$router.push('/apple-admin/panel/list/' + this.items[this.index].id)
+    },
+    navigate() {
+      this.dialog = false
+      this.$router.push(this.link)
     }
   },
   computed: {
-    ...mapState(['items'])
+    ...mapState(['items', 'needsAlert', 'formId', 'mode', 'form']),
+    link() {
+      let link = `/apple-admin/panel/list/${this.formId}/${this.mode}`
+      if (this.mode === 'edit') link += '/' + this.form.id
+      return link
+    }
   }
 }
 </script>

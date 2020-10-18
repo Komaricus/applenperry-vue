@@ -110,6 +110,7 @@ export default {
   watch: {
     async $route() {
       this.id = this.$route.params.type
+      this.search = ''
       if (this.lists.indexOf(this.id) === -1) await this.$router.back()
       await this.getItems()
     },

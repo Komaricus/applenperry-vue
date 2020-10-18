@@ -1,13 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import SecureLS from 'secure-ls'
+const ls = new SecureLS({ isCompression: false })
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: []
+      storage: {
+        getItem: key => ls.get(key),
+        setItem: (key, value) => ls.set(key, value),
+        removeItem: key => ls.remove(key)
+      },
+      paths: ['form', 'formId', 'needsAlert', 'mode']
     })
   ],
   state: {
@@ -57,7 +64,11 @@ export default new Vuex.Store({
         name: 'Товары'
       }
     ],
-    slugSource: ''
+    slugSource: '',
+    form: null,
+    formId: '',
+    needsAlert: false,
+    mode: ''
   },
   getters: {
     lists: state => {
@@ -87,6 +98,18 @@ export default new Vuex.Store({
     },
     setSlugSource(state, payload) {
       state.slugSource = payload
+    },
+    setForm(state, payload) {
+      state.form = payload
+    },
+    setFormId(state, payload) {
+      state.formId = payload
+    },
+    setNeedsAlert(state, payload) {
+      state.needsAlert = payload
+    },
+    setMode(state, payload) {
+      state.mode = payload
     }
   },
   actions: {},

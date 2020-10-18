@@ -126,6 +126,7 @@ import ImagePreview from '../../ImagePreview'
 import FilePicker from '../../FilePicker'
 import FileUploader from '@/components/FileUploader'
 import draggable from 'vuedraggable'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'FilesField',
@@ -168,10 +169,15 @@ export default {
     this.emitInputChange()
   },
   methods: {
+    ...mapMutations(['setForm']),
     emitInputChange() {
       let value = null
       if (this.field.multiple) value = this.files
-      else if (this.files.length === 1) value = this.files[0].id
+      else if (this.files.length === 1) {
+        this.form.image = this.files[0]
+        this.setForm(Object.assign({}, this.form))
+        value = this.files[0].id
+      }
 
       this.$emit('fieldValueChanged', {
         id: this.field.id,
@@ -217,6 +223,9 @@ export default {
     drag() {
       this.emitInputChange()
     }
+  },
+  computed: {
+    ...mapState(['form'])
   }
 }
 </script>
