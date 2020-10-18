@@ -55,7 +55,14 @@ export default {
     }
   },
   created() {
-    if (this.needsAlert && this.$route.path !== this.link) this.dialog = true
+    if (
+      this.needsAlert &&
+      this.$route.path !== this.link &&
+      this.formId !== '' &&
+      this.form !== null &&
+      this.mode !== ''
+    )
+      this.dialog = true
 
     for (let i = 0; i < this.items.length; i++) {
       if (this.$route.path.indexOf(this.items[i].id) !== -1) this.index = i

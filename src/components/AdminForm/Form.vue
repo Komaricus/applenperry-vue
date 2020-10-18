@@ -220,6 +220,7 @@ export default {
         })
         .catch(error => {
           if (
+            error.response.data.error &&
             error.response.data.error.includes(
               'ERROR: duplicate key value violates unique constraint'
             )
@@ -242,6 +243,7 @@ export default {
         })
         .catch(error => {
           if (
+            error.response.data.error &&
             error.response.data.error.includes(
               'ERROR: duplicate key value violates unique constraint'
             )

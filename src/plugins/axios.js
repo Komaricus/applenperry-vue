@@ -61,7 +61,7 @@ client.interceptors.response.use(
       setTimeout(() => {
         store.commit('setNeedsAlert', true)
       }, 100)
-      router.replace('/apple-admin')
+      if (window.location.pathname !== '/apple-admin') router.replace('/apple-admin')
       return Promise.reject(error)
     }
 
