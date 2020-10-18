@@ -1,7 +1,7 @@
 <template>
   <div>
     <field-label :field="field" :show="!categories.length"></field-label>
-    <v-select
+    <v-autocomplete
       color="admin-primary"
       v-model="categories"
       multiple
@@ -17,7 +17,7 @@
       clearable
       :loading="loading"
       :disabled="loading"
-    ></v-select>
+    ></v-autocomplete>
     <div class="mb-5" v-if="categories.length">
       <div class="text--inactive caption">Выбранные категории:</div>
       <draggable v-model="categories" group="categories" @start="drag = true" @end="drag = false">

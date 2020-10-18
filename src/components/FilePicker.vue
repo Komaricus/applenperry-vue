@@ -48,7 +48,7 @@
     <div v-if="files.length && !loading && mode !== 'pick' && perPage !== -1" class="text-center">
       <v-row justify="center">
         <v-col cols="8">
-          <v-pagination v-model="page" :length="totalPages"></v-pagination>
+          <v-pagination v-model="page" :length="totalPages" color="admin-primary"></v-pagination>
         </v-col>
       </v-row>
     </div>
