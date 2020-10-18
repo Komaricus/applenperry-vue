@@ -24,8 +24,8 @@
               <v-spacer />
               <span class="file-size text--inactive">{{ file.size | humanFileSize }}</span>
             </v-card-title>
-            <v-card-text class="image-preview">
-              <image-preview :image-src="file.path"></image-preview>
+            <v-card-text>
+              <image-preview class="image-preview" :image-src="file.path"></image-preview>
             </v-card-text>
             <v-card-actions>
               <v-spacer />
@@ -53,8 +53,8 @@
               <v-spacer />
               <span class="file-size text--inactive">{{ file.size | humanFileSize }}</span>
             </v-card-title>
-            <v-card-text class="image-preview">
-              <image-preview :image-src="file.path"></image-preview>
+            <v-card-text>
+              <image-preview class="image-preview" :image-src="file.path"></image-preview>
             </v-card-text>
             <v-card-actions>
               <span class="text--inactive ml-3">{{ index + 1 }}</span>
@@ -254,5 +254,10 @@ h3 {
 
 .pointer {
   cursor: pointer;
+}
+
+.image-preview {
+  width: 300px;
+  height: 150px;
 }
 </style>

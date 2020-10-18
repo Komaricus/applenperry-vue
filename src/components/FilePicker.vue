@@ -9,8 +9,8 @@
               <v-spacer />
               <span class="file-size text--inactive">{{ file.size | humanFileSize }}</span>
             </v-card-title>
-            <v-card-text class="image-preview">
-              <image-preview :image-src="file.path"></image-preview>
+            <v-card-text>
+              <image-preview class="image-preview" :image-src="file.path"></image-preview>
             </v-card-text>
             <v-card-actions>
               <div v-if="mode === 'pick'">
@@ -45,7 +45,7 @@
     <div v-else>
       <p class="text-center text--inactive mt-4">Изображения не найдены</p>
     </div>
-    <div v-if="files.length && !loading && mode !== 'pick'" class="text-center">
+    <div v-if="files.length && !loading && mode !== 'pick' && perPage !== -1" class="text-center">
       <v-row justify="center">
         <v-col cols="8">
           <v-pagination v-model="page" :length="totalPages"></v-pagination>
@@ -233,6 +233,11 @@ export default {
 </script>
 
 <style scoped>
+.image-preview {
+  width: 300px;
+  height: 150px;
+}
+
 .file-picker {
   height: calc(100vh - 132px);
 }
