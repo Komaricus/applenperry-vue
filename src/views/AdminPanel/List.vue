@@ -99,7 +99,9 @@ export default {
         { title: 'Сначала новые', sort: 'created_at', order: 'desc' },
         { title: 'Сначала старые', sort: 'created_at', order: 'asc' },
         { title: 'Сначала последние измененные', sort: 'updated_at', order: 'desc' },
-        { title: 'Сначала первые измененные', sort: 'updated_at', order: 'asc' }
+        { title: 'Сначала первые измененные', sort: 'updated_at', order: 'asc' },
+        { title: 'По названию от А до Я', sort: 'name', order: 'asc' },
+        { title: 'По названию от Я до А', sort: 'name', order: 'desc' }
       ],
       menu: 0,
       search: '',
