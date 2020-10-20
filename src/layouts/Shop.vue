@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <v-app-bar app class="elevation-0" color="background-grey" prominent>
-      <div class="d-flex justify-center align-center container">
-        <v-spacer></v-spacer>
+  <div id="shop">
+    <burger type="shop" />
+    <v-app-bar id="app-bar" app class="elevation-0" color="background-grey" absolute>
+      <div id="shop-app-bar" class="d-flex justify-center align-center container">
         <router-link to="/categories" class="app-bar-link">Категории</router-link>
         <router-link to="/vendors" class="app-bar-link">Производители</router-link>
 
@@ -14,7 +14,14 @@
 
         <router-link to="/contacts" class="app-bar-link">Контакты</router-link>
         <router-link to="/delivery" class="app-bar-link">Доставка</router-link>
-        <v-spacer></v-spacer>
+      </div>
+
+      <div id="shop-mobile-app-bar" class="d-flex container">
+        <div class="app-bar-logo">
+          <router-link to="/">
+            <img src="@/assets/images/small-logo.png" alt="logo" />
+          </router-link>
+        </div>
       </div>
     </v-app-bar>
 
@@ -30,12 +37,20 @@
         </a>
       </div>
     </v-footer>
+    <mobile-menu type="shop"></mobile-menu>
   </div>
 </template>
 
 <script>
+import MobileMenu from '@/components/MobileMenu'
+import Burger from '@/components/Burger'
+
 export default {
-  name: 'Shop'
+  name: 'Shop',
+  components: {
+    MobileMenu,
+    Burger
+  }
 }
 </script>
 
@@ -68,7 +83,26 @@ export default {
 .instagram-icon {
   color: rgba(0, 0, 0, 0.54);
 }
+
 .instagram-icon:hover {
   color: $orange;
+}
+
+#shop-mobile-app-bar {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  #shop-app-bar {
+    display: none !important;
+  }
+
+  #shop-mobile-app-bar {
+    display: flex !important;
+  }
+
+  .app-bar-logo {
+    height: 60px;
+  }
 }
 </style>

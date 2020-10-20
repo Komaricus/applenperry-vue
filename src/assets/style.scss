@@ -67,3 +67,34 @@ h1, h2, h3, h4, h5, h6 {
 .text--inactive {
   color: $inactive;
 }
+
+#app-bar {
+  height: 128px !important;
+
+  .v-toolbar__content {
+    height: 128px !important;
+  }
+}
+
+// burger main
+@media (max-width: 980px) {
+  #showcase #burger {
+    display: block;
+  }
+}
+
+//burger shop
+@media (max-width: 700px) {
+  #shop #burger {
+    margin: 25px 40px 0 0;
+    display: block;
+  }
+
+  #app-bar {
+    height: 70px !important;
+
+    .v-toolbar__content {
+      height: 70px !important;
+    }
+  }
+}

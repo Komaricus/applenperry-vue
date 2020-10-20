@@ -1,30 +1,73 @@
 <template>
-  <div id="burger" :class="{ open: mobileMenu }" @click="toggleSideMenu">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span></div
+  <div
+    id="burger"
+    :class="{
+      open: mobileMenu,
+      'text--white': type === 'home' || mobileMenu,
+      'text-primary': type === 'shop' && !mobileMenu
+    }"
+    @click="toggleMobileMenu"
+  >
+    <span
+      :class="{
+        'back--white': type === 'home' || mobileMenu,
+        'back--primary': type === 'shop' && !mobileMenu
+      }"
+    ></span>
+    <span
+      :class="{
+        'back--white': type === 'home' || mobileMenu,
+        'back--primary': type === 'shop' && !mobileMenu
+      }"
+    ></span>
+    <span
+      :class="{
+        'back--white': type === 'home' || mobileMenu,
+        'back--primary': type === 'shop' && !mobileMenu
+      }"
+    ></span>
+    <span
+      :class="{
+        'back--white': type === 'home' || mobileMenu,
+        'back--primary': type === 'shop' && !mobileMenu
+      }"
+    ></span></div
 ></template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'Burger',
+  props: {
+    type: {
+      type: String,
+      default: ''
+    }
+  },
   computed: {
     ...mapState(['mobileMenu'])
   },
   methods: {
-    ...mapMutations(['toggleSideMenu'])
+    ...mapMutations(['toggleMobileMenu'])
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets/colors';
+
+.back--white {
+  background: white !important;
+}
+
+.back--primary {
+  background: $primary !important;
+}
+
 #burger {
   display: none;
   position: absolute;
   z-index: 50;
-  color: #fff;
   right: 0;
   margin: 40px;
   cursor: pointer;
@@ -45,7 +88,7 @@ export default {
 
 #burger:hover {
   span {
-    background-color: #f07d10 !important;
+    background-color: $orange !important;
   }
 }
 
@@ -54,7 +97,6 @@ export default {
   position: absolute;
   height: 3px;
   width: 100%;
-  background: #fff;
   border-radius: 9px;
   opacity: 1;
   left: 0;
@@ -105,11 +147,5 @@ export default {
   top: 10px;
   width: 0;
   left: 50%;
-}
-
-@media (max-width: 980px) {
-  #burger {
-    display: block;
-  }
 }
 </style>

@@ -1,33 +1,80 @@
 <template>
   <div :class="{ 'dropdown-after': mobileMenu }" class="row dropdown">
-    <ul class="navlist">
-      <li class="navlistitem">
-        <router-link :to="'/shop'">Магазин</router-link>
-      </li>
-      <li class="navlistitem">
-        <router-link :to="'/friends'">Наши Друзья</router-link>
-      </li>
-      <li class="navlistitem">
-        <router-link :to="'/news'">Новости</router-link>
-      </li>
-      <li class="navlistitem">
-        <router-link :to="'/pub'">Наш pub</router-link>
-      </li>
-      <li class="navlistitem">
-        <router-link :to="'/shop/contacts'">Контакты</router-link>
-      </li>
-      <li class="navlistitem">
-        <router-link :to="'/cider'">О сидре и перри</router-link>
+    <ul class="nav-list">
+      <li v-for="(item, index) in items" :key="index" class="nav-list-item">
+        <span @click="toggleMobileMenu"
+          ><router-link :to="item.to">{{ item.title }}</router-link></span
+        >
       </li>
     </ul>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'MobileMenu',
+  props: {
+    type: {
+      type: String,
+      default: ''
+    }
+  },
+  data() {
+    return {
+      itemsMain: [
+        {
+          to: '/shop',
+          title: 'Магазин'
+        },
+        {
+          to: '/friends',
+          title: 'Наши Друзья'
+        },
+        {
+          to: '/news',
+          title: 'Новости'
+        },
+        {
+          to: '/pub',
+          title: 'Наш pub'
+        },
+        {
+          to: '/shop/contacts',
+          title: 'Контакты'
+        },
+        {
+          to: '/about',
+          title: 'О сидре и перри'
+        }
+      ],
+      itemsShop: [
+        {
+          to: '/categories',
+          title: 'Категории'
+        },
+        {
+          to: '/vendors',
+          title: 'Производители'
+        },
+        {
+          to: '/contacts',
+          title: 'Производители'
+        },
+        {
+          to: '/delivery',
+          title: 'Доставка'
+        }
+      ]
+    }
+  },
   computed: {
-    ...mapState(['mobileMenu'])
+    ...mapState(['mobileMenu']),
+    items() {
+      return this.type === 'shop' ? this.itemsShop : this.itemsMain
+    }
+  },
+  methods: {
+    ...mapMutations(['toggleMobileMenu'])
   }
 }
 </script>
@@ -57,24 +104,24 @@ export default {
   transition: height 0.2s ease;
 }
 
-.navlist {
+.nav-list {
   list-style: none;
 }
 
-.navlistitem {
+.nav-list-item {
   text-transform: uppercase;
   text-align: center;
   padding: 20px;
 }
 
-.navlistitem a {
+.nav-list-item a {
   font-family: 'Neucha', cursive;
   color: #ffffff;
   letter-spacing: 1px;
   font-size: 1.1rem;
 }
 
-.navlistitem a:hover {
+.nav-list-item a:hover {
   color: #f07d10;
   font-weight: bold;
 }

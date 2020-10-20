@@ -1,6 +1,6 @@
 <template>
   <div id="showcase">
-    <burger id="burger" />
+    <burger type="home" />
 
     <div id="logo">
       <div id="contain">

@@ -81,7 +81,7 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    toggleSideMenu(state) {
+    toggleMobileMenu(state) {
       state.mobileMenu = !state.mobileMenu
     },
     showSnackbar(state, payload) {
