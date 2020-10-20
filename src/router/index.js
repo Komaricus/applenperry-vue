@@ -12,7 +12,17 @@ const routes = [
     path: '/',
     component: () => import('../views/Home'),
     meta: {
-      title: 'Apple`n`Perry'
+      title: 'Apple`n`Perry',
+      layout: 'home'
+    }
+  },
+  {
+    name: 'ShopMain',
+    path: '/shop',
+    component: () => import('../views/Shop/Main'),
+    meta: {
+      title: 'Магазин',
+      layout: 'shop'
     }
   },
   {
@@ -96,7 +106,10 @@ const routes = [
   {
     name: '404',
     path: '*',
-    component: () => import('../views/Page404')
+    component: () => import('../views/Page404'),
+    meta: {
+      title: 'Страница не найдена'
+    }
   }
 ]
 

@@ -1,7 +1,7 @@
 <template>
   <div id="showcase">
     <div id="container">
-      <img id="logo" src="@/assets/logo.png" alt="" />
+      <img id="logo" src="@/assets/images/logo.png" alt="" />
       <h1 id="header">
         НАШ САЙТ В РАЗРАБОТКЕ
       </h1>

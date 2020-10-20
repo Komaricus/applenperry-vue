@@ -1,6 +1,6 @@
 <template>
   <section id="yo">
-    <img src="@/assets/logo.png" alt="logo" />
+    <img src="@/assets/images/logo.png" alt="logo" />
     <div class="text-center">
       <h1 class="heading-4 mt-5 font-weight-regular">Откройте природный вкус общения!</h1>
       <p class="mt-3">Для того, чтобы пользоваться сайтом укажите дату своего рождения</p>

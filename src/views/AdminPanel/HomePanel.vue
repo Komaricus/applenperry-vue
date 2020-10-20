@@ -13,7 +13,7 @@
         </div>
       </v-col>
       <v-col cols="8" id="logo-column" v-if="$route.path === '/apple-admin/panel'">
-        <img src="@/assets/logo-admin.png" alt="" />
+        <img src="@/assets/images/logo-admin.png" alt="" />
       </v-col>
       <v-col cols="8" v-else>
         <router-view></router-view>
@@ -54,7 +54,11 @@ export default {
       dialog: false
     }
   },
-  created() {
+  async created() {
+    await this.$api.get('/admins/heartbeat').catch(error => {
+      console.error(error)
+    })
+
     if (
       this.needsAlert &&
       this.$route.path !== this.link &&

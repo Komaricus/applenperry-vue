@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <v-app-bar app color="admin-primary" dark>
       <router-link to="/apple-admin/panel">
         <v-toolbar-title class="text-neucha text--white">Apple`n`Perry</v-toolbar-title>
@@ -36,7 +36,7 @@
     >
       {{ snackbarText }}
     </v-snackbar>
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -44,12 +44,6 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Admin',
-  async created() {
-    if (window.location.pathname !== '/apple-admin')
-      await this.$api.get('/admins/heartbeat').catch(error => {
-        console.error(error)
-      })
-  },
   computed: {
     ...mapState(['snackbar', 'snackbarText', 'snackbarColor'])
   }
