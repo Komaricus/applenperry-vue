@@ -49,19 +49,19 @@ export default {
       ],
       itemsShop: [
         {
-          to: '/categories',
+          to: '/shop/categories',
           title: 'Категории'
         },
         {
-          to: '/vendors',
+          to: '/shop/vendors',
           title: 'Производители'
         },
         {
-          to: '/contacts',
+          to: '/shop/contacts',
           title: 'Производители'
         },
         {
-          to: '/delivery',
+          to: '/shop/delivery',
           title: 'Доставка'
         }
       ]

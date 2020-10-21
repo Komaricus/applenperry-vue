@@ -26,6 +26,51 @@ const routes = [
     }
   },
   {
+    name: 'ShopCategories',
+    path: '/shop/categories',
+    component: () => import('../views/Shop/Categories'),
+    meta: {
+      title: 'Категории',
+      layout: 'shop'
+    }
+  },
+  {
+    name: 'ShopVendors',
+    path: '/shop/vendors',
+    component: () => import('../views/Shop/Vendors'),
+    meta: {
+      title: 'Производители',
+      layout: 'shop'
+    }
+  },
+  {
+    name: 'ShopContacts',
+    path: '/shop/contacts',
+    component: () => import('../views/Shop/Contacts'),
+    meta: {
+      title: 'Контакты',
+      layout: 'shop'
+    }
+  },
+  {
+    name: 'ShopSearch',
+    path: '/shop/search',
+    component: () => import('../views/Shop/Search'),
+    meta: {
+      title: 'Поиск',
+      layout: 'shop'
+    }
+  },
+  {
+    name: 'ShopDelivery',
+    path: '/shop/delivery',
+    component: () => import('../views/Shop/Delivery'),
+    meta: {
+      title: 'Доставка',
+      layout: 'shop'
+    }
+  },
+  {
     name: 'AdminLogin',
     path: '/apple-admin',
     component: () => import('../views/AdminPanel/AdminLogin'),

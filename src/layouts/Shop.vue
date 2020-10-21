@@ -3,17 +3,22 @@
     <burger type="shop" />
     <v-app-bar id="app-bar" app class="elevation-0" color="background-grey" absolute>
       <div id="shop-app-bar" class="d-flex justify-center align-center container">
-        <router-link to="/categories" class="app-bar-link">Категории</router-link>
-        <router-link to="/vendors" class="app-bar-link">Производители</router-link>
-
+        <div class="links-left">
+          <router-link to="/shop" class="app-bar-link">Главная</router-link>
+          <router-link to="/shop/categories" class="app-bar-link">Категории</router-link>
+          <router-link to="/shop/vendors" class="app-bar-link">Производители</router-link>
+        </div>
         <div class="app-bar-logo">
           <router-link to="/">
             <img src="@/assets/images/small-logo.png" alt="logo" />
           </router-link>
         </div>
 
-        <router-link to="/contacts" class="app-bar-link">Контакты</router-link>
-        <router-link to="/delivery" class="app-bar-link">Доставка</router-link>
+        <div class="links-right">
+          <router-link to="/shop/contacts" class="app-bar-link">Контакты</router-link>
+          <router-link to="/shop/search" class="app-bar-link">Поиск</router-link>
+          <router-link to="/shop/delivery" class="app-bar-link">Доставка и оплата</router-link>
+        </div>
       </div>
 
       <div id="shop-mobile-app-bar" class="d-flex container">
@@ -25,7 +30,7 @@
       </div>
     </v-app-bar>
 
-    <v-main>
+    <v-main id="main">
       <router-view></router-view>
     </v-main>
 
@@ -88,11 +93,22 @@ export default {
   color: $orange;
 }
 
+.links-left,
+.links-right {
+  width: 350px;
+}
+
 #shop-mobile-app-bar {
   display: none !important;
 }
 
-@media (max-width: 700px) {
+#main {
+  padding-top: 128px !important;
+  min-height: 100vh;
+  background-color: $background-grey;
+}
+
+@media (max-width: 860px) {
   #shop-app-bar {
     display: none !important;
   }
@@ -103,6 +119,10 @@ export default {
 
   .app-bar-logo {
     height: 60px;
+  }
+
+  #main {
+    padding-top: 70px !important;
   }
 }
 </style>
