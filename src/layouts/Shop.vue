@@ -36,8 +36,8 @@
 
     <v-footer app color="#eee">
       <div class="container text-center">
-        <p class="text--inactive">Apple'n'Perry © 2020</p>
-        <a href="https://www.instagram.com/applenperry/" title="Instagram">
+        <p class="text--inactive">Apple'n'Perry © {{ new Date().getFullYear() }}</p>
+        <a href="https://www.instagram.com/applenperry" target="_blank" title="Instagram">
           <v-icon large class="instagram-icon">fab fa-instagram</v-icon>
         </a>
       </div>

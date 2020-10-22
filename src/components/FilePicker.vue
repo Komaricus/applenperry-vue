@@ -25,7 +25,13 @@
                 >
               </div>
               <v-spacer />
-              <v-btn small icon color="admin-primary" @click="openDeleteDialog(file)">
+              <v-btn
+                small
+                icon
+                color="admin-primary"
+                @click="openDeleteDialog(file)"
+                :disabled="selected.includes(file.id)"
+              >
                 <v-icon small>
                   fa-trash
                 </v-icon>

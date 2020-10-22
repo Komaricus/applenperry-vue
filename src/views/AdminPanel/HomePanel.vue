@@ -97,6 +97,7 @@ export default {
   computed: {
     ...mapState(['items', 'needsAlert', 'formId', 'mode', 'form']),
     link() {
+      if (this.formId === '' || this.form === null || this.mode === '') return ''
       let link = `/apple-admin/panel/list/${this.formId}/${this.mode}`
       if (this.mode === 'edit') link += '/' + this.form.id
       return link

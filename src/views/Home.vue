@@ -30,7 +30,7 @@
 
     <div class="slider">
       <div v-for="(slide, i) in slides" :class="slide.class" :key="i">
-        <img :src="require(`./../assets/img/${slide.image.path}`)" alt="" />
+        <image-component :image-src="slide.image.path"></image-component>
       </div>
     </div>
 
@@ -42,11 +42,13 @@
 
 <script>
 import Burger from '../components/Burger'
+import ImageComponent from '@/components/ImageComponent'
 
 export default {
   name: 'Home',
   components: {
-    burger: Burger
+    burger: Burger,
+    ImageComponent
   },
   data() {
     return {
@@ -201,6 +203,7 @@ export default {
     justify-content: center;
 
     img {
+      position: absolute;
       opacity: 0.6;
     }
   }

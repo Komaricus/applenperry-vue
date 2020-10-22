@@ -10,6 +10,10 @@ a {
   text-decoration: none !important;
 }
 
+ul, ol {
+  list-style: none;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Neucha', sans-serif;
 }
@@ -68,6 +72,10 @@ h1, h2, h3, h4, h5, h6 {
   color: $inactive;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 #app-bar {
   height: 128px !important;
 
@@ -97,4 +105,9 @@ h1, h2, h3, h4, h5, h6 {
       height: 70px !important;
     }
   }
+}
+
+// bullet color for slider on main shop page
+#shop-main-container .swiper-pagination-bullet-active {
+  background: $primary !important;
 }
