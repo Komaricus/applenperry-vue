@@ -3,7 +3,7 @@ export default {
   error: '#AD050D',
   success: '#009A00',
   warning: '#E06400',
-  anchor: '#007DBB',
+  anchor: '#04b',
   danger: '#E53935',
 
   // Цвета Apple`n`Perry

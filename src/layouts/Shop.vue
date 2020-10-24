@@ -1,7 +1,7 @@
 <template>
   <div id="shop">
     <burger type="shop" />
-    <v-app-bar id="app-bar" app class="elevation-0" color="background-grey" absolute>
+    <v-app-bar id="app-bar" app class="elevation-0" color="background-grey">
       <div id="shop-app-bar" class="d-flex justify-center align-center container">
         <div class="links-left">
           <router-link to="/shop" class="app-bar-link">Главная</router-link>
@@ -34,7 +34,7 @@
       <router-view></router-view>
     </v-main>
 
-    <v-footer app color="#eee">
+    <v-footer color="#eee">
       <div class="container text-center">
         <p class="text--inactive">Apple'n'Perry © {{ new Date().getFullYear() }}</p>
         <a href="https://www.instagram.com/applenperry" target="_blank" title="Instagram">
@@ -104,8 +104,9 @@ export default {
 
 #main {
   padding-top: 128px !important;
-  min-height: 100vh;
-  background-color: $background-grey;
+  min-height: calc(100vh - 112px);
+  max-width: 1920px;
+  margin: 0 auto;
 }
 
 @media (max-width: 860px) {

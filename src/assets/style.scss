@@ -111,3 +111,17 @@ h1, h2, h3, h4, h5, h6 {
 #shop-main-container .swiper-pagination-bullet-active {
   background: $primary !important;
 }
+
+//hide navigation button if disabled
+#products-swiper
+{
+  .swiper-button-disabled {
+    display: none;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+  }
+
+}
