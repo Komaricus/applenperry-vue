@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar app color="admin-primary" dark>
+    <v-app-bar app color="admin-primary" dark class="admin-app-bar">
       <router-link to="/apple-admin/panel">
         <v-toolbar-title class="text-neucha text--white">Apple`n`Perry</v-toolbar-title>
       </router-link>
@@ -49,3 +49,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.admin-app-bar {
+  z-index: 10 !important;
+}
+</style>

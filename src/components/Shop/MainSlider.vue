@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <swiper v-else class="swiper mt-3" :options="swiperOption">
+    <swiper v-else class="swiper" :options="swiperOption">
       <swiper-slide
         v-for="slide in slides"
         :key="slide.id"

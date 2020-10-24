@@ -15,6 +15,7 @@
       clearable
       :loading="loading"
       :disabled="loading"
+      attach=""
     >
       <template v-slot:selection="data">
         <image-preview

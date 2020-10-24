@@ -17,6 +17,7 @@
       clearable
       :loading="loading"
       :disabled="loading"
+      attach=""
     ></v-autocomplete>
     <div class="mb-5" v-if="categories.length">
       <div class="text--inactive caption">Выбранные категории:</div>

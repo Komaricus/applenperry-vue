@@ -49,6 +49,10 @@ export default {
       ],
       itemsShop: [
         {
+          to: '/shop',
+          title: 'Главная'
+        },
+        {
           to: '/shop/categories',
           title: 'Категории'
         },
@@ -58,7 +62,11 @@ export default {
         },
         {
           to: '/shop/contacts',
-          title: 'Производители'
+          title: 'Контакты'
+        },
+        {
+          to: '/shop/search',
+          title: 'Поиск'
         },
         {
           to: '/shop/delivery',
