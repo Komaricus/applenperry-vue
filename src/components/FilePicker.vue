@@ -25,6 +25,11 @@
                 >
               </div>
               <v-spacer />
+              <v-btn small icon color="admin-primary" @click="downloadFile(file.id)">
+                <v-icon small>
+                  fa-download
+                </v-icon>
+              </v-btn>
               <v-btn
                 small
                 icon
@@ -154,6 +159,19 @@ export default {
   },
   methods: {
     ...mapMutations(['showSnackbar']),
+    downloadFile(id) {
+      let url =
+        process.env.NODE_ENV === 'production'
+          ? window.location.origin + '/apple-api'
+          : 'http://localhost:5001/apple-api'
+      url += `/files/download/${id}?token=${localStorage.getItem('token')}`
+      let link = document.createElement('a')
+      link.download = ''
+      link.href = url
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    },
     async getFiles() {
       this.loading = true
       await this.$api
