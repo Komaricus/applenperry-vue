@@ -204,6 +204,7 @@ export default {
         })
         .then(async () => {
           this.showSnackbar({ text: 'Файл успешно удален', color: 'success' })
+          this.page = 1
           await this.getFiles()
         })
         .catch(error => {

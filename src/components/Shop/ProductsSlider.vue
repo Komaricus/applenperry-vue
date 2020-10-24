@@ -9,7 +9,7 @@
               <image-component :image-src="product.image.path"></image-component>
             </div>
             <div class="product-price" v-if="product.price">
-              {{ product.price }} <span class="product-price-currency">₽</span>
+              {{ product.price | space }} <span class="product-price-currency">₽</span>
             </div>
             <h3 v-if="product.name" class="product-name">
               {{ product.name }}
@@ -54,6 +54,22 @@ export default {
     Swiper,
     SwiperSlide,
     ImageComponent
+  },
+  filters: {
+    space(val) {
+      val = String(val)
+        .split('')
+        .reverse()
+      let result = ''
+      for (let i = 0; i < val.length; i++) {
+        if (i % 3 === 0 && i !== 0 && i !== val.length) {
+          result = ' ' + result
+        }
+        result = val[i] + result
+      }
+
+      return result
+    }
   },
   data() {
     return {
@@ -117,7 +133,7 @@ export default {
 }
 
 .swiper {
-  height: 360px;
+  height: 345px;
 }
 
 .products-prev {
@@ -138,16 +154,16 @@ export default {
   background-color: white;
   width: 100%;
   padding: 10px;
-  height: 310px;
+  height: 315px;
   max-width: 300px;
 
   &-name {
-    margin: 5px 5px 15px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     color: $anchor;
+    margin: 5px 5px 0;
   }
 
   &-image-container {
@@ -167,6 +183,8 @@ export default {
     color: $main;
     font-size: 26px;
     font-weight: 700;
+    text-align: center;
+    margin-top: 10px;
 
     &-currency {
       margin-left: -5px;

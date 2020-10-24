@@ -158,7 +158,7 @@ export default {
   created() {
     if (this.field.required) this.rules.push(() => this.files.length > 0 || 'Обязательное поле')
 
-    if (Object.prototype.hasOwnProperty.call(this.field, 'value')) {
+    if (Object.prototype.hasOwnProperty.call(this.field, 'value') && this.field.value) {
       if (this.field.multiple) this.files = this.field.value
       else this.files = [this.field.value]
     }
