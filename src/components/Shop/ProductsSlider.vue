@@ -130,6 +130,7 @@ export default {
 
 .new-products-title {
   padding-left: 22px;
+  color: $main;
 }
 
 .swiper {

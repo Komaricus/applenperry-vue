@@ -70,7 +70,7 @@ export default {
         .get(this.field.itemsURL)
         .then(({ data }) => {
           if (this.field.id === 'parentId') {
-            this.items = data.filter(e => e.parentId !== this.$route.params.id)
+            this.items = data.filter(e => e.parentId !== this.$route.params.id && !e.parentId)
           } else {
             this.items = data
           }

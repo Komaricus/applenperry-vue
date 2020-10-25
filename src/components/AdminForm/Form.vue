@@ -320,7 +320,7 @@ h1 {
 }
 
 .form {
-  max-height: calc(100vh - 151px);
+  height: calc(100vh - 151px);
   padding: 20px;
 }
 
