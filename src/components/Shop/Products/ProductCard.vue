@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="product.url">
+  <router-link :to="productLink(product.url)">
     <div class="product">
       <div class="product-image-container">
         <div class="image">
@@ -25,6 +25,10 @@ export default {
     product: {
       type: Object,
       default: () => {}
+    },
+    basePath: {
+      type: String,
+      default: '/shop/stock'
     }
   },
   components: {
@@ -44,6 +48,11 @@ export default {
       }
 
       return result
+    }
+  },
+  methods: {
+    productLink(url) {
+      return this.basePath + '/' + url
     }
   }
 }

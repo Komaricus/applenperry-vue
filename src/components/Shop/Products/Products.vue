@@ -42,7 +42,7 @@
     <div class="products-container" v-if="products.length && !loading">
       <v-row>
         <v-col v-for="product in products" :key="product.id" class="product-col">
-          <product-card :product="product"></product-card>
+          <product-card :product="product" :base-path="$route.path"></product-card>
         </v-col>
       </v-row>
     </div>

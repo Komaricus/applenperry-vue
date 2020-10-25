@@ -43,6 +43,22 @@ const routes = [
     }
   },
   {
+    name: 'ShopProduct',
+    path: '/shop/categories/:type/:id/:url',
+    component: () => import('../views/Shop/Product'),
+    meta: {
+      layout: 'shop'
+    }
+  },
+  {
+    name: 'ShopProductStock',
+    path: '/shop/stock/:url',
+    component: () => import('../views/Shop/Product'),
+    meta: {
+      layout: 'shop'
+    }
+  },
+  {
     name: 'ShopVendors',
     path: '/shop/vendors',
     component: () => import('../views/Shop/Vendors'),
