@@ -1,7 +1,7 @@
 <template>
   <div id="shop-main-container">
     <main-slider></main-slider>
-    <products-slider :params="params" :title="title"></products-slider>
+    <products-slider :params="params" :title="title" linksBasePath="/shop/stock"></products-slider>
   </div>
 </template>
 

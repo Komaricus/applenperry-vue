@@ -3,8 +3,7 @@
     <h2 class="new-products-title" v-if="title">{{ title }}</h2>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="product in products" :key="product.id">
-        <!-- todo: add base path -->
-        <product-card :product="product"></product-card>
+        <product-card :product="product" :base-path="linksBasePath"></product-card>
       </swiper-slide>
 
       <div class="swiper-pagination" slot="pagination"></div>
@@ -47,6 +46,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    linksBasePath: {
+      type: String,
+      default: '/shop/stock'
     }
   },
   components: {

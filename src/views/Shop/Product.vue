@@ -66,7 +66,12 @@
       </v-col>
     </v-row>
     <div class="products-slider">
-      <products-slider v-if="params !== null" :params="params" :title="title"></products-slider>
+      <products-slider
+        v-if="params !== null"
+        :params="params"
+        :title="title"
+        :links-base-path="`/shop/vendors/${this.$route.params.id}`"
+      ></products-slider>
     </div>
   </div>
 </template>
@@ -117,6 +122,7 @@ export default {
         .get(`/open/products/${this.$route.params.url}`)
         .then(({ data }) => {
           this.product = data
+          document.title = this.product.name
           this.params = {
             page: 1,
             perPage: 10,

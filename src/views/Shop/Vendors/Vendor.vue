@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h1 class="text--main mb-3">{{ title }}</h1>
-    <div v-if="description" v-html="description" class="category-description"></div>
-    <products :type="$route.params.type" :url="$route.params.id"></products>
+    <div v-if="description" v-html="description" class="vendor-description"></div>
+    <products :type="'vendor'" :url="$route.params.id"></products>
   </div>
 </template>
 
@@ -10,39 +10,25 @@
 import Products from '@/components/Shop/Products/Products'
 
 export default {
-  name: 'Category',
+  name: 'Vendor',
   components: {
     Products
   },
   data() {
     return {
       title: '',
-      description: ''
+      description: '',
+      image: null
     }
   },
   async created() {
-    let url = ''
-    let id = this.$route.params.id
-    switch (this.$route.params.type) {
-      case 'country':
-        url = `/open/countries/${id}`
-        break
-      case 'type':
-        url = `/open/products-types/${id}`
-        break
-      case 'sugar':
-        url = `/open/products-sugar-types/${id}`
-        break
-      default:
-        url = `/open/categories/${id}`
-    }
-
     this.$api
-      .get(url)
+      .get(`/open/vendors/${this.$route.params.id}`)
       .then(({ data }) => {
         this.title = data.name
         document.title = this.title
         this.description = data.description
+        this.image = data.image
       })
       .catch(error => {
         console.error(error)

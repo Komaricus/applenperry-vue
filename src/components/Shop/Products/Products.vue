@@ -89,7 +89,7 @@ export default {
       search: '',
       mode: 'grid',
       products: [],
-      types: ['category', 'country', 'type', 'sugar'],
+      types: ['category', 'country', 'type', 'sugar', 'vendor'],
       page: 1,
       perPage: 12,
       total: 0,
