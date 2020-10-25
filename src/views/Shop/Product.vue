@@ -65,20 +65,27 @@
         </div>
       </v-col>
     </v-row>
+    <div class="products-slider">
+      <products-slider v-if="params !== null" :params="params" :title="title"></products-slider>
+    </div>
   </div>
 </template>
 
 <script>
 import ImageComponent from '@/components/ImageComponent'
+import ProductsSlider from '@/components/Shop/ProductsSlider'
 
 export default {
   name: 'Product',
   components: {
-    ImageComponent
+    ImageComponent,
+    ProductsSlider
   },
   data() {
     return {
-      product: {}
+      product: {},
+      params: null,
+      title: ''
     }
   },
   filters: {
@@ -102,14 +109,35 @@ export default {
     }
   },
   async created() {
-    await this.$api
-      .get(`/open/products/${this.$route.params.url}`)
-      .then(({ data }) => {
-        this.product = data
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    await this.loadProduct()
+  },
+  methods: {
+    async loadProduct() {
+      await this.$api
+        .get(`/open/products/${this.$route.params.url}`)
+        .then(({ data }) => {
+          this.product = data
+          this.params = {
+            page: 1,
+            perPage: 10,
+            column: 'created_at',
+            sort: 'desc',
+            vendor: this.product.vendor.url,
+            except: this.product.id
+          }
+
+          this.title = 'Ещё от ' + this.product.vendor.name + ':'
+        })
+        .catch(error => {
+          console.error(error)
+          this.$router.back()
+        })
+    }
+  },
+  watch: {
+    async $route() {
+      await this.loadProduct()
+    }
   }
 }
 </script>
@@ -206,6 +234,10 @@ export default {
   .categories {
     margin: 10px 0;
   }
+}
+
+.products-slider {
+  margin: 10px 0;
 }
 
 @media (max-width: 959px) {

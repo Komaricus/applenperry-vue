@@ -1,7 +1,7 @@
 <template>
   <div id="shop-main-container">
     <main-slider></main-slider>
-    <products-slider></products-slider>
+    <products-slider :params="params" :title="title"></products-slider>
   </div>
 </template>
 
@@ -14,6 +14,17 @@ export default {
   components: {
     MainSlider,
     ProductsSlider
+  },
+  data() {
+    return {
+      params: {
+        page: 1,
+        perPage: 10,
+        column: 'created_at',
+        sort: 'desc'
+      },
+      title: 'Новые товары'
+    }
   }
 }
 </script>

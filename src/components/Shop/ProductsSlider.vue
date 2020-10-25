@@ -1,8 +1,9 @@
 <template>
   <div id="products-swiper" v-if="products.length">
-    <h2 class="new-products-title">Новые товары</h2>
+    <h2 class="new-products-title" v-if="title">{{ title }}</h2>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="product in products" :key="product.id">
+        <!-- todo: add base path -->
         <product-card :product="product"></product-card>
       </swiper-slide>
 
@@ -38,6 +39,16 @@ import ProductCard from '@/components/Shop/Products/ProductCard'
 
 export default {
   name: 'ProductsSlider',
+  props: {
+    params: {
+      type: Object,
+      default: () => {}
+    },
+    title: {
+      type: String,
+      default: ''
+    }
+  },
   components: {
     Swiper,
     SwiperSlide,
@@ -85,12 +96,7 @@ export default {
   async created() {
     await this.$api
       .get('/open/products', {
-        params: {
-          page: 1,
-          perPage: 10,
-          column: 'created_at',
-          sort: 'desc'
-        }
+        params: this.params
       })
       .then(({ data }) => {
         this.products = data.products
