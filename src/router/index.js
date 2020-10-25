@@ -61,7 +61,7 @@ const routes = [
   {
     name: 'ShopVendors',
     path: '/shop/vendors',
-    component: () => import('../views/Shop/Vendors'),
+    component: () => import('../views/Shop/Vendors/Vendors'),
     meta: {
       title: 'Производители',
       layout: 'shop'
