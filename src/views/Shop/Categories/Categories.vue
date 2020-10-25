@@ -2,7 +2,7 @@
   <div id="shop-categories-container">
     <div class="container">
       <h1 class="page-title">Категории</h1>
-      <v-row class="d-flex">
+      <v-row>
         <v-col
           v-for="category in categories"
           :key="category.id"
@@ -11,12 +11,10 @@
           md="6"
           lg="4"
         >
-          <router-link :to="category.url" class="category-link">
-            <div class="text-h6 text--main">{{ category.name }}</div>
-          </router-link>
+          <div class="text-h6 text--main">{{ category.name }}</div>
           <ul class="pl-0">
             <li v-for="children in category.child" :key="children.id">
-              <router-link :to="children.url" class="d-flex align-center child-link">
+              <router-link :to="getLink(category, children)" class="d-flex align-center link">
                 <v-icon small color="primary">
                   fas fa-apple-alt
                 </v-icon>
@@ -43,18 +41,32 @@ export default {
       .get('/open/categories')
       .then(({ data }) => (this.categories = data))
       .catch(error => console.error(error))
+  },
+  methods: {
+    getLink(category, children) {
+      switch (category.id) {
+        case 'countries':
+          return `/shop/categories/country/${children.url}`
+        case 'product-type':
+          return `/shop/categories/type/${children.url}`
+        case 'sugar-type':
+          return `/shop/categories/sugar/${children.url}`
+        default:
+          return `/shop/categories/category/${children.url}`
+      }
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import 'src/assets/colors';
+@import '../../../assets/colors';
 
 #shop-categories-container {
   width: 100%;
 
   .container {
-    max-width: 1000px;
+    max-width: 840px;
     padding: 20px;
   }
 }
@@ -64,16 +76,10 @@ export default {
 }
 
 .category-col {
-  min-width: 300px;
+  min-width: 200px;
 }
 
-.category-link:hover {
-  div {
-    color: $orange !important;
-  }
-}
-
-.child-link:hover {
+.link:hover {
   i {
     color: $orange !important;
   }

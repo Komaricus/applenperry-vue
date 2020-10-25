@@ -3,19 +3,7 @@
     <h2 class="new-products-title">Новые товары</h2>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="product in products" :key="product.id">
-        <router-link :to="product.url">
-          <div class="product">
-            <div class="product-image-container">
-              <image-component :image-src="product.image.path"></image-component>
-            </div>
-            <div class="product-price" v-if="product.price">
-              {{ product.price | space }} <span class="product-price-currency">₽</span>
-            </div>
-            <h3 v-if="product.name" class="product-name">
-              {{ product.name }}
-            </h3>
-          </div>
-        </router-link>
+        <product-card :product="product"></product-card>
       </swiper-slide>
 
       <div class="swiper-pagination" slot="pagination"></div>
@@ -46,30 +34,14 @@
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
-import ImageComponent from '@/components/ImageComponent'
+import ProductCard from '@/components/Shop/Products/ProductCard'
 
 export default {
   name: 'ProductsSlider',
   components: {
     Swiper,
     SwiperSlide,
-    ImageComponent
-  },
-  filters: {
-    space(val) {
-      val = String(val)
-        .split('')
-        .reverse()
-      let result = ''
-      for (let i = 0; i < val.length; i++) {
-        if (i % 3 === 0 && i !== 0 && i !== val.length) {
-          result = ' ' + result
-        }
-        result = val[i] + result
-      }
-
-      return result
-    }
+    ProductCard
   },
   data() {
     return {
@@ -112,9 +84,16 @@ export default {
   },
   async created() {
     await this.$api
-      .get('/open/products')
+      .get('/open/products', {
+        params: {
+          page: 1,
+          perPage: 10,
+          column: 'created_at',
+          sort: 'desc'
+        }
+      })
       .then(({ data }) => {
-        this.products = data
+        this.products = data.products
       })
       .catch(error => console.error(error))
   }
@@ -149,49 +128,6 @@ export default {
   top: 150px;
   right: 5px;
   z-index: 10;
-}
-
-.product {
-  background-color: white;
-  width: 100%;
-  padding: 10px;
-  height: 315px;
-  max-width: 300px;
-
-  &-name {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    color: $anchor;
-    margin: 5px 5px 0;
-  }
-
-  &-image-container {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    width: 100%;
-    height: 200px;
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-    }
-  }
-
-  &-price {
-    color: $main;
-    font-size: 26px;
-    font-weight: 700;
-    text-align: center;
-    margin-top: 10px;
-
-    &-currency {
-      margin-left: -5px;
-      font-size: 20px;
-    }
-  }
 }
 
 @media (max-width: 1132px) {

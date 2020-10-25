@@ -61,6 +61,11 @@ export default {
 
 <style scoped lang="scss">
 @import 'src/assets/colors';
+
+#app-bar {
+  z-index: 10;
+}
+
 .app-bar-link {
   text-decoration: none;
   text-transform: uppercase;

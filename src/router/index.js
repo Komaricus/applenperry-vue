@@ -28,9 +28,17 @@ const routes = [
   {
     name: 'ShopCategories',
     path: '/shop/categories',
-    component: () => import('../views/Shop/Categories'),
+    component: () => import('../views/Shop/Categories/Categories'),
     meta: {
       title: 'Категории',
+      layout: 'shop'
+    }
+  },
+  {
+    name: 'ShopCategory',
+    path: '/shop/categories/:type/:id',
+    component: () => import('../views/Shop/Categories/Category'),
+    meta: {
       layout: 'shop'
     }
   },
