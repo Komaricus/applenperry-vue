@@ -72,7 +72,7 @@ export default {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    color: $anchor;
+    color: $title;
     margin: 5px 5px 0;
   }
 

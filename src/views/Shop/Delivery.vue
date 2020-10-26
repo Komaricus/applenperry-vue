@@ -1,7 +1,11 @@
 <template>
   <div id="shop-delivery-container">
     <div class="container">
-      <h1>Delivery</h1>
+      <h1>Доставка и оплата</h1>
+      <p>
+        Услуга доставки недоступна в нашем магазине. Вы можете оформить заказ на сайте и забрать его
+        в нашем пабе. Оплата возможна банковской картой или наличными.
+      </p>
     </div>
   </div>
 </template>
@@ -16,7 +20,10 @@ export default {
 @import 'src/assets/colors';
 
 #shop-delivery-container {
-  background-color: $background-grey;
   width: 100%;
+
+  .container {
+    padding: 20px;
+  }
 }
 </style>
