@@ -24,8 +24,26 @@
         </div>
       </div>
       <v-spacer></v-spacer>
-      <div class="item-price">
-        {{ (item.price * item.count) | space }} <span class="item-price-currency">₽</span>
+      <div class="d-flex flex-column">
+        <div class="item-price">
+          {{ (item.price * item.count) | space }} <span class="item-price-currency">₽</span>
+        </div>
+        <v-tooltip left max-width="400">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="inactive"
+              @click="deleteFromCart(index)"
+              small
+              icon
+              v-bind="attrs"
+              v-on="on"
+              class="ml-auto"
+            >
+              <v-icon small>fa-trash</v-icon>
+            </v-btn>
+          </template>
+          <span>Удалить из корзины</span>
+        </v-tooltip>
       </div>
     </div>
   </div>

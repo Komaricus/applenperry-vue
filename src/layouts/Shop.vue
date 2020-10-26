@@ -41,6 +41,7 @@
           <v-icon large class="instagram-icon">fab fa-instagram</v-icon>
         </a>
       </div>
+      <!-- todo: add privacy policy -->
     </v-footer>
     <mobile-menu type="shop"></mobile-menu>
     <cart-dialog></cart-dialog>
