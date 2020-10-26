@@ -94,11 +94,11 @@ const routes = [
     }
   },
   {
-    name: 'ShopSearch',
-    path: '/shop/search',
-    component: () => import('../views/Shop/Search'),
+    name: 'Cart',
+    path: '/shop/cart',
+    component: () => import('../views/Shop/Cart'),
     meta: {
-      title: 'Поиск',
+      title: 'Корзина',
       layout: 'shop'
     }
   },

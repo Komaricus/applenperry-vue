@@ -1,23 +1,30 @@
 <template>
-  <router-link :to="productLink(product.url)">
-    <div class="product">
-      <div class="product-image-container">
-        <div class="image">
-          <image-component :image-src="product.image.path"></image-component>
-        </div>
+  <div class="product clickable" @click="$router.push(productLink(product.url))">
+    <div class="product-image-container">
+      <div class="image">
+        <image-component :image-src="product.image.path"></image-component>
       </div>
+    </div>
+    <div class="d-flex align-end">
       <div class="product-price" v-if="product.price">
         {{ product.price | space }} <span class="product-price-currency">₽</span>
       </div>
-      <h3 v-if="product.name" class="product-name">
-        {{ product.name }}
-      </h3>
+      <v-spacer></v-spacer>
+      <div>
+        <v-btn color="primary" class="mb-2" dark small @click.stop="addToCart(product)"
+          >Заказать</v-btn
+        >
+      </div>
     </div>
-  </router-link>
+    <h3 v-if="product.name" class="product-name">
+      {{ product.name }}
+    </h3>
+  </div>
 </template>
 
 <script>
 import ImageComponent from '@/components/ImageComponent'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'ProductCard',
@@ -34,23 +41,8 @@ export default {
   components: {
     ImageComponent
   },
-  filters: {
-    space(val) {
-      val = String(val)
-        .split('')
-        .reverse()
-      let result = ''
-      for (let i = 0; i < val.length; i++) {
-        if (i % 3 === 0 && i !== 0 && i !== val.length) {
-          result = ' ' + result
-        }
-        result = val[i] + result
-      }
-
-      return result
-    }
-  },
   methods: {
+    ...mapMutations(['addToCart']),
     productLink(url) {
       return this.basePath + '/' + url
     }
@@ -99,7 +91,6 @@ export default {
     color: $main;
     font-size: 26px;
     font-weight: 700;
-    text-align: center;
     margin-top: 10px;
 
     &-currency {

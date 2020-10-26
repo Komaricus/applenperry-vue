@@ -16,8 +16,8 @@
 
         <div class="links-right">
           <router-link to="/shop/contacts" class="app-bar-link">Контакты</router-link>
-          <router-link to="/shop/search" class="app-bar-link">Поиск</router-link>
-          <router-link to="/shop/delivery" class="app-bar-link">Доставка и оплата</router-link>
+          <router-link to="/shop/delivery" class="app-bar-link">Доставка</router-link>
+          <router-link to="/shop/cart" class="app-bar-link">Корзина</router-link>
         </div>
       </div>
 
@@ -43,18 +43,21 @@
       </div>
     </v-footer>
     <mobile-menu type="shop"></mobile-menu>
+    <cart-dialog></cart-dialog>
   </div>
 </template>
 
 <script>
 import MobileMenu from '@/components/MobileMenu'
 import Burger from '@/components/Burger'
+import CartDialog from '@/components/Shop/CartDialog'
 
 export default {
   name: 'Shop',
   components: {
     MobileMenu,
-    Burger
+    Burger,
+    CartDialog
   }
 }
 </script>

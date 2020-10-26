@@ -14,7 +14,7 @@ export default new Vuex.Store({
         setItem: (key, value) => ls.set(key, value),
         removeItem: key => ls.remove(key)
       },
-      paths: ['form', 'formId', 'needsAlert', 'mode']
+      paths: ['form', 'formId', 'needsAlert', 'mode', 'cartItems']
     })
   ],
   state: {
@@ -72,7 +72,9 @@ export default new Vuex.Store({
     form: null,
     formId: '',
     needsAlert: false,
-    mode: ''
+    mode: '',
+    cartItems: [],
+    cartDialog: false
   },
   getters: {
     lists: state => {
@@ -85,6 +87,34 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    clearCart(state) {
+      state.cartItems = []
+    },
+    deleteFromCart(state, index) {
+      state.cartItems.splice(index, 1)
+    },
+    addToCart(state, payload) {
+      let item = {
+        id: payload.id,
+        name: payload.name,
+        image: payload.image,
+        price: payload.price,
+        amount: payload.amount,
+        count: 1
+      }
+
+      const index = state.cartItems.findIndex(e => e.id === item.id)
+      if (index !== -1) {
+        state.cartItems[index].count++
+      } else {
+        state.cartItems.push(item)
+      }
+
+      state.cartDialog = true
+    },
+    setCartDialog(state, payload) {
+      state.cartDialog = payload
+    },
     toggleMobileMenu(state) {
       state.mobileMenu = !state.mobileMenu
     },

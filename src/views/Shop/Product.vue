@@ -17,6 +17,7 @@
         <div class="product-price" v-if="product.price">
           {{ product.price | space }} <span class="product-price-currency">₽</span>
         </div>
+        <v-btn color="primary" class="mb-2" dark @click.stop="addToCart(product)">Заказать</v-btn>
         <div class="details">
           <table>
             <tr v-if="product.vendor" class="details-row">
@@ -79,6 +80,7 @@
 <script>
 import ImageComponent from '@/components/ImageComponent'
 import ProductsSlider from '@/components/Shop/ProductsSlider'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Product',
@@ -97,26 +99,13 @@ export default {
     dotToComma(val) {
       if (!val) return ''
       return String(val).replace('.', ',')
-    },
-    space(val) {
-      val = String(val)
-        .split('')
-        .reverse()
-      let result = ''
-      for (let i = 0; i < val.length; i++) {
-        if (i % 3 === 0 && i !== 0 && i !== val.length) {
-          result = ' ' + result
-        }
-        result = val[i] + result
-      }
-
-      return result
     }
   },
   async created() {
     await this.loadProduct()
   },
   methods: {
+    ...mapMutations(['addToCart']),
     async loadProduct() {
       await this.$api
         .get(`/open/products/${this.$route.params.url}`)

@@ -65,12 +65,12 @@ export default {
           title: 'Контакты'
         },
         {
-          to: '/shop/search',
-          title: 'Поиск'
-        },
-        {
           to: '/shop/delivery',
           title: 'Доставка'
+        },
+        {
+          title: 'Корзина',
+          to: '/shop/cart'
         }
       ]
     }

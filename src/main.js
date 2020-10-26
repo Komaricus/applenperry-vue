@@ -20,6 +20,21 @@ Vue.filter('cropName', function(name) {
   return cropName
 })
 
+Vue.filter('space', function(val) {
+  val = String(val)
+    .split('')
+    .reverse()
+  let result = ''
+  for (let i = 0; i < val.length; i++) {
+    if (i % 3 === 0 && i !== 0 && i !== val.length) {
+      result = ' ' + result
+    }
+    result = val[i] + result
+  }
+
+  return result
+})
+
 Vue.filter('humanFileSize', function(size) {
   let i = Math.floor(Math.log(size) / Math.log(1000))
   return (
