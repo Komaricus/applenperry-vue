@@ -190,6 +190,26 @@ const routes = [
     }
   },
   {
+    name: 'Orders',
+    path: '/apple-admin/orders',
+    component: () => import('../views/AdminPanel/Orders'),
+    meta: {
+      title: 'Заказы',
+      needToken: true,
+      layout: 'admin'
+    }
+  },
+  {
+    name: 'Order',
+    path: '/apple-admin/orders/:id',
+    component: () => import('../views/AdminPanel/Order'),
+    meta: {
+      title: 'Заказы',
+      needToken: true,
+      layout: 'admin'
+    }
+  },
+  {
     name: '404',
     path: '*',
     component: () => import('../views/Page404'),

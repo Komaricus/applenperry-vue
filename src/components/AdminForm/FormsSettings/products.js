@@ -179,5 +179,6 @@ export default {
   ],
   creationTitle: 'Создание нового товара',
   editTitle: 'Редактирование товара',
-  deleteDialogText: 'Вы действительно хотите удалить данный товар?'
+  deleteDialogText: 'Вы действительно хотите удалить данный товар?',
+  checkPossibleToDelete: true
 }

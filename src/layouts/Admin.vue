@@ -17,6 +17,9 @@
           <v-list-item to="/apple-admin/files">
             <v-list-item-title>Изображения</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/apple-admin/orders">
+            <v-list-item-title>Заказы</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>

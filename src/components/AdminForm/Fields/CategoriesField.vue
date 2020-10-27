@@ -71,7 +71,7 @@ export default {
       this.$api
         .get(this.field.itemsURL)
         .then(({ data }) => {
-          this.items = data
+          this.items = data.filter(e => e.parentId !== null)
           const index = this.items.findIndex(e => e.id === this.$route.params.id)
           if (index !== -1) this.items.splice(index, 1)
         })
@@ -86,7 +86,7 @@ export default {
         })
     }
 
-    if (Object.prototype.hasOwnProperty.call(this.field, 'value'))
+    if (Object.prototype.hasOwnProperty.call(this.field, 'value') && this.field.value)
       this.categories = this.field.value
 
     if (this.field.required) this.rules.push(value => value.length > 0 || 'Обязательное поле')

@@ -59,7 +59,15 @@
             Объект невозможно удалить, так как он привязан к следующим объектам:
           </p>
           <div v-for="(value, key) in deleteConflicts" :key="key">
-            <div v-if="Array.isArray(value) && value.length">
+            <div v-if="Array.isArray(value) && value.length && key === 'orders'">
+              <span class="text--title font-weight-bold">Заказы:</span>
+              <div class="mt-1 ml-3" v-for="item in value" :key="item.orderId">
+                <a :href="`/apple-admin/orders/${item.orderId}`" @click="setNeedsAlert(false)">
+                  {{ item.order.code }}
+                </a>
+              </div>
+            </div>
+            <div v-else-if="Array.isArray(value) && value.length">
               <span class="text--title font-weight-bold">{{ itemNameById(key) }}:</span>
               <div class="mt-1 ml-3" v-for="item in value" :key="item.id">
                 <a

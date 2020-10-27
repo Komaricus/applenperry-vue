@@ -56,7 +56,7 @@
         <v-checkbox :rules="[rules.required]" color="primary" label="Согласен"></v-checkbox>
       </v-form>
 
-      <v-btn color="primary" class="text--white" @click="saveOrder" v-ripple="false"
+      <v-btn color="primary" class="text--white mt-5" @click="saveOrder" v-ripple="false"
         >Создать заказ</v-btn
       >
     </div>
@@ -88,10 +88,16 @@ export default {
     }
   },
   methods: {
-    saveOrder() {
-      let valid = this.$refs['cart-form'].validate(true)
-      console.log(valid)
-      // todo: add order saving
+    async saveOrder() {
+      if (!this.$refs['cart-form'].validate(true)) return
+
+      await this.$api.post(`/open/order`, {
+        userName: this.name,
+        userPhone: this.phone,
+        products: this.cartItems.map(e => {
+          return { productId: e.id, productCount: e.count }
+        })
+      })
     }
   },
   computed: {
