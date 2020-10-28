@@ -218,7 +218,14 @@ const routes = [
       layout: 'admin'
     }
   },
-  // todo: add shop 404
+  {
+    name: 'Shop404',
+    path: '/shop/*',
+    component: () => import('../views/Shop/ShopPage404'),
+    meta: {
+      title: 'Страница не найдена'
+    }
+  },
   {
     name: '404',
     path: '*',
