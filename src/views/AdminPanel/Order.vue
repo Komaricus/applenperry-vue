@@ -33,7 +33,7 @@
         </tr>
       </table>
 
-      <h3 class="text-roboto mt-10">Товары:</h3>
+      <h3 class="text-roboto mt-10" v-if="order.products && order.products.length">Товары:</h3>
       <div class="items-container">
         <div v-for="item in order.products" :key="item.productId" class="item d-flex align-center">
           <div class="image-container">
@@ -57,7 +57,7 @@
             <v-btn
               class="text--white"
               color="danger"
-              @click="deleteProduct(item)"
+              @click="openDeleteProductDialog(item)"
               small
               v-ripple="false"
               >Удалить</v-btn
@@ -65,16 +65,41 @@
           </div>
         </div>
       </div>
-      <div class="total d-flex">
+      <div class="total d-flex" v-if="order.products && order.products.length">
         Итого:
         <v-spacer></v-spacer>
         <div>{{ total | space }} <span class="item-price-currency">₽</span></div>
       </div>
+      <div v-else>
+        <p class="mt-4">Товары не найдены</p>
+      </div>
     </div>
+
+    <v-dialog v-model="deleteProductDialog" max-width="500px" scrollable>
+      <v-card>
+        <v-card-title>
+          <span class="text--title">Подтверждение удаления</span>
+        </v-card-title>
+        <v-card-text class="text--main">
+          <p>Вы уверены, что хотите удалить товар из заказа?</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="admin-primary" dark @click="deleteProduct" v-ripple="false">
+            Да
+          </v-btn>
+          <v-btn @click="deleteProductDialog = false" v-ripple="false">
+            Нет
+          </v-btn>
+          <v-spacer />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import ImageComponent from '@/components/ImageComponent'
 
 export default {
@@ -87,30 +112,56 @@ export default {
       order: null,
       translatedStatus: {
         new: 'Новый'
-      }
+      },
+      deleteProductDialog: false,
+      selectedProduct: {}
     }
   },
   async created() {
-    await this.$api
-      .get('/orders/' + this.$route.params.id)
-      .then(({ data }) => {
-        this.order = data
-        document.title = 'Заказ ' + this.order.code
-      })
-      .catch(error => {
-        console.error(error)
-        this.$router.back()
-      })
+    await this.getOrder()
   },
   methods: {
+    ...mapMutations(['showSnackbar']),
+    openDeleteProductDialog(item) {
+      this.selectedProduct = item.product
+      this.deleteProductDialog = true
+    },
     async deleteProduct() {
-      // todo: add delete product from order
+      await this.$api
+        .delete('/orders/product', {
+          params: {
+            productId: this.selectedProduct.id,
+            orderId: this.order.id
+          }
+        })
+        .then(async () => {
+          this.selectedProduct = {}
+          this.deleteProductDialog = false
+          this.showSnackbar({ text: 'Продукт успешно удален', color: 'success' })
+          await this.getOrder()
+        })
+        .catch(error => {
+          console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
+        })
     },
     async completeOrder() {
       // todo: add complete order
     },
     async deleteOrder() {
       // todo: add delete order
+    },
+    async getOrder() {
+      await this.$api
+        .get('/orders/' + this.$route.params.id)
+        .then(({ data }) => {
+          this.order = data
+          document.title = 'Заказ ' + this.order.code
+        })
+        .catch(error => {
+          console.error(error)
+          this.$router.back()
+        })
     }
   },
   computed: {
