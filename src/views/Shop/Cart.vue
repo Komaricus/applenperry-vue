@@ -8,19 +8,19 @@
     <div v-else class="text--main">
       <p>Корзина пока пуста.</p>
     </div>
-    <div class="total d-flex">
+    <div class="total d-flex" v-if="cartItems.length">
       Итого:
       <v-spacer></v-spacer>
       <div>{{ total | space }} <span class="item-price-currency">₽</span></div>
     </div>
-    <div>
+    <div v-if="cartItems.length">
       <h1>Доставка и оплата</h1>
       <p>
         Услуга доставки недоступна в нашем магазине. Вы можете оформить заказ на сайте и забрать его
         в нашем пабе. Оплата возможна банковской картой или наличными.
       </p>
     </div>
-    <div>
+    <div v-if="cartItems.length">
       <h1>Оформление заказа</h1>
       <p>
         Пожалуйста, укажите вашу контактную информацию, чтобы мы могли с вами связаться для
@@ -60,6 +60,9 @@
         >Создать заказ</v-btn
       >
     </div>
+    <div v-if="!cartItems.length">
+      <v-btn color="primary" to="/shop/stock" v-ripple="false">Перейти к ассортименту</v-btn>
+    </div>
   </div>
 </template>
 
@@ -91,13 +94,18 @@ export default {
     async saveOrder() {
       if (!this.$refs['cart-form'].validate(true)) return
 
-      await this.$api.post(`/open/order`, {
-        userName: this.name,
-        userPhone: this.phone,
-        products: this.cartItems.map(e => {
-          return { productId: e.id, productCount: e.count }
+      await this.$api
+        .post(`/open/order`, {
+          userName: this.name,
+          userPhone: this.phone,
+          products: this.cartItems.map(e => {
+            return { productId: e.id, productCount: e.count }
+          })
         })
-      })
+        .then(response => {
+          console.log(response)
+          // todo: clear cart and show order accepted dialog
+        })
     }
   },
   computed: {

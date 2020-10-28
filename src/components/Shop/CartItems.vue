@@ -5,7 +5,9 @@
         <image-component :image-src="item.image.path"></image-component>
       </div>
       <div class="d-flex flex-column">
-        <div class="item-name">{{ item.name }}</div>
+        <router-link :to="`/shop/stock/${item.url}`" class="link">
+          <div class="item-name">{{ item.name }}</div>
+        </router-link>
         <div class="item-count-container">
           <span class="caption mr-3">Количество: </span>
           <v-btn small icon color="primary" @click="decrease(index)" :disabled="item.count === 0">
@@ -89,8 +91,15 @@ export default {
     }
   }
 
+  .link {
+    color: $anchor;
+  }
+
+  .link:hover {
+    color: $orange;
+  }
+
   .item-name {
-    color: $title;
     font-weight: 600;
     font-size: 18px;
   }

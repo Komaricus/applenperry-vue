@@ -100,6 +100,7 @@ export default new Vuex.Store({
         image: payload.image,
         price: payload.price,
         amount: payload.amount,
+        url: payload.url,
         count: 1
       }
 

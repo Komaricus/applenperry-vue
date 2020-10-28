@@ -40,8 +40,9 @@
             <image-component :image-src="item.product.image.path"></image-component>
           </div>
           <div class="d-flex flex-column">
-            <!-- todo: add link to product -->
-            <div class="item-name">{{ item.product.name }}</div>
+            <router-link :to="`/shop/stock/${item.product.url}`" class="link">
+              <div class="item-name">{{ item.product.name }}</div>
+            </router-link>
             <div class="item-count-container">
               <span class="caption mr-3">Количество: </span>
               <div class="item-count">{{ item.productCount }}</div>
@@ -152,9 +153,16 @@ export default {
   }
 
   .item-name {
-    color: $title;
     font-weight: 600;
     font-size: 18px;
+  }
+
+  .link {
+    color: $anchor;
+  }
+
+  .link:hover {
+    color: $orange;
   }
 
   .item-count-container {

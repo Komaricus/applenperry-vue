@@ -112,6 +112,15 @@ const routes = [
     }
   },
   {
+    name: 'ShopStock',
+    path: '/shop/stock',
+    component: () => import('../views/Shop/Stock'),
+    meta: {
+      title: 'Ассортимент',
+      layout: 'shop'
+    }
+  },
+  {
     name: 'AdminLogin',
     path: '/apple-admin',
     component: () => import('../views/AdminPanel/AdminLogin'),
@@ -209,6 +218,7 @@ const routes = [
       layout: 'admin'
     }
   },
+  // todo: add shop 404
   {
     name: '404',
     path: '*',
