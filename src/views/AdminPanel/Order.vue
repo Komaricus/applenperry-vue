@@ -7,11 +7,18 @@
         <v-btn class="ml-2" color="admin-secondary" @click="$router.back()" v-ripple="false"
           >Назад</v-btn
         >
+        <v-btn class="ml-2 text--white" color="admin-primary" @click="confirmOrder" v-ripple="false"
+          >Подтвердить</v-btn
+        >
         <v-btn class="ml-2" color="success" @click="completeOrder" v-ripple="false"
           >Выполнить</v-btn
         >
-        <v-btn class="ml-2 text--white" color="danger" @click="deleteOrder" v-ripple="false"
-          >Удалить</v-btn
+        <v-btn
+          class="ml-2 text--white"
+          color="danger"
+          @click="cancelOrderDialog = true"
+          v-ripple="false"
+          >Отменить</v-btn
         >
       </div>
       <table class="order-info">
@@ -100,6 +107,28 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="cancelOrderDialog" max-width="500px" scrollable>
+      <v-card>
+        <v-card-title>
+          <span class="text--title">Подтверждение отмены</span>
+        </v-card-title>
+        <v-card-text class="text--main">
+          <p class="text-body-1">Вы уверены, что хотите отменить заказ?</p>
+          <p class="text-body-1">Все товары из заказа вернуться на склад.</p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="admin-primary" dark @click="cancelOrder" v-ripple="false">
+            Да
+          </v-btn>
+          <v-btn @click="cancelOrderDialog = false" v-ripple="false">
+            Нет
+          </v-btn>
+          <v-spacer />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -116,8 +145,11 @@ export default {
     return {
       order: null,
       translatedStatus: {
-        new: 'Новый'
+        new: 'Новый',
+        confirmed: 'Подтвержден',
+        complete: 'Выполнен'
       },
+      cancelOrderDialog: false,
       deleteProductDialog: false,
       selectedProduct: {},
       amountBack: true,
@@ -159,8 +191,21 @@ export default {
     async completeOrder() {
       // todo: add complete order
     },
-    async deleteOrder() {
-      // todo: add delete order
+    async confirmOrder() {
+      // todo: add confirm order
+    },
+    async cancelOrder() {
+      await this.$api
+        .delete('/orders/order/' + this.$route.params.id)
+        .then(async () => {
+          this.cancelOrderDialog = false
+          this.showSnackbar({ text: 'Заказ успешно отменен', color: 'success' })
+          await this.$router.back()
+        })
+        .catch(error => {
+          console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
+        })
     },
     async getOrder() {
       await this.$api

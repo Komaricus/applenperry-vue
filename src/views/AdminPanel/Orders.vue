@@ -57,7 +57,9 @@ export default {
       orders: [],
       loading: false,
       translatedStatus: {
-        new: 'Новый'
+        new: 'Новый',
+        confirmed: 'Подтвержден',
+        complete: 'Выполнен'
       }
     }
   },
