@@ -7,10 +7,20 @@
         <v-btn class="ml-2" color="admin-secondary" @click="$router.back()" v-ripple="false"
           >Назад</v-btn
         >
-        <v-btn class="ml-2 text--white" color="admin-primary" @click="confirmOrder" v-ripple="false"
+        <v-btn
+          class="ml-2 text--white"
+          color="admin-primary"
+          @click="confirmOrder"
+          :disabled="order.status === 'complete' || order.status === 'confirmed'"
+          v-ripple="false"
           >Подтвердить</v-btn
         >
-        <v-btn class="ml-2" color="success" @click="completeOrder" v-ripple="false"
+        <v-btn
+          class="ml-2"
+          color="success"
+          @click="completeOrder"
+          v-ripple="false"
+          :disabled="order.status === 'complete'"
           >Выполнить</v-btn
         >
         <v-btn
@@ -189,10 +199,28 @@ export default {
         })
     },
     async completeOrder() {
-      // todo: add complete order
+      await this.updateOrderStatus('complete')
     },
     async confirmOrder() {
-      // todo: add confirm order
+      await this.updateOrderStatus('confirmed')
+    },
+    async updateOrderStatus(status) {
+      this.$api
+        .put('/orders/', {
+          id: this.$route.params.id,
+          status: status
+        })
+        .then(async () => {
+          this.showSnackbar({
+            text: `Заказ успешно ${status === 'complete' ? 'выполнен' : 'подтвержден'}`,
+            color: 'success'
+          })
+          await this.getOrder()
+        })
+        .catch(error => {
+          console.error(error)
+          this.showSnackbar({ text: 'Произошла ошибка', color: 'error' })
+        })
     },
     async cancelOrder() {
       await this.$api
