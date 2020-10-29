@@ -81,7 +81,12 @@
           <span class="text--title">Подтверждение удаления</span>
         </v-card-title>
         <v-card-text class="text--main">
-          <p>Вы уверены, что хотите удалить товар из заказа?</p>
+          <p class="text-body-1">Вы уверены, что хотите удалить товар из заказа?</p>
+          <v-checkbox
+            v-model="amountBack"
+            color="admin-primary"
+            label="Вернуть товары на склад"
+          ></v-checkbox>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -114,7 +119,9 @@ export default {
         new: 'Новый'
       },
       deleteProductDialog: false,
-      selectedProduct: {}
+      selectedProduct: {},
+      amountBack: true,
+      productAmount: 0
     }
   },
   async created() {
@@ -124,6 +131,7 @@ export default {
     ...mapMutations(['showSnackbar']),
     openDeleteProductDialog(item) {
       this.selectedProduct = item.product
+      this.productAmount = item.productCount
       this.deleteProductDialog = true
     },
     async deleteProduct() {
@@ -131,11 +139,14 @@ export default {
         .delete('/orders/product', {
           params: {
             productId: this.selectedProduct.id,
-            orderId: this.order.id
+            orderId: this.order.id,
+            productAmount: this.amountBack ? this.productAmount : 0
           }
         })
         .then(async () => {
           this.selectedProduct = {}
+          this.amountBack = true
+          this.productAmount = 0
           this.deleteProductDialog = false
           this.showSnackbar({ text: 'Продукт успешно удален', color: 'success' })
           await this.getOrder()
