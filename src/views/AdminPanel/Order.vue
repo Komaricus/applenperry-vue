@@ -33,7 +33,7 @@
         </tr>
       </table>
 
-      <h3 class="text-roboto mt-10" v-if="order.products && order.products.length">Товары:</h3>
+      <h3 class="text-roboto mt-10 mb-2" v-if="order.products && order.products.length">Товары:</h3>
       <div class="items-container">
         <div v-for="item in order.products" :key="item.productId" class="item d-flex align-center">
           <div class="image-container">
@@ -65,7 +65,7 @@
           </div>
         </div>
       </div>
-      <div class="total d-flex" v-if="order.products && order.products.length">
+      <div class="total d-flex mt-2" v-if="order.products && order.products.length">
         Итого:
         <v-spacer></v-spacer>
         <div>{{ total | space }} <span class="item-price-currency">₽</span></div>

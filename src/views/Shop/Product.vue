@@ -17,7 +17,23 @@
         <div class="product-price" v-if="product.price">
           {{ product.price | space }} <span class="product-price-currency">₽</span>
         </div>
-        <v-btn color="primary" class="mb-2" dark @click.stop="addToCart(product)">Заказать</v-btn>
+
+        <div class="amount">
+          <div class="pints">
+            <IconSVG :color="pintColor" :type="getPintType(1)"></IconSVG>
+            <IconSVG :color="pintColor" :type="getPintType(2)"></IconSVG>
+            <IconSVG :color="pintColor" :type="getPintType(3)"></IconSVG>
+          </div>
+          <p class="amount-text pl-4" :class="`text--${pintColor.substr(1)}`">{{ amountText }}</p>
+        </div>
+
+        <v-btn
+          color="primary"
+          class="mb-2 text--white"
+          @click.stop="addToCart(product)"
+          :disabled="product.amount <= 0"
+          >Заказать</v-btn
+        >
         <div class="details">
           <table>
             <tr v-if="product.vendor" class="details-row">
@@ -80,13 +96,15 @@
 <script>
 import ImageComponent from '@/components/ImageComponent'
 import ProductsSlider from '@/components/Shop/ProductsSlider'
+import IconSVG from '@/components/IconSVG'
 import { mapMutations } from 'vuex'
 
 export default {
   name: 'Product',
   components: {
     ImageComponent,
-    ProductsSlider
+    ProductsSlider,
+    IconSVG
   },
   data() {
     return {
@@ -127,11 +145,40 @@ export default {
           console.error(error)
           this.$router.back()
         })
+    },
+    getPintType(number) {
+      switch (number) {
+        case 1:
+          if (this.product.amount <= 0) return 'empty'
+          return 'filled'
+        case 2:
+          if (this.product.amount <= 10) return 'empty'
+          return 'filled'
+        case 3:
+          if (this.product.amount <= 50) return 'empty'
+          return 'filled'
+      }
     }
   },
   watch: {
     async $route() {
+      this.params = null
       await this.loadProduct()
+    }
+  },
+  computed: {
+    pintColor() {
+      if (this.product.amount <= 10) return '#ad050d'
+      else if (this.product.amount >= 11 && this.product.amount <= 50) return '#f9aa33'
+      else if (this.product.amount >= 51) return '#009a00'
+      else return 'black'
+    },
+    amountText() {
+      if (this.product.amount <= 0) return 'Нет в наличии'
+      else if (this.product.amount >= 1 && this.product.amount <= 10) return 'Осталось немного'
+      else if (this.product.amount >= 11 && this.product.amount <= 50) return 'Скоро закончится'
+      else if (this.product.amount >= 51) return 'В наличии'
+      else return ''
     }
   }
 }
@@ -139,6 +186,16 @@ export default {
 
 <style scoped lang="scss">
 @import 'src/assets/colors';
+
+.text--ad050d {
+  color: #ad050d;
+}
+.text--f9aa33 {
+  color: #f9aa33;
+}
+.text--009a00 {
+  color: #009a00;
+}
 
 .container {
   padding: 8px;
@@ -187,6 +244,15 @@ export default {
     &-currency {
       margin-left: -5px;
       font-size: 24px;
+    }
+  }
+
+  .amount {
+    max-height: 200px;
+    margin-left: -14px;
+
+    svg {
+      height: 50px;
     }
   }
 

@@ -11,9 +11,15 @@
       </div>
       <v-spacer></v-spacer>
       <div>
-        <v-btn color="primary" class="mb-2" dark small @click.stop="addToCart(product)"
+        <v-btn
+          v-if="product.amount > 0"
+          color="primary"
+          class="mb-2 text--white"
+          small
+          @click.stop="addToCart(product)"
           >Заказать</v-btn
         >
+        <p v-else class="caption text--error mb-2 font-weight-bold">Нет в наличии</p>
       </div>
     </div>
     <h3 v-if="product.name" class="product-name">
