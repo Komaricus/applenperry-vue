@@ -1,14 +1,26 @@
 <template>
   <div v-if="Array.isArray(slides) && slides.length">
-    <div class="swiper" v-if="slides.length === 1">
+    <div class="swiper swiper-container" v-if="slides.length === 1">
       <div class="slide swiper-slide">
-        <image-component
-          v-if="slides[0].fileId"
-          :image-src="slides[0].image.path"
-        ></image-component>
-        <div class="slide-content">
-          <h2 v-if="slides[0].header">{{ slides[0].header }}</h2>
-          <div v-if="slides[0].description" v-html="slides[0].description"></div>
+        <router-link v-if="slides[0].link" :to="slides[0].link">
+          <image-component
+            v-if="slides[0].fileId"
+            :image-src="slides[0].image.path"
+          ></image-component>
+          <div class="slide-content">
+            <h2 v-if="slides[0].header">{{ slides[0].header }}</h2>
+            <div v-if="slides[0].description" v-html="slides[0].description"></div>
+          </div>
+        </router-link>
+        <div v-else>
+          <image-component
+            v-if="slides[0].fileId"
+            :image-src="slides[0].image.path"
+          ></image-component>
+          <div class="slide-content">
+            <h2 v-if="slides[0].header">{{ slides[0].header }}</h2>
+            <div v-if="slides[0].description" v-html="slides[0].description"></div>
+          </div>
         </div>
       </div>
     </div>
