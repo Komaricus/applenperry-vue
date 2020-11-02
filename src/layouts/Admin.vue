@@ -4,24 +4,12 @@
       <router-link to="/apple-admin/panel">
         <v-toolbar-title class="text-neucha text--white">Apple`n`Perry</v-toolbar-title>
       </router-link>
+
+      <div class="links">
+        <router-link to="/apple-admin/files">Изображения</router-link>
+        <router-link to="/apple-admin/orders">Заказы</router-link>
+      </div>
       <v-spacer></v-spacer>
-      <v-menu offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="white" v-bind="attrs" v-on="on" icon>
-            <v-icon color="white">
-              fa-cog
-            </v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item to="/apple-admin/files">
-            <v-list-item-title>Изображения</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/apple-admin/orders">
-            <v-list-item-title>Заказы</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
     </v-app-bar>
 
     <v-main>
@@ -52,8 +40,17 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .admin-app-bar {
   z-index: 10 !important;
+
+  .links {
+    margin-left: 50px;
+
+    a {
+      color: white;
+      margin: 0 10px;
+    }
+  }
 }
 </style>

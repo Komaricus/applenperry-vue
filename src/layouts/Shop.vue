@@ -111,6 +111,10 @@ export default {
   display: none !important;
 }
 
+#burger {
+  position: fixed;
+}
+
 #main {
   padding-top: 128px !important;
   min-height: calc(100vh - 112px);

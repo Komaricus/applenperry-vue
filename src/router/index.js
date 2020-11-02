@@ -227,6 +227,14 @@ const routes = [
     }
   },
   {
+    name: 'Admin404',
+    path: '/apple-admin/*',
+    component: () => import('../views/AdminPanel/AdminPage404'),
+    meta: {
+      title: 'Страница не найдена'
+    }
+  },
+  {
     name: '404',
     path: '*',
     component: () => import('../views/Page404'),
