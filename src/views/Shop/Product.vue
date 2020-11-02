@@ -1,9 +1,10 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!loading">
+    <breadcrumbs :items="breadcrumbs" />
     <v-row>
       <v-col cols="12" md="5" lg="6" class="image-container">
         <div class="image">
-          <image-component v-if="product.image" :image-src="product.image.path"></image-component>
+          <image-component v-if="product.image" :image-src="product.image.path" />
         </div>
         <!--todo: add images gallery -->
       </v-col>
@@ -91,11 +92,20 @@
       ></products-slider>
     </div>
   </div>
+  <div class="container fill-height" v-else>
+    <v-progress-circular
+      size="50"
+      indeterminate
+      color="primary"
+      class="mx-auto"
+    ></v-progress-circular>
+  </div>
 </template>
 
 <script>
 import ImageComponent from '@/components/ImageComponent'
 import ProductsSlider from '@/components/Shop/ProductsSlider'
+import Breadcrumbs from '@/components/Shop/Breadcrumbs'
 import IconSVG from '@/components/IconSVG'
 import { mapMutations } from 'vuex'
 
@@ -104,13 +114,21 @@ export default {
   components: {
     ImageComponent,
     ProductsSlider,
-    IconSVG
+    IconSVG,
+    Breadcrumbs
   },
   data() {
     return {
       product: {},
       params: null,
-      title: ''
+      title: '',
+      breadcrumbs: [
+        {
+          text: 'Главная',
+          to: '/shop'
+        }
+      ],
+      loading: false
     }
   },
   filters: {
@@ -125,6 +143,8 @@ export default {
   methods: {
     ...mapMutations(['addToCart']),
     async loadProduct() {
+      this.loading = true
+      this.breadcrumbs = [{ text: 'Главная', to: '/shop' }]
       await this.$api
         .get(`/open/products/${this.$route.params.url}`)
         .then(({ data }) => {
@@ -145,6 +165,9 @@ export default {
           console.error(error)
           this.$router.back()
         })
+
+      this.initBreadcrumbs()
+      this.loading = false
     },
     getPintType(number) {
       switch (number) {
@@ -158,6 +181,50 @@ export default {
           if (this.product.amount <= 50) return 'empty'
           return 'filled'
       }
+    },
+    initBreadcrumbs() {
+      const paths = this.$route.path.split('/')
+
+      for (let i = 0; i < paths.length; i++) {
+        if (paths[i] === 'vendors')
+          this.breadcrumbs.push(
+            { text: 'Производители', to: '/shop/vendors' },
+            { text: this.product.vendor.name, to: '/shop/vendors/' + this.product.vendor.url }
+          )
+
+        if (paths[i] === 'categories')
+          this.breadcrumbs.push({ text: 'Категории', to: '/shop/categories' })
+
+        if (paths[i] === 'category') {
+          if (i + 1 === paths.length) continue
+          const index = this.product.categories.findIndex(e => e.url === paths[i + 1])
+          if (index !== -1) {
+            let { name, url } = this.product.categories[index]
+            this.breadcrumbs.push({ text: name, to: `/shop/categories/category/${url}` })
+          }
+        }
+
+        if (paths[i] === 'country')
+          this.breadcrumbs.push({
+            text: this.product.vendor.country.name,
+            to: `/shop/categories/country/${this.product.vendor.country.url}`
+          })
+
+        if (paths[i] === 'type')
+          this.breadcrumbs.push({
+            text: this.product.productsType.name,
+            to: `/shop/categories/type/${this.product.productsType.url}`
+          })
+
+        if (paths[i] === 'sugar')
+          this.breadcrumbs.push({
+            text: this.product.productsSugarType.name,
+            to: `/shop/categories/sugar/${this.product.productsSugarType.url}`
+          })
+
+        if (paths[i] === 'stock') this.breadcrumbs.push({ text: 'Ассортимент', to: '/shop/stock' })
+      }
+      this.breadcrumbs.push({ text: this.product.name, to: this.$route.path })
     }
   },
   watch: {
@@ -198,7 +265,8 @@ export default {
 }
 
 .container {
-  padding: 8px;
+  padding: 20px;
+  max-width: 1240px;
 }
 
 .image-container {

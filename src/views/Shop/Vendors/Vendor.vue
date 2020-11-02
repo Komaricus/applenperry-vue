@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <breadcrumbs :items="breadcrumbs" />
     <h1 class="text--main mb-3">{{ title }}</h1>
     <div v-if="description" v-html="description" class="vendor-description"></div>
     <products :type="'vendor'" :url="$route.params.id"></products>
@@ -8,17 +9,29 @@
 
 <script>
 import Products from '@/components/Shop/Products/Products'
+import Breadcrumbs from '@/components/Shop/Breadcrumbs'
 
 export default {
   name: 'Vendor',
   components: {
-    Products
+    Products,
+    Breadcrumbs
   },
   data() {
     return {
       title: '',
       description: '',
-      image: null
+      image: null,
+      breadcrumbs: [
+        {
+          text: 'Главная',
+          to: '/shop'
+        },
+        {
+          text: 'Производители',
+          to: '/shop/vendors'
+        }
+      ]
     }
   },
   async created() {
@@ -29,6 +42,10 @@ export default {
         document.title = this.title
         this.description = data.description
         this.image = data.image
+        this.breadcrumbs.push({
+          text: this.title,
+          to: this.$route.path
+        })
       })
       .catch(error => {
         console.error(error)
