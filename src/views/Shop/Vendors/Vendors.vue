@@ -1,5 +1,5 @@
 <template>
-  <div id="shop-vendors-container">
+  <div v-if="!loading" id="shop-vendors-container">
     <div class="container">
       <h1 class="page-title">Производители</h1>
       <v-row class="vendors-container">
@@ -14,6 +14,14 @@
       </v-row>
     </div>
   </div>
+  <div class="container fill-height" v-else>
+    <v-progress-circular
+      size="50"
+      indeterminate
+      color="primary"
+      class="mx-auto"
+    ></v-progress-circular>
+  </div>
 </template>
 
 <script>
@@ -26,16 +34,21 @@ export default {
   },
   data() {
     return {
-      vendors: []
+      vendors: [],
+      loading: false
     }
   },
   async created() {
+    this.loading = true
     await this.$api
       .get(`/open/vendors`)
       .then(({ data }) => {
         this.vendors = data
       })
       .catch(error => console.error(error))
+      .finally(() => {
+        this.loading = false
+      })
   }
 }
 </script>

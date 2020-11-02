@@ -1,5 +1,5 @@
 <template>
-  <div id="products-swiper" v-if="products.length">
+  <div id="products-swiper" v-if="products.length && !loading">
     <h2 class="new-products-title" v-if="title">{{ title }}</h2>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide v-for="product in products" :key="product.id">
@@ -28,6 +28,14 @@
         <v-icon color="primary" small>fas fa-arrow-right</v-icon>
       </v-btn>
     </swiper>
+  </div>
+  <div class="container fill-height" v-else>
+    <v-progress-circular
+      size="50"
+      indeterminate
+      color="primary"
+      class="mx-auto"
+    ></v-progress-circular>
   </div>
 </template>
 
@@ -93,10 +101,12 @@ export default {
           }
         }
       },
-      products: []
+      products: [],
+      loading: false
     }
   },
   async created() {
+    this.loading = true
     await this.$api
       .get('/open/products', {
         params: this.params
@@ -105,12 +115,19 @@ export default {
         this.products = data.products
       })
       .catch(error => console.error(error))
+      .finally(() => {
+        this.loading = false
+      })
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import 'src/assets/colors';
+
+.container {
+  height: 345px;
+}
 
 #products-swiper {
   margin: 10px 100px;

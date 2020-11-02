@@ -1,9 +1,17 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!loading">
     <breadcrumbs :items="breadcrumbs" />
     <h1 class="text--main mb-3">{{ title }}</h1>
     <div v-if="description" v-html="description" class="category-description"></div>
     <products :type="$route.params.type" :url="$route.params.id"></products>
+  </div>
+  <div class="container fill-height" v-else>
+    <v-progress-circular
+      size="50"
+      indeterminate
+      color="primary"
+      class="mx-auto"
+    ></v-progress-circular>
   </div>
 </template>
 
@@ -30,10 +38,12 @@ export default {
           text: 'Категории',
           to: '/shop/categories'
         }
-      ]
+      ],
+      loading: false
     }
   },
   async created() {
+    this.loading = true
     let url = ''
     let id = this.$route.params.id
     switch (this.$route.params.type) {
@@ -61,6 +71,9 @@ export default {
       .catch(error => {
         console.error(error)
         this.$router.back()
+      })
+      .finally(() => {
+        this.loading = false
       })
   }
 }

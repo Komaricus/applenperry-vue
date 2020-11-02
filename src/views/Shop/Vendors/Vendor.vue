@@ -1,9 +1,17 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!loading">
     <breadcrumbs :items="breadcrumbs" />
     <h1 class="text--main mb-3">{{ title }}</h1>
     <div v-if="description" v-html="description" class="vendor-description"></div>
     <products :type="'vendor'" :url="$route.params.id"></products>
+  </div>
+  <div class="container fill-height" v-else>
+    <v-progress-circular
+      size="50"
+      indeterminate
+      color="primary"
+      class="mx-auto"
+    ></v-progress-circular>
   </div>
 </template>
 
@@ -31,10 +39,12 @@ export default {
           text: 'Производители',
           to: '/shop/vendors'
         }
-      ]
+      ],
+      loading: false
     }
   },
   async created() {
+    this.loading = true
     this.$api
       .get(`/open/vendors/${this.$route.params.id}`)
       .then(({ data }) => {
@@ -50,6 +60,9 @@ export default {
       .catch(error => {
         console.error(error)
         this.$router.back()
+      })
+      .finally(() => {
+        this.loading = false
       })
   }
 }
