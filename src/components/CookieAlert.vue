@@ -1,5 +1,5 @@
 <template>
-  <div v-if="alert && $route.meta.layout !== 'admin'" class="cookie-wrapper">
+  <div v-if="alert && $route.meta.layout !== 'admin' && yo" class="cookie-wrapper">
     <v-alert id="cookie-alert" dark prominent max-width="1000">
       <v-row align="center">
         <v-col cols="1" id="cookie-icon">
@@ -33,7 +33,12 @@ export default {
   },
   created() {
     this.alert = sessionStorage.getItem('cookieOK') !== 'true'
-    sessionStorage.setItem('cookieOK', 'true')
+    if (this.$route.meta.layout !== 'admin' && this.yo) sessionStorage.setItem('cookieOK', 'true')
+  },
+  computed: {
+    yo() {
+      return sessionStorage.getItem('yo') === 'true'
+    }
   }
 }
 </script>

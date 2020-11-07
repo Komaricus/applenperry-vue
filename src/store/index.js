@@ -66,6 +66,10 @@ export default new Vuex.Store({
       {
         id: 'shop-slider',
         name: 'Слайдер магазин'
+      },
+      {
+        id: 'docs',
+        name: 'Документы'
       }
     ],
     slugSource: '',

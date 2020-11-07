@@ -9,6 +9,7 @@ import productsTypes from './products-types'
 import productsSugarTypes from './products-sugar-types'
 import products from './products'
 import shopSlider from './shop-slider'
+import docs from './docs'
 
 export const formsSettings = {
   categories,
@@ -21,5 +22,6 @@ export const formsSettings = {
   'products-types': productsTypes,
   'products-sugar-types': productsSugarTypes,
   products,
-  'shop-slider': shopSlider
+  'shop-slider': shopSlider,
+  docs
 }
