@@ -19,7 +19,7 @@
           {{ product.price | space }} <span class="product-price-currency">₽</span>
         </div>
 
-        <div class="amount">
+        <div class="amount" v-if="shopAvailable">
           <div class="pints">
             <IconSVG :color="pintColor" :type="getPintType(1)"></IconSVG>
             <IconSVG :color="pintColor" :type="getPintType(2)"></IconSVG>
@@ -33,6 +33,7 @@
           class="mb-2 text--white"
           @click.stop="addToCart(product)"
           :disabled="product.amount <= 0"
+          v-if="shopAvailable"
           >Заказать</v-btn
         >
         <div class="details">
@@ -107,7 +108,7 @@ import ImageComponent from '@/components/ImageComponent'
 import ProductsSlider from '@/components/Shop/ProductsSlider'
 import Breadcrumbs from '@/components/Shop/Breadcrumbs'
 import IconSVG from '@/components/IconSVG'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Product',
@@ -234,6 +235,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['shopAvailable']),
     pintColor() {
       if (this.product.amount <= 10) return '#ad050d'
       else if (this.product.amount >= 11 && this.product.amount <= 50) return '#f9aa33'

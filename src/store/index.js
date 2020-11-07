@@ -74,7 +74,8 @@ export default new Vuex.Store({
     needsAlert: false,
     mode: '',
     cartItems: [],
-    cartDialog: false
+    cartDialog: false,
+    shopAvailable: false
   },
   getters: {
     lists: state => {

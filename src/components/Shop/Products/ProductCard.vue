@@ -12,14 +12,16 @@
       <v-spacer></v-spacer>
       <div>
         <v-btn
-          v-if="product.amount > 0"
+          v-if="product.amount > 0 && shopAvailable"
           color="primary"
           class="mb-2 text--white"
           small
           @click.stop="addToCart(product)"
           >Заказать</v-btn
         >
-        <p v-else class="caption text--error mb-2 font-weight-bold">Нет в наличии</p>
+        <p v-else-if="shopAvailable" class="caption text--error mb-2 font-weight-bold">
+          Нет в наличии
+        </p>
       </div>
     </div>
     <h3 v-if="product.name" class="product-name">
@@ -30,7 +32,7 @@
 
 <script>
 import ImageComponent from '@/components/ImageComponent'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'ProductCard',
@@ -52,6 +54,9 @@ export default {
     productLink(url) {
       return this.basePath + '/' + url
     }
+  },
+  computed: {
+    ...mapState(['shopAvailable'])
   }
 }
 </script>

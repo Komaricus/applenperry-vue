@@ -100,6 +100,10 @@ const routes = [
     meta: {
       title: 'Корзина',
       layout: 'shop'
+    },
+    beforeEnter(to, from, next) {
+      if (!store.state.shopAvailable) next('/shop')
+      else next()
     }
   },
   {

@@ -17,7 +17,9 @@
         <div class="links-right">
           <router-link to="/shop/contacts" class="app-bar-link">Контакты</router-link>
           <router-link to="/shop/delivery" class="app-bar-link">Доставка</router-link>
-          <router-link to="/shop/cart" class="app-bar-link">Корзина</router-link>
+          <router-link v-if="shopAvailable" to="/shop/cart" class="app-bar-link"
+            >Корзина</router-link
+          >
         </div>
       </div>
 
@@ -44,7 +46,7 @@
       <!-- todo: add privacy policy -->
     </v-footer>
     <mobile-menu type="shop"></mobile-menu>
-    <cart-dialog></cart-dialog>
+    <cart-dialog v-if="shopAvailable"></cart-dialog>
   </div>
 </template>
 
@@ -52,6 +54,7 @@
 import MobileMenu from '@/components/MobileMenu'
 import Burger from '@/components/Burger'
 import CartDialog from '@/components/Shop/CartDialog'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Shop',
@@ -59,6 +62,9 @@ export default {
     MobileMenu,
     Burger,
     CartDialog
+  },
+  computed: {
+    ...mapState(['shopAvailable'])
   }
 }
 </script>

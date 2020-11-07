@@ -5,6 +5,7 @@
       <yo v-else-if="!yo && layout !== 'admin'"></yo>
       <component v-else :is="layout" />
     </v-app>
+    <!-- todo: add cookies warning banner-->
   </div>
 </template>
 <script>
