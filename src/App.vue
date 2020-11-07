@@ -4,8 +4,8 @@
       <wip v-if="mode === 'production' && layout !== 'admin'"></wip>
       <yo v-else-if="!yo && layout !== 'admin'"></yo>
       <component v-else :is="layout" />
+      <cookie-alert></cookie-alert>
     </v-app>
-    <!-- todo: add cookies warning banner-->
   </div>
 </template>
 <script>
@@ -15,6 +15,7 @@ import Admin from '@/layouts/Admin'
 import Shop from '@/layouts/Shop'
 import WIP from '@/views/WIP'
 import YearsOldCheck from '@/views/YearsOldCheck'
+import CookieAlert from '@/components/CookieAlert'
 
 export default {
   components: {
@@ -23,7 +24,8 @@ export default {
     admin: Admin,
     wip: WIP,
     yo: YearsOldCheck,
-    shop: Shop
+    shop: Shop,
+    CookieAlert
   },
   computed: {
     mode() {
