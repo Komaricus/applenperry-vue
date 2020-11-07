@@ -106,15 +106,15 @@ const routes = [
       else next()
     }
   },
-  {
-    name: 'ShopDelivery',
-    path: '/shop/delivery',
-    component: () => import('../views/Shop/Delivery'),
-    meta: {
-      title: 'Доставка',
-      layout: 'shop'
-    }
-  },
+  // {
+  //   name: 'ShopDelivery',
+  //   path: '/shop/delivery',
+  //   component: () => import('../views/Shop/Delivery'),
+  //   meta: {
+  //     title: 'Доставка',
+  //     layout: 'shop'
+  //   }
+  // },
   {
     name: 'ShopStock',
     path: '/shop/stock',

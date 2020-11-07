@@ -4,10 +4,14 @@
     <v-app-bar id="app-bar" app class="elevation-0" color="background-grey">
       <div id="shop-app-bar" class="d-flex justify-center align-center container">
         <div class="links-left">
-          <router-link to="/shop" class="app-bar-link">Главная</router-link>
-          <router-link to="/shop/categories" class="app-bar-link">Категории</router-link>
-          <router-link to="/shop/vendors" class="app-bar-link">Производители</router-link>
+          <router-link to="/shop" class="app-bar-link" exact-active-class="active-link"
+            >Главная</router-link
+          >
+          <router-link to="/shop/categories" class="app-bar-link" exact-active-class="active-link"
+            >Категории</router-link
+          >
         </div>
+
         <div class="app-bar-logo">
           <router-link to="/">
             <img src="@/assets/images/small-logo.png" alt="logo" />
@@ -15,8 +19,13 @@
         </div>
 
         <div class="links-right">
-          <router-link to="/shop/contacts" class="app-bar-link">Контакты</router-link>
-          <router-link to="/shop/delivery" class="app-bar-link">Доставка</router-link>
+          <router-link to="/shop/vendors" class="app-bar-link" exact-active-class="active-link"
+            >Производители</router-link
+          >
+          <router-link to="/shop/contacts" class="app-bar-link" exact-active-class="active-link"
+            >Контакты</router-link
+          >
+          <!-- <router-link to="/shop/delivery" class="app-bar-link" exact-active-class="active-link">Доставка</router-link>-->
           <router-link v-if="shopAvailable" to="/shop/cart" class="app-bar-link"
             >Корзина</router-link
           >
@@ -110,7 +119,20 @@ export default {
 
 .links-left,
 .links-right {
+  display: flex;
   width: 350px;
+}
+
+.links-left {
+  justify-content: flex-end;
+}
+
+.links-right {
+  justify-content: flex-start;
+}
+
+.active-link {
+  color: $orange;
 }
 
 #shop-mobile-app-bar {
