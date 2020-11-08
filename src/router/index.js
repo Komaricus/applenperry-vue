@@ -106,6 +106,14 @@ const routes = [
       else next()
     }
   },
+  {
+    name: 'ShopDocs',
+    path: '/shop/docs/:url',
+    component: () => import('../views/Shop/DocumentPage'),
+    meta: {
+      layout: 'shop'
+    }
+  },
   // {
   //   name: 'ShopDelivery',
   //   path: '/shop/delivery',

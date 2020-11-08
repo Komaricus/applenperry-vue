@@ -513,14 +513,35 @@ export default {
 
 .editor {
   border-radius: 5px;
+  text-align: justify;
+
+  ul {
+    list-style: disc;
+    margin-left: 24px;
+    margin-bottom: 16px;
+    p {
+      margin-bottom: 8px;
+    }
+  }
 
   h1,
   h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h3 {
     font-family: 'Roboto', sans-serif;
+    margin-bottom: 16px;
+    margin-top: 8px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 1.17em;
   }
 
   img {
@@ -529,6 +550,7 @@ export default {
 
   p {
     font-size: 16px;
+    margin-bottom: 16px;
   }
 }
 
