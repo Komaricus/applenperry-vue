@@ -47,6 +47,7 @@ export default {
   watch: {
     $route(to) {
       document.title = to.meta.title || 'Apple`n`Perry'
+      window.scrollTo(0, 0)
     }
   }
 }
