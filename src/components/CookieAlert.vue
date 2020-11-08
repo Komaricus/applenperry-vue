@@ -8,9 +8,8 @@
         <v-col cols="12" sm="9">
           Этот веб-сайт использует файлы cookie для удобного и эффективного использования. Продолжая
           пользоваться сайтом, вы соглашаетесь
-          <!-- todo: add link to personal data policy-->
           <span @click="alert = false"
-            ><router-link class="text--orange" to="#"
+            ><router-link class="text--orange" to="/shop/docs/pravila-obrabotki-personalnyh-dannyh"
               >с использованием файлов cookie</router-link
             ></span
           >.

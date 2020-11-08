@@ -62,7 +62,10 @@
           </div>
           <p>
             Нажимая на кнопку, вы даете согласие на обработку своих персональных данных и
-            соглашаетесь с <a class="link" href="#">политикой конфиденциальности</a>
+            соглашаетесь с
+            <a class="link" href="/shop/docs/pravila-obrabotki-personalnyh-dannyh" target="_blank"
+              >правилами обработки персональных данных</a
+            >
           </p>
           <v-checkbox :rules="[rules.required]" color="primary" label="Согласен"></v-checkbox>
         </v-form>
