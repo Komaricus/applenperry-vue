@@ -63,15 +63,15 @@ export default {
         {
           to: '/shop/contacts',
           title: 'Контакты'
-        },
-        {
-          to: '/shop/delivery',
-          title: 'Доставка'
-        },
-        {
-          title: 'Корзина',
-          to: '/shop/cart'
         }
+        // {
+        //   to: '/shop/delivery',
+        //   title: 'Доставка'
+        // },
+        // {
+        //   title: 'Корзина',
+        //   to: '/shop/cart'
+        // }
       ]
     }
   },
@@ -89,7 +89,7 @@ export default {
 <style lang="scss" scoped>
 .dropdown {
   margin: 0;
-  position: absolute;
+  position: fixed;
   height: 0;
   background-color: #000;
   transition: height 0.2s ease;
