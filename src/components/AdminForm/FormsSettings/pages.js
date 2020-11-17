@@ -30,7 +30,8 @@ export default {
       type: 'html-field',
       label: 'Текст',
       placeholder: 'Введите текст',
-      tooltip: 'Текст страницы для отображения на сайте'
+      tooltip: 'Текст страницы для отображения на сайте',
+      canAddImage: true
     }
   ],
   creationTitle: 'Создание страницы',

@@ -116,7 +116,13 @@
             <v-icon small>far fa-window-minimize</v-icon>
           </v-btn>
 
-          <v-btn text small class="menubar__button" @click="showChooseImageDialog(commands.image)">
+          <v-btn
+            v-if="field.canAddImage"
+            text
+            small
+            class="menubar__button"
+            @click="showChooseImageDialog(commands.image)"
+          >
             <v-icon small>far fa-image</v-icon>
           </v-btn>
 
@@ -290,6 +296,7 @@
                 </v-btn>
 
                 <v-btn
+                  v-if="field.canAddImage"
                   text
                   small
                   class="menubar__button"
