@@ -70,6 +70,10 @@ export default new Vuex.Store({
       {
         id: 'docs',
         name: 'Документы'
+      },
+      {
+        id: 'pages',
+        name: 'Страницы'
       }
     ],
     slugSource: '',
