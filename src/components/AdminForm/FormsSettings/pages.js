@@ -7,7 +7,7 @@ export default {
       placeholder: 'Введите название',
       required: true,
       counter: 200,
-      tooltip: 'Название для отображения в админке',
+      tooltip: 'Название для отображения в заголовке страницы',
       slugSource: true
     },
     {
@@ -17,7 +17,8 @@ export default {
       placeholder: 'Укажите ссылку',
       required: true,
       counter: 200,
-      tooltip: 'URL для навигации внутри сайта. Допустимы английские буквы, цифры и дефисы',
+      tooltip:
+        'URL для навигации внутри сайта. Допустимы английские буквы, цифры и дефисы. Для существующих страниц не надо менять',
       rules: [
         value => {
           const pattern = /^[a-z0-9-]+$/

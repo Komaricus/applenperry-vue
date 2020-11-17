@@ -1,8 +1,7 @@
 <template>
-  <div id="document-view" class="container" v-if="!loading">
-    <h1 class="document-title">{{ title }}</h1>
-    <div class="html-wrapper">
-      <div v-html="html"></div>
+  <div id="page" v-if="!loading">
+    <div class="container">
+      <div class="html-wrapper" v-html="content" />
     </div>
   </div>
   <div class="container fill-height" v-else>
@@ -17,41 +16,35 @@
 
 <script>
 export default {
-  name: 'DocumentPage',
+  name: 'Page',
   data() {
     return {
       title: '',
-      html: '',
+      content: '',
       loading: false
     }
   },
-  created() {
-    this.loadDocument()
+  async created() {
+    await this.loadPage()
+    this.$root.$emit('page-name-changed', this.title)
   },
   methods: {
-    loadDocument() {
+    async loadPage() {
       this.loading = true
-
-      this.$api
-        .get(`/open/docs/${this.$route.params.url}`)
+      await this.$api
+        .get(`/open/pages/${this.$route.params.url}`)
         .then(({ data }) => {
           this.title = data.name
           document.title = this.title
-          this.html = data.html
+          this.content = data.html
         })
         .catch(error => {
-          console.error(error)
           this.$router.back()
+          console.error(error)
         })
         .finally(() => {
           this.loading = false
-          window.scrollTo(0, 0)
         })
-    }
-  },
-  watch: {
-    $route() {
-      this.loadDocument()
     }
   }
 }
@@ -59,13 +52,10 @@ export default {
 
 <style lang="scss">
 @import 'src/assets/colors';
-
-#document-view.container {
-  max-width: 1000px;
-
-  .document-title {
-    color: $title;
-    margin-bottom: 16px;
+#page {
+  .container {
+    max-width: 1240px;
+    padding: 20px;
   }
 
   .html-wrapper {
@@ -94,6 +84,11 @@ export default {
       p {
         margin-bottom: 8px;
       }
+    }
+
+    p img {
+      max-width: 100%;
+      max-height: 600px;
     }
   }
 }

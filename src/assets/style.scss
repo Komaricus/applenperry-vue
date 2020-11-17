@@ -80,11 +80,19 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
-#app-bar {
+#shop #app-bar {
   height: 128px !important;
 
   .v-toolbar__content {
     height: 128px !important;
+  }
+}
+
+#other #app-bar {
+  height: 70px !important;
+
+  .v-toolbar__content {
+    height: 70px !important;
   }
 }
 
@@ -102,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
   }
 
-  #app-bar {
+  #shop #app-bar {
     height: 70px !important;
 
     .v-toolbar__content {

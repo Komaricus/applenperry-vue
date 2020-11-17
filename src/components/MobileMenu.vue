@@ -27,7 +27,7 @@ export default {
           title: 'Магазин'
         },
         {
-          to: '/friends',
+          to: '/pages/friends',
           title: 'Наши Друзья'
         },
         {
@@ -35,7 +35,7 @@ export default {
           title: 'Новости'
         },
         {
-          to: '/pub',
+          to: '/pages/our-pub',
           title: 'Наш pub'
         },
         {

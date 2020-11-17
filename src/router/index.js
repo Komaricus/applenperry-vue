@@ -133,6 +133,14 @@ const routes = [
     }
   },
   {
+    name: 'Pages',
+    path: '/pages/:url',
+    component: () => import('../views/Page'),
+    meta: {
+      layout: 'other'
+    }
+  },
+  {
     name: 'AdminLogin',
     path: '/apple-admin',
     component: () => import('../views/AdminPanel/AdminLogin'),
