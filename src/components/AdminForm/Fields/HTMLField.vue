@@ -117,6 +117,46 @@
           </v-btn>
 
           <v-btn
+            text
+            small
+            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'left' }"
+            class="menubar__button"
+            @click="commands.aligntext({ align: 'left' })"
+          >
+            <v-icon small>fas fa-align-left</v-icon>
+          </v-btn>
+
+          <v-btn
+            text
+            small
+            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'center' }"
+            class="menubar__button"
+            @click="commands.aligntext({ align: 'center' })"
+          >
+            <v-icon small>fas fa-align-center</v-icon>
+          </v-btn>
+
+          <v-btn
+            text
+            small
+            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'right' }"
+            class="menubar__button"
+            @click="commands.aligntext({ align: 'right' })"
+          >
+            <v-icon small>fas fa-align-right</v-icon>
+          </v-btn>
+
+          <v-btn
+            text
+            small
+            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'justify' }"
+            class="menubar__button"
+            @click="commands.aligntext({ align: 'justify' })"
+          >
+            <v-icon small>fas fa-align-justify</v-icon>
+          </v-btn>
+
+          <v-btn
             v-if="field.canAddImage"
             text
             small
@@ -347,6 +387,7 @@ import {
   Image,
   Placeholder
 } from 'tiptap-extensions'
+import AlignText from '@/plugins/tiptap-aligntext.plugin.js'
 
 export default {
   name: 'HTMLField',
@@ -390,7 +431,8 @@ export default {
             emptyNodeText: this.field.placeholder,
             showOnlyWhenEditable: true,
             showOnlyCurrent: true
-          })
+          }),
+          new AlignText()
         ],
         content: ``,
         onUpdate: ({ getHTML }) => {
@@ -478,6 +520,8 @@ export default {
 }
 </script>
 <style lang="scss">
+@import 'src/assets/colors';
+
 .menubar {
   border-radius: 5px;
   transition: visibility 0.2s 0.4s, opacity 0.2s 0.4s;
@@ -519,6 +563,7 @@ export default {
 }
 
 .editor {
+  color: $main;
   border-radius: 5px;
   text-align: justify;
 
@@ -537,6 +582,7 @@ export default {
     font-family: 'Roboto', sans-serif;
     margin-bottom: 16px;
     margin-top: 8px;
+    color: $title !important;
   }
 
   h1 {
