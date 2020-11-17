@@ -119,9 +119,9 @@
           <v-btn
             text
             small
-            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'left' }"
+            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'text-left' }"
             class="menubar__button"
-            @click="commands.aligntext({ align: 'left' })"
+            @click="commands.aligntext({ align: 'text-left' })"
           >
             <v-icon small>fas fa-align-left</v-icon>
           </v-btn>
@@ -129,9 +129,9 @@
           <v-btn
             text
             small
-            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'center' }"
+            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'text-center' }"
             class="menubar__button"
-            @click="commands.aligntext({ align: 'center' })"
+            @click="commands.aligntext({ align: 'text-center' })"
           >
             <v-icon small>fas fa-align-center</v-icon>
           </v-btn>
@@ -139,9 +139,9 @@
           <v-btn
             text
             small
-            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'right' }"
+            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'text-right' }"
             class="menubar__button"
-            @click="commands.aligntext({ align: 'right' })"
+            @click="commands.aligntext({ align: 'text-right' })"
           >
             <v-icon small>fas fa-align-right</v-icon>
           </v-btn>
@@ -149,9 +149,9 @@
           <v-btn
             text
             small
-            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'justify' }"
+            :class="{ act: editor.activeMarkAttrs.aligntext.align === 'text-justify' }"
             class="menubar__button"
-            @click="commands.aligntext({ align: 'justify' })"
+            @click="commands.aligntext({ align: 'text-justify' })"
           >
             <v-icon small>fas fa-align-justify</v-icon>
           </v-btn>
@@ -336,6 +336,46 @@
                 </v-btn>
 
                 <v-btn
+                  text
+                  small
+                  :class="{ act: editor1.activeMarkAttrs.aligntext.align === 'text-left' }"
+                  class="menubar__button"
+                  @click="commands.aligntext({ align: 'text-left' })"
+                >
+                  <v-icon small>fas fa-align-left</v-icon>
+                </v-btn>
+
+                <v-btn
+                  text
+                  small
+                  :class="{ act: editor1.activeMarkAttrs.aligntext.align === 'text-center' }"
+                  class="menubar__button"
+                  @click="commands.aligntext({ align: 'text-center' })"
+                >
+                  <v-icon small>fas fa-align-center</v-icon>
+                </v-btn>
+
+                <v-btn
+                  text
+                  small
+                  :class="{ act: editor1.activeMarkAttrs.aligntext.align === 'text-right' }"
+                  class="menubar__button"
+                  @click="commands.aligntext({ align: 'text-right' })"
+                >
+                  <v-icon small>fas fa-align-right</v-icon>
+                </v-btn>
+
+                <v-btn
+                  text
+                  small
+                  :class="{ act: editor1.activeMarkAttrs.aligntext.align === 'text-justify' }"
+                  class="menubar__button"
+                  @click="commands.aligntext({ align: 'text-justify' })"
+                >
+                  <v-icon small>fas fa-align-justify</v-icon>
+                </v-btn>
+
+                <v-btn
                   v-if="field.canAddImage"
                   text
                   small
@@ -468,7 +508,8 @@ export default {
             emptyNodeText: this.field.placeholder,
             showOnlyWhenEditable: true,
             showOnlyCurrent: true
-          })
+          }),
+          new AlignText()
         ],
         content: ``,
         onUpdate: ({ getHTML }) => {

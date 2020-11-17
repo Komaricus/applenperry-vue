@@ -15,11 +15,11 @@ export default class AlignText extends Mark {
       },
       parseDOM: [
         {
-          style: 'text-align',
-          getAttrs: value => ({ align: value })
+          tag: 'span',
+          getAttrs: value => ({ align: value.classList[0] })
         }
       ],
-      toDOM: mark => ['span', { style: `text-align: ${mark.attrs.align}; display: block` }, 0]
+      toDOM: mark => ['span', { class: `${mark.attrs.align} d-block` }, 0]
     }
   }
 
