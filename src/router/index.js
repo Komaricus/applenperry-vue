@@ -141,6 +141,15 @@ const routes = [
     }
   },
   {
+    name: 'AboutCider',
+    path: '/about',
+    component: () => import('@/views/AboutCider'),
+    meta: {
+      layout: 'other',
+      title: 'О сидре и перри'
+    }
+  },
+  {
     name: 'AdminLogin',
     path: '/apple-admin',
     component: () => import('../views/AdminPanel/AdminLogin'),

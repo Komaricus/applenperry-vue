@@ -45,7 +45,7 @@
             </v-list-item-content>
           </v-list-item>
           <div class="separator"></div>
-          <div v-if="!loading && items.length">
+          <div v-if="!loading && items.length" class="items-container">
             <v-list-item v-for="(item, i) in items" :key="i">
               <v-list-item-icon v-if="item.image && item.image.path" class="list-image-container">
                 <image-preview class="list-image" :image-src="item.image.path"></image-preview>
@@ -195,5 +195,10 @@ export default {
 .list-image {
   width: 40px !important;
   height: 30px !important;
+}
+
+.items-container {
+  height: calc(100vh - 238px);
+  overflow: auto;
 }
 </style>

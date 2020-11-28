@@ -21,7 +21,7 @@
             <router-link :to="'/shop/contacts'">Контакты</router-link>
           </li>
           <li>
-            <router-link :to="'/cider'">О сидре и перри</router-link>
+            <router-link :to="'/about'">О сидре и перри</router-link>
           </li>
         </ul>
       </div>

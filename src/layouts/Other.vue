@@ -99,7 +99,7 @@ export default {
 
 #main {
   padding-top: 70px !important;
-  min-height: calc(100vh - 112px);
+  min-height: calc(100vh - 137px);
   max-width: 1920px;
   margin: 0 auto;
 }
