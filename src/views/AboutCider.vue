@@ -86,6 +86,9 @@ export default {
         .get(`/open/words`)
         .then(({ data }) => {
           this.words = data
+          this.words.forEach(word => {
+            word.weight = Math.floor(Math.random() * 10) + 10
+          })
         })
         .catch(error => {
           console.error(error)
@@ -123,7 +126,7 @@ export default {
   }
 
   .container {
-    max-width: 1240px;
+    max-width: 1000px;
     padding: 20px;
 
     .word-cloud {
