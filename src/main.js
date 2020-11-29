@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from './plugins/axios'
 import vuetify from './plugins/vuetify'
+import VueYandexMetrika from 'vue-yandex-metrika'
 
 Vue.config.productionTip = false
 
@@ -42,6 +43,30 @@ Vue.filter('humanFileSize', function(size) {
     ' ' +
     ['байт', 'КБайт', 'Мбайт', 'ГБайт', 'ТБайт'][i]
   )
+})
+
+Vue.use(VueYandexMetrika, {
+  id: 69890680,
+  router: router,
+  env: process.env.NODE_ENV,
+  debug: true,
+  ignoreRoutes: [
+    'AdminLogin',
+    'HomePanel',
+    'HomePanelList',
+    'HomePanelCreate',
+    'HomePanelEdit',
+    'Files',
+    'Orders',
+    'Order',
+    'Admin404'
+  ],
+  options: {
+    clickmap: true,
+    trackLinks: true,
+    accurateTrackBounce: true,
+    webvisor: true
+  }
 })
 
 new Vue({

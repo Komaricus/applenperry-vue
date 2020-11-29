@@ -173,6 +173,7 @@ const routes = [
     },
     children: [
       {
+        name: 'HomePanelList',
         path: 'list/:type',
         component: () => import('../views/AdminPanel/List'),
         meta: {
@@ -182,6 +183,7 @@ const routes = [
         },
         children: [
           {
+            name: 'HomePanelCreate',
             path: 'create',
             component: () => import('../views/AdminPanel/Create'),
             meta: {
@@ -198,6 +200,7 @@ const routes = [
             }
           },
           {
+            name: 'HomePanelEdit',
             path: 'edit/:id',
             component: () => import('../views/AdminPanel/Edit'),
             meta: {
