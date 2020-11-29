@@ -49,7 +49,7 @@ Vue.use(VueYandexMetrika, {
   id: 69890680,
   router: router,
   env: process.env.NODE_ENV,
-  debug: true,
+  // debug: true,
   ignoreRoutes: [
     'AdminLogin',
     'HomePanel',
