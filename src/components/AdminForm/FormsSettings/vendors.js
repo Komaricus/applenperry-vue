@@ -31,7 +31,8 @@ export default {
       label: 'Логотип производителя',
       placeholder: 'Загрузите файл',
       required: true,
-      tooltip: 'Загрузите логотип производителя'
+      tooltip: 'Загрузите логотип производителя',
+      multiple: false
     },
     {
       id: 'description',

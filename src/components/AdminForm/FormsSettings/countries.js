@@ -30,7 +30,8 @@ export default {
       label: 'Иконка флага',
       placeholder: 'Загрузите файл',
       required: true,
-      tooltip: 'Загрузите иконку флага'
+      tooltip: 'Загрузите иконку флага',
+      multiple: false
     }
   ],
   creationTitle: 'Создание страны',
