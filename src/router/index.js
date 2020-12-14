@@ -150,6 +150,24 @@ const routes = [
     }
   },
   {
+    name: 'News',
+    path: '/news',
+    component: () => import('@/views/News/Main'),
+    meta: {
+      layout: 'other',
+      title: 'Новости'
+    }
+  },
+  {
+    name: 'NewsSection',
+    path: '/news/:section',
+    component: () => import('@/views/News/Main'),
+    meta: {
+      layout: 'other',
+      title: 'Новости'
+    }
+  },
+  {
     name: 'AdminLogin',
     path: '/apple-admin',
     component: () => import('../views/AdminPanel/AdminLogin'),
