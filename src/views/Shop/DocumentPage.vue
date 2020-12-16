@@ -97,4 +97,24 @@ export default {
     }
   }
 }
+
+@media (max-width: 600px) {
+  #document-view.container {
+    padding: 10px;
+
+    .html-wrapper {
+      h1 {
+        font-size: 22px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      h3 {
+        font-size: 16px;
+      }
+    }
+  }
+}
 </style>

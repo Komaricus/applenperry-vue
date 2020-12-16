@@ -168,6 +168,15 @@ const routes = [
     }
   },
   {
+    name: 'NewsSection',
+    path: '/news/:section/:newsUrl',
+    component: () => import('@/views/News/NewsPreview'),
+    meta: {
+      layout: 'other',
+      title: 'Новости'
+    }
+  },
+  {
     name: 'AdminLogin',
     path: '/apple-admin',
     component: () => import('../views/AdminPanel/AdminLogin'),
