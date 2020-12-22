@@ -2,7 +2,10 @@
   <div class="news">
     <div v-if="news.length" class="news-list">
       <div v-for="item in news" :key="item.id">
-        <div class="news-item" @click="$router.push(`/news/${section}/${item.url}`)">
+        <div
+          class="news-item"
+          @click="$router.push(`/apple-admin/site/news/${section}/${item.url}`)"
+        >
           <div class="news-content">
             <h2 class="news-title">
               {{ item.name }}

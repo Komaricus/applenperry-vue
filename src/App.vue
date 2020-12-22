@@ -39,7 +39,8 @@ export default {
     layout() {
       if (this.$route.meta.layout) return this.$route.meta.layout
 
-      if (window.location.href.includes('apple-admin')) return 'admin'
+      if (window.location.href.includes('apple-admin') && !window.location.href.includes('site'))
+        return 'admin'
 
       if (window.location.href.includes('/shop')) return 'shop'
 

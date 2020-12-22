@@ -8,6 +8,7 @@
       <div class="links">
         <router-link to="/apple-admin/files">Изображения</router-link>
         <router-link to="/apple-admin/orders">Заказы</router-link>
+        <router-link to="/apple-admin/site">Превью сайта</router-link>
       </div>
       <v-spacer></v-spacer>
     </v-app-bar>

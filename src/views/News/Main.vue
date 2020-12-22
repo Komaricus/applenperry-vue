@@ -7,7 +7,7 @@
           <div v-for="(section, index) in sections" :key="section.id" class="section">
             <router-link
               class="section-link"
-              :to="`/news/${section.url}`"
+              :to="`/apple-admin/site/news/${section.url}`"
               exact-active-class="active"
               >{{ section.name }}</router-link
             >

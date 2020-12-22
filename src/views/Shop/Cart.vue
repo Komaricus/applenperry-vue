@@ -75,7 +75,9 @@
         >
       </div>
       <div v-if="!cartItems.length">
-        <v-btn color="primary" to="/shop/stock" v-ripple="false">Перейти к ассортименту</v-btn>
+        <v-btn color="primary" to="/apple-admin/site/shop/stock" v-ripple="false"
+          >Перейти к ассортименту</v-btn
+        >
       </div>
     </div>
   </div>

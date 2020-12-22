@@ -4,7 +4,7 @@
       <h1 class="page-title">Производители</h1>
       <v-row class="vendors-container">
         <v-col v-for="vendor in vendors" :key="vendor.id" class="vendor" cols="12" md="6" lg="4">
-          <router-link :to="`/shop/vendors/${vendor.url}`">
+          <router-link :to="`/apple-admin/site/shop/vendors/${vendor.url}`">
             <div class="image-container">
               <image-component :image-src="vendor.image.path"></image-component>
             </div>

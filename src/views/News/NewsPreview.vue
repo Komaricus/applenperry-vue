@@ -8,7 +8,7 @@
       </div>
       <h1 id="title">{{ preview.name }}</h1>
       <h2 v-if="preview.subheader" id="subheader">{{ preview.subheader }}</h2>
-      <div id="description">
+      <div id="description" v-if="preview.description">
         {{ preview.description }}
       </div>
       <div id="separator"></div>

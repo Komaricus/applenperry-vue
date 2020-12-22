@@ -57,7 +57,7 @@
             <image-component :image-src="item.product.image.path"></image-component>
           </div>
           <div class="d-flex flex-column">
-            <router-link :to="`/shop/stock/${item.product.url}`" class="link">
+            <router-link :to="`/apple-admin/site/shop/stock/${item.product.url}`" class="link">
               <div class="item-name">{{ item.product.name }}</div>
             </router-link>
             <div class="item-count-container">

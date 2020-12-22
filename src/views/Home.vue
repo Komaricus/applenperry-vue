@@ -6,22 +6,22 @@
       <div id="contain">
         <ul id="cir_menu">
           <li>
-            <router-link :to="'/shop'">Магазин</router-link>
+            <router-link :to="'/apple-admin/site/shop'">Магазин</router-link>
           </li>
           <li>
-            <router-link :to="'/pages/friends'">Друзья</router-link>
+            <router-link :to="'/apple-admin/site/pages/friends'">Друзья</router-link>
           </li>
           <li>
-            <router-link :to="'pages/our-pub'">Наш pub</router-link>
+            <router-link :to="'/apple-admin/site/pages/our-pub'">Наш pub</router-link>
           </li>
           <li>
-            <router-link :to="'/news'">Новости</router-link>
+            <router-link :to="'/apple-admin/site/news'">Новости</router-link>
           </li>
           <li>
-            <router-link :to="'/shop/contacts'">Контакты</router-link>
+            <router-link :to="'/apple-admin/site/shop/contacts'">Контакты</router-link>
           </li>
           <li>
-            <router-link :to="'/about'">О сидре и перри</router-link>
+            <router-link :to="'/apple-admin/site/about'">О сидре и перри</router-link>
           </li>
         </ul>
       </div>

@@ -9,7 +9,9 @@
           Этот веб-сайт использует файлы cookie для удобного и эффективного использования. Продолжая
           пользоваться сайтом, вы соглашаетесь
           <span @click="alert = false"
-            ><router-link class="text--orange" to="/shop/docs/pravila-obrabotki-personalnyh-dannyh"
+            ><router-link
+              class="text--orange"
+              to="/apple-admin/site/shop/docs/pravila-obrabotki-personalnyh-dannyh"
               >с использованием файлов cookie</router-link
             ></span
           >.

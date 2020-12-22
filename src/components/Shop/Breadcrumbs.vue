@@ -3,7 +3,7 @@
     <v-breadcrumbs :items="items" large>
       <template v-slot:item="{ item }">
         <v-breadcrumbs-item
-          :to="item.to"
+          :to="'/apple-admin/site' + item.to"
           :disabled="isDisabled(item.to)"
           class="breadcrumb"
           exact
