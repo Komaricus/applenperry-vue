@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="product clickable"
-    @click="$router.push('/apple-admin/site' + productLink(product.url))"
-  >
+  <div class="product clickable" @click="$router.push(productLink(product.url))">
     <div class="product-image-container">
       <div class="image">
         <image-component :image-src="product.image.path"></image-component>

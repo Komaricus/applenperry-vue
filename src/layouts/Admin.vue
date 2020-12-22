@@ -8,7 +8,7 @@
       <div class="links" v-if="$route.path !== '/apple-admin'">
         <router-link to="/apple-admin/files">Изображения</router-link>
         <router-link to="/apple-admin/orders">Заказы</router-link>
-        <router-link to="/apple-admin/site">Превью сайта</router-link>
+        <a href="/apple-admin/site">Превью сайта</a>
       </div>
       <v-spacer></v-spacer>
     </v-app-bar>
