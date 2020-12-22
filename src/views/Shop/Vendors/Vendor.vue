@@ -35,11 +35,11 @@ export default {
       breadcrumbs: [
         {
           text: 'Главная',
-          to: '/shop'
+          to: '/apple-admin/site/shop'
         },
         {
           text: 'Производители',
-          to: '/shop/vendors'
+          to: '/apple-admin/site/shop/vendors'
         }
       ],
       loading: false

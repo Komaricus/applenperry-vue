@@ -126,7 +126,7 @@ export default {
       breadcrumbs: [
         {
           text: 'Главная',
-          to: '/shop'
+          to: '/apple-admin/site/shop'
         }
       ],
       loading: false
@@ -145,7 +145,7 @@ export default {
     ...mapMutations(['addToCart']),
     async loadProduct() {
       this.loading = true
-      this.breadcrumbs = [{ text: 'Главная', to: '/shop' }]
+      this.breadcrumbs = [{ text: 'Главная', to: '/apple-admin/site/shop' }]
       await this.$api
         .get(`/open/products/${this.$route.params.url}`)
         .then(({ data }) => {
@@ -189,41 +189,48 @@ export default {
       for (let i = 0; i < paths.length; i++) {
         if (paths[i] === 'vendors')
           this.breadcrumbs.push(
-            { text: 'Производители', to: '/shop/vendors' },
-            { text: this.product.vendor.name, to: '/shop/vendors/' + this.product.vendor.url }
+            { text: 'Производители', to: '/apple-admin/site/shop/vendors' },
+            {
+              text: this.product.vendor.name,
+              to: '/apple-admin/site/shop/vendors/' + this.product.vendor.url
+            }
           )
 
         if (paths[i] === 'categories')
-          this.breadcrumbs.push({ text: 'Категории', to: '/shop/categories' })
+          this.breadcrumbs.push({ text: 'Категории', to: '/apple-admin/site/shop/categories' })
 
         if (paths[i] === 'category') {
           if (i + 1 === paths.length) continue
           const index = this.product.categories.findIndex(e => e.url === paths[i + 1])
           if (index !== -1) {
             let { name, url } = this.product.categories[index]
-            this.breadcrumbs.push({ text: name, to: `/shop/categories/category/${url}` })
+            this.breadcrumbs.push({
+              text: name,
+              to: `/apple-admin/site/shop/categories/category/${url}`
+            })
           }
         }
 
         if (paths[i] === 'country')
           this.breadcrumbs.push({
             text: this.product.vendor.country.name,
-            to: `/shop/categories/country/${this.product.vendor.country.url}`
+            to: `/apple-admin/site/shop/categories/country/${this.product.vendor.country.url}`
           })
 
         if (paths[i] === 'type')
           this.breadcrumbs.push({
             text: this.product.productsType.name,
-            to: `/shop/categories/type/${this.product.productsType.url}`
+            to: `/apple-admin/site/shop/categories/type/${this.product.productsType.url}`
           })
 
         if (paths[i] === 'sugar')
           this.breadcrumbs.push({
             text: this.product.productsSugarType.name,
-            to: `/shop/categories/sugar/${this.product.productsSugarType.url}`
+            to: `/apple-admin/site/shop/categories/sugar/${this.product.productsSugarType.url}`
           })
 
-        if (paths[i] === 'stock') this.breadcrumbs.push({ text: 'Ассортимент', to: '/shop/stock' })
+        if (paths[i] === 'stock')
+          this.breadcrumbs.push({ text: 'Ассортимент', to: '/apple-admin/site/shop/stock' })
       }
       this.breadcrumbs.push({ text: this.product.name, to: this.$route.path })
     }

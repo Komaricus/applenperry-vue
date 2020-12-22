@@ -5,7 +5,7 @@
         <v-toolbar-title class="text-neucha text--white">Apple`n`Perry</v-toolbar-title>
       </router-link>
 
-      <div class="links">
+      <div class="links" v-if="$route.path !== '/apple-admin'">
         <router-link to="/apple-admin/files">Изображения</router-link>
         <router-link to="/apple-admin/orders">Заказы</router-link>
         <router-link to="/apple-admin/site">Превью сайта</router-link>
