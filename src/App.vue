@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <v-app>
-      <wip v-if="mode === 'production' && layout !== 'admin'"></wip>
+      <wip
+        v-if="
+          mode === 'production' &&
+            layout !== 'admin' &&
+            !window.location.href.includes('/apple-admin/site')
+        "
+      ></wip>
       <yo v-else-if="!yo && layout !== 'admin'"></yo>
       <component v-else :is="layout" />
       <cookie-alert></cookie-alert>
