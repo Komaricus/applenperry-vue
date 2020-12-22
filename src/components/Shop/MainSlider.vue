@@ -1,4 +1,5 @@
 <template>
+  <!-- todo: add text color -->
   <div v-if="Array.isArray(slides) && slides.length">
     <div class="swiper swiper-container" v-if="slides.length === 1">
       <div class="slide swiper-slide">
@@ -9,7 +10,11 @@
           ></image-component>
           <div class="slide-content">
             <h2 v-if="slides[0].header">{{ slides[0].header }}</h2>
-            <div v-if="slides[0].description" v-html="slides[0].description"></div>
+            <div
+              v-if="slides[0].description"
+              v-html="slides[0].description"
+              class="html-wrapper"
+            ></div>
           </div>
         </router-link>
         <div v-else>
@@ -19,7 +24,11 @@
           ></image-component>
           <div class="slide-content">
             <h2 v-if="slides[0].header">{{ slides[0].header }}</h2>
-            <div v-if="slides[0].description" v-html="slides[0].description"></div>
+            <div
+              v-if="slides[0].description"
+              v-html="slides[0].description"
+              class="html-wrapper"
+            ></div>
           </div>
         </div>
       </div>
@@ -36,14 +45,14 @@
           <image-component v-if="slides[0].fileId" :image-src="slide.image.path"></image-component>
           <div class="slide-content">
             <h2 v-if="slide.header">{{ slide.header }}</h2>
-            <div v-if="slide.description" v-html="slide.description"></div>
+            <div v-if="slide.description" v-html="slide.description" class="html-wrapper"></div>
           </div>
         </router-link>
         <div v-else>
           <image-component v-if="slides[0].fileId" :image-src="slide.image.path"></image-component>
           <div class="slide-content">
             <h2 v-if="slide.header">{{ slide.header }}</h2>
-            <div v-if="slide.description" v-html="slide.description"></div>
+            <div v-if="slide.description" v-html="slide.description" class="html-wrapper"></div>
           </div>
         </div>
       </swiper-slide>
@@ -105,7 +114,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .swiper {
   height: 430px;
   max-width: 1920px;
@@ -144,6 +153,33 @@ export default {
   color: white;
   left: 0;
   padding: 40px;
+
+  .html-wrapper {
+    text-align: justify;
+
+    h1,
+    h2,
+    h3,
+    p {
+      font-family: 'Roboto', sans-serif;
+      margin-bottom: 16px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 8px;
+    }
+
+    ul {
+      list-style: disc;
+      margin-left: 24px;
+      margin-bottom: 16px;
+      p {
+        margin-bottom: 8px;
+      }
+    }
+  }
 }
 
 @media (max-width: 600px) {
@@ -156,5 +192,21 @@ export default {
   }
 }
 
-// todo: add html-wrapper
+@media (max-width: 600px) {
+  .slide-content {
+    .html-wrapper {
+      h1 {
+        font-size: 22px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      h3 {
+        font-size: 16px;
+      }
+    }
+  }
+}
 </style>

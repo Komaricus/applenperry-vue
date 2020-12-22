@@ -1,17 +1,19 @@
 <template>
-  <div class="container" v-if="!loading">
-    <breadcrumbs :items="breadcrumbs" />
-    <h1 class="text--main mb-3">{{ title }}</h1>
-    <div v-if="description" v-html="description" class="category-description"></div>
-    <products :type="$route.params.type" :url="$route.params.id"></products>
-  </div>
-  <div class="container fill-height" v-else>
-    <v-progress-circular
-      size="50"
-      indeterminate
-      color="primary"
-      class="mx-auto"
-    ></v-progress-circular>
+  <div id="category">
+    <div class="container" v-if="!loading">
+      <breadcrumbs :items="breadcrumbs" />
+      <h1 class="text--main mb-3">{{ title }}</h1>
+      <div v-if="description" v-html="description" class="html-wrapper"></div>
+      <products :type="$route.params.type" :url="$route.params.id"></products>
+    </div>
+    <div class="container fill-height" v-else>
+      <v-progress-circular
+        size="50"
+        indeterminate
+        color="primary"
+        class="mx-auto"
+      ></v-progress-circular>
+    </div>
   </div>
 </template>
 
@@ -79,30 +81,74 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import 'src/assets/colors';
 
-.container {
-  padding: 20px;
-  max-width: 1240px;
-}
+#category {
+  .container {
+    padding: 20px;
+    max-width: 1240px;
+  }
 
-.category-description {
-  color: $main;
-  font-size: 16px;
+  .html-wrapper {
+    color: $main;
+    text-align: justify;
+
+    h1,
+    h2,
+    h3,
+    p {
+      font-family: 'Roboto', sans-serif;
+      margin-bottom: 16px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-top: 8px;
+      color: $title !important;
+    }
+
+    ul {
+      list-style: disc;
+      margin-left: 24px;
+      margin-bottom: 16px;
+      p {
+        margin-bottom: 8px;
+      }
+    }
+  }
 }
 
 @media (max-width: 1240px) {
-  .container {
+  #category .container {
     max-width: 940px;
   }
 }
 
 @media (max-width: 940px) {
-  .container {
+  #category .container {
     max-width: 640px;
   }
 }
 
-// todo: add html-wrapper
+@media (max-width: 600px) {
+  #category .container {
+    padding: 10px;
+
+    .html-wrapper {
+      h1 {
+        font-size: 22px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      h3 {
+        font-size: 16px;
+      }
+    }
+  }
+}
 </style>
