@@ -1,6 +1,5 @@
 <template>
-  <!-- todo: add text color -->
-  <div v-if="Array.isArray(slides) && slides.length">
+  <div class="shop-slider" v-if="Array.isArray(slides) && slides.length">
     <div class="swiper swiper-container" v-if="slides.length === 1">
       <div class="slide swiper-slide">
         <router-link v-if="slides[0].link" :to="'/apple-admin/site' + slides[0].link">
@@ -72,7 +71,7 @@
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 import ImageComponent from '@/components/ImageComponent'
-
+// todo: add text color
 export default {
   name: 'MainSlider',
   components: {
@@ -115,85 +114,89 @@ export default {
 </script>
 
 <style lang="scss">
-.swiper {
-  height: 430px;
-  max-width: 1920px;
-}
-
-.prev {
-  position: absolute;
-  top: 200px;
-  left: 5px;
-  z-index: 10;
-}
-
-.next {
-  position: absolute;
-  top: 200px;
-  right: 5px;
-  z-index: 10;
-}
-
-.slide {
-  background-color: black;
-  height: 400px;
-
-  img {
-    min-width: 100%;
-    height: auto;
-    opacity: 0.5;
-    max-height: 400px;
+.shop-slider {
+  .swiper {
+    height: 430px;
     max-width: 1920px;
   }
-}
 
-.slide-content {
-  position: absolute;
-  bottom: 0;
-  color: white;
-  left: 0;
-  padding: 40px;
+  .prev {
+    position: absolute;
+    top: 200px;
+    left: 5px;
+    z-index: 10;
+  }
 
-  .html-wrapper {
-    text-align: justify;
+  .next {
+    position: absolute;
+    top: 200px;
+    right: 5px;
+    z-index: 10;
+  }
 
-    h1,
-    h2,
-    h3,
-    p {
-      font-family: 'Roboto', sans-serif;
-      margin-bottom: 16px;
+  .slide {
+    background-color: black;
+    height: 400px;
+
+    img {
+      min-width: 100%;
+      height: auto;
+      opacity: 0.5;
+      max-height: 400px;
+      max-width: 1920px;
     }
+  }
 
-    h1,
-    h2,
-    h3 {
-      margin-top: 8px;
-    }
+  .slide-content {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    left: 0;
+    padding: 40px;
 
-    ul {
-      list-style: disc;
-      margin-left: 24px;
-      margin-bottom: 16px;
+    .html-wrapper {
+      text-align: justify;
+
+      h1,
+      h2,
+      h3,
       p {
-        margin-bottom: 8px;
+        font-family: 'Roboto', sans-serif;
+        margin-bottom: 16px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-top: 8px;
+      }
+
+      ul {
+        list-style: disc;
+        margin-left: 24px;
+        margin-bottom: 16px;
+        p {
+          margin-bottom: 8px;
+        }
       }
     }
   }
 }
 
 @media (max-width: 600px) {
-  .prev {
-    display: none;
-  }
+  .shop-slider {
+    .prev {
+      display: none;
+    }
 
-  .next {
-    display: none;
+    .next {
+      display: none;
+    }
   }
 }
 
 @media (max-width: 600px) {
-  .slide-content {
+  .shop-slider .slide-content {
     .html-wrapper {
       h1 {
         font-size: 22px;
