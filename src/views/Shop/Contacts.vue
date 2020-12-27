@@ -15,8 +15,16 @@
         </v-col>
         <v-col cols="12" md="6">
           <h2>Почта</h2>
-          <p class="mail contact-paragraph">
-            <a href="mailto:purchase@applenperry.ru">purchase@applenperry.ru</a>
+          <p class="contact-paragraph">
+            <span>
+              По заказам:
+              <a class="mail" href="mailto:purchase@applenperry.ru">purchase@applenperry.ru</a>
+            </span>
+            <br />
+            <span>
+              По предложениям:
+              <a class="mail" href="mailto:marketing@applenperry.ru">marketing@applenperry.ru</a>
+            </span>
           </p>
         </v-col>
         <v-col cols="12" md="6">
@@ -106,16 +114,12 @@ export default {
     }
   }
 
-  .mail {
-    a {
-      color: $main;
-    }
+  a.mail {
+    color: $anchor;
   }
 
-  .mail:hover {
-    a {
-      color: $orange;
-    }
+  a.mail:hover {
+    color: $orange !important;
   }
 
   .metro {
