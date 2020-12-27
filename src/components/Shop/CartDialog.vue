@@ -19,7 +19,7 @@
           <v-spacer></v-spacer>
           <v-btn
             color="primary"
-            to="/apple-admin/site/shop/cart"
+            to="/shop/cart"
             @click="dialog = false"
             class="text--white"
             :disabled="!cartItems.length"

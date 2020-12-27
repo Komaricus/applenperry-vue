@@ -3,7 +3,7 @@
     <ul class="nav-list">
       <li v-for="(item, index) in items" :key="index" class="nav-list-item">
         <span @click="toggleMobileMenu"
-          ><router-link :to="'/apple-admin/site' + item.to">{{ item.title }}</router-link></span
+          ><router-link :to="item.to">{{ item.title }}</router-link></span
         >
       </li>
     </ul>

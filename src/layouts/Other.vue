@@ -3,7 +3,7 @@
     <v-app-bar id="app-bar" app class="elevation-0" color="background-grey">
       <div class="d-flex container align-center">
         <div class="app-bar-logo">
-          <router-link to="/apple-admin/site/">
+          <router-link to="/">
             <img src="@/assets/images/small-logo.png" alt="logo" />
           </router-link>
         </div>
@@ -35,7 +35,7 @@
           <v-col v-if="docs.length" cols="12" sm="6" class="py-0 px-2 docs">
             <div class="mb-1 caption text--inactive">Соглашения и правила</div>
             <div v-for="doc of docs" :key="doc.id">
-              <router-link class="footer-link" :to="`/apple-admin/site/shop/docs/${doc.url}`">{{
+              <router-link class="footer-link" :to="`/shop/docs/${doc.url}`">{{
                 doc.name
               }}</router-link>
             </div>

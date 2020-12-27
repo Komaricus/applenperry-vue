@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <wip v-if="mode === 'production' && layout !== 'admin' && !preview"></wip>
-      <yo v-else-if="!yo && layout !== 'admin'"></yo>
+      <yo v-if="!yo && layout !== 'admin'"></yo>
       <component v-else :is="layout" />
       <cookie-alert></cookie-alert>
     </v-app>
@@ -14,7 +13,6 @@ import Home from '@/layouts/Home'
 import Admin from '@/layouts/Admin'
 import Shop from '@/layouts/Shop'
 import Other from '@/layouts/Other'
-import WIP from '@/views/WIP'
 import YearsOldCheck from '@/views/YearsOldCheck'
 import CookieAlert from '@/components/CookieAlert'
 
@@ -23,7 +21,6 @@ export default {
     home: Home,
     default: Default,
     admin: Admin,
-    wip: WIP,
     yo: YearsOldCheck,
     shop: Shop,
     Other,
@@ -39,16 +36,13 @@ export default {
     layout() {
       if (this.$route.meta.layout) return this.$route.meta.layout
 
-      if (window.location.href.includes('apple-admin') && !this.preview) return 'admin'
+      if (window.location.href.includes('apple-admin')) return 'admin'
 
       if (window.location.href.includes('/shop')) return 'shop'
 
       if (window.location.href.includes('pages')) return 'other'
 
       return 'default'
-    },
-    preview() {
-      return window.location.href.includes('/apple-admin/site')
     }
   },
   watch: {

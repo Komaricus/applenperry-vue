@@ -2,7 +2,7 @@
   <div class="shop-slider" v-if="Array.isArray(slides) && slides.length">
     <div class="swiper swiper-container" v-if="slides.length === 1">
       <div class="slide swiper-slide">
-        <router-link v-if="slides[0].link" :to="'/apple-admin/site' + slides[0].link">
+        <router-link v-if="slides[0].link" :to="slides[0].link">
           <image-component
             v-if="slides[0].fileId"
             :image-src="slides[0].image.path"
@@ -40,7 +40,7 @@
         class="slide"
         :class="{ clickable: slide.link }"
       >
-        <router-link v-if="slide.link" :to="'/apple-admin/site' + slide.link">
+        <router-link v-if="slide.link" :to="slide.link">
           <image-component v-if="slides[0].fileId" :image-src="slide.image.path"></image-component>
           <div class="slide-content">
             <h2 v-if="slide.header">{{ slide.header }}</h2>

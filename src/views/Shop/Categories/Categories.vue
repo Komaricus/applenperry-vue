@@ -14,10 +14,7 @@
           <div class="text-h6 text--main">{{ category.name }}</div>
           <ul class="pl-0">
             <li v-for="children in category.child" :key="children.id">
-              <router-link
-                :to="'/apple-admin/site' + getLink(category, children)"
-                class="d-flex align-center link"
-              >
+              <router-link :to="getLink(category, children)" class="d-flex align-center link">
                 <v-icon small color="primary">
                   fas fa-apple-alt
                 </v-icon>

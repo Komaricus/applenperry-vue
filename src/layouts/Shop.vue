@@ -4,41 +4,29 @@
     <v-app-bar id="app-bar" app class="elevation-0" color="background-grey">
       <div id="shop-app-bar" class="d-flex justify-center align-center container">
         <div class="links-left">
-          <router-link
-            to="/apple-admin/site/shop"
-            class="app-bar-link"
-            exact-active-class="active-link"
+          <router-link to="/shop" class="app-bar-link" exact-active-class="active-link"
             >Главная</router-link
           >
-          <router-link
-            to="/apple-admin/site/shop/categories"
-            class="app-bar-link"
-            exact-active-class="active-link"
+          <router-link to="/shop/categories" class="app-bar-link" exact-active-class="active-link"
             >Категории</router-link
           >
         </div>
 
         <div class="app-bar-logo">
-          <router-link to="/apple-admin/site/">
+          <router-link to="/">
             <img src="@/assets/images/small-logo.png" alt="logo" />
           </router-link>
         </div>
 
         <div class="links-right">
-          <router-link
-            to="/apple-admin/site/shop/vendors"
-            class="app-bar-link"
-            exact-active-class="active-link"
+          <router-link to="/shop/vendors" class="app-bar-link" exact-active-class="active-link"
             >Производители</router-link
           >
-          <router-link
-            to="/apple-admin/site/shop/contacts"
-            class="app-bar-link"
-            exact-active-class="active-link"
+          <router-link to="/shop/contacts" class="app-bar-link" exact-active-class="active-link"
             >Контакты</router-link
           >
           <!-- <router-link to="/shop/delivery" class="app-bar-link" exact-active-class="active-link">Доставка</router-link>-->
-          <router-link v-if="shopAvailable" to="/apple-admin/site/shop/cart" class="app-bar-link"
+          <router-link v-if="shopAvailable" to="/shop/cart" class="app-bar-link"
             >Корзина</router-link
           >
         </div>
@@ -46,7 +34,7 @@
 
       <div id="shop-mobile-app-bar" class="d-flex container">
         <div class="app-bar-logo">
-          <router-link to="/apple-admin/site/">
+          <router-link to="/">
             <img src="@/assets/images/small-logo.png" alt="logo" />
           </router-link>
         </div>
@@ -77,7 +65,7 @@
           <v-col v-if="docs.length" cols="12" sm="6" class="py-0 px-2 docs">
             <div class="mb-1 caption text--inactive">Соглашения и правила</div>
             <div v-for="doc of docs" :key="doc.id">
-              <router-link class="footer-link" :to="`/apple-admin/site/shop/docs/${doc.url}`">{{
+              <router-link class="footer-link" :to="`/shop/docs/${doc.url}`">{{
                 doc.name
               }}</router-link>
             </div>

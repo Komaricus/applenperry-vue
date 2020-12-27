@@ -3,7 +3,7 @@
     <v-breadcrumbs :items="items" large>
       <template v-slot:item="{ item }">
         <v-breadcrumbs-item
-          :to="getItemLink(item.to)"
+          :to="item.to"
           :disabled="isDisabled(item.to)"
           class="breadcrumb"
           exact
@@ -28,10 +28,6 @@ export default {
   methods: {
     isDisabled(to) {
       return this.$route.path === to
-    },
-    getItemLink(link) {
-      if (link.indexOf('/apple-admin/site') !== -1) return link
-      else return '/apple-admin/site' + link
     }
   }
 }

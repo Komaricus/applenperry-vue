@@ -126,7 +126,7 @@ export default {
       breadcrumbs: [
         {
           text: 'Главная',
-          to: '/apple-admin/site/shop'
+          to: '/shop'
         }
       ],
       loading: false
@@ -145,7 +145,7 @@ export default {
     ...mapMutations(['addToCart']),
     async loadProduct() {
       this.loading = true
-      this.breadcrumbs = [{ text: 'Главная', to: '/apple-admin/site/shop' }]
+      this.breadcrumbs = [{ text: 'Главная', to: '/shop' }]
       await this.$api
         .get(`/open/products/${this.$route.params.url}`)
         .then(({ data }) => {
@@ -189,15 +189,15 @@ export default {
       for (let i = 0; i < paths.length; i++) {
         if (paths[i] === 'vendors')
           this.breadcrumbs.push(
-            { text: 'Производители', to: '/apple-admin/site/shop/vendors' },
+            { text: 'Производители', to: '/shop/vendors' },
             {
               text: this.product.vendor.name,
-              to: '/apple-admin/site/shop/vendors/' + this.product.vendor.url
+              to: '/shop/vendors/' + this.product.vendor.url
             }
           )
 
         if (paths[i] === 'categories')
-          this.breadcrumbs.push({ text: 'Категории', to: '/apple-admin/site/shop/categories' })
+          this.breadcrumbs.push({ text: 'Категории', to: '/shop/categories' })
 
         if (paths[i] === 'category') {
           if (i + 1 === paths.length) continue
@@ -206,7 +206,7 @@ export default {
             let { name, url } = this.product.categories[index]
             this.breadcrumbs.push({
               text: name,
-              to: `/apple-admin/site/shop/categories/category/${url}`
+              to: `/shop/categories/category/${url}`
             })
           }
         }
@@ -214,23 +214,22 @@ export default {
         if (paths[i] === 'country')
           this.breadcrumbs.push({
             text: this.product.vendor.country.name,
-            to: `/apple-admin/site/shop/categories/country/${this.product.vendor.country.url}`
+            to: `/shop/categories/country/${this.product.vendor.country.url}`
           })
 
         if (paths[i] === 'type')
           this.breadcrumbs.push({
             text: this.product.productsType.name,
-            to: `/apple-admin/site/shop/categories/type/${this.product.productsType.url}`
+            to: `/shop/categories/type/${this.product.productsType.url}`
           })
 
         if (paths[i] === 'sugar')
           this.breadcrumbs.push({
             text: this.product.productsSugarType.name,
-            to: `/apple-admin/site/shop/categories/sugar/${this.product.productsSugarType.url}`
+            to: `/shop/categories/sugar/${this.product.productsSugarType.url}`
           })
 
-        if (paths[i] === 'stock')
-          this.breadcrumbs.push({ text: 'Ассортимент', to: '/apple-admin/site/shop/stock' })
+        if (paths[i] === 'stock') this.breadcrumbs.push({ text: 'Ассортимент', to: '/shop/stock' })
       }
       this.breadcrumbs.push({ text: this.product.name, to: this.$route.path })
     }
@@ -351,6 +350,9 @@ export default {
   .details {
     color: $main;
     font-size: 18px;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
 
     .details-row {
       padding: 5px 0;
@@ -358,11 +360,13 @@ export default {
     }
 
     .details-cell-left {
+      font-weight: 500;
       padding-right: 20px;
       min-height: 32px;
     }
 
     .details-cell-right {
+      font-weight: 300;
       display: flex;
       align-items: center;
       min-height: 32px;
@@ -371,6 +375,7 @@ export default {
 
   .categories {
     margin: 10px 0;
+    font-weight: 300;
   }
 }
 

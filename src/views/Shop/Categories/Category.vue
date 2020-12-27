@@ -34,11 +34,11 @@ export default {
       breadcrumbs: [
         {
           text: 'Главная',
-          to: '/apple-admin/site/shop'
+          to: '/shop'
         },
         {
           text: 'Категории',
-          to: '/apple-admin/site/shop/categories'
+          to: '/shop/categories'
         }
       ],
       loading: false
