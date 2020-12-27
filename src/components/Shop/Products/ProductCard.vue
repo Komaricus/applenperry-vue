@@ -24,7 +24,7 @@
         </p>
       </div>
     </div>
-    <h3 v-if="product.name" class="product-name">
+    <h3 v-if="product.name" class="product-name" :class="{ 'mt-3': !shopAvailable }">
       {{ product.name }}
     </h3>
   </div>
