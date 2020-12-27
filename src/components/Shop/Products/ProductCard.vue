@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="d-flex align-end">
-      <div class="product-price" v-if="product.price">
+      <div class="product-price" v-if="product.price && shopAvailable">
         {{ product.price | space }} <span class="product-price-currency">₽</span>
       </div>
       <v-spacer></v-spacer>
