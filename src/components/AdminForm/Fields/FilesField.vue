@@ -158,7 +158,11 @@ export default {
   created() {
     if (this.field.required) this.rules.push(() => this.files.length > 0 || 'Обязательное поле')
 
-    if (Object.prototype.hasOwnProperty.call(this.field, 'value') && this.field.value) {
+    if (
+      Object.prototype.hasOwnProperty.call(this.field, 'value') &&
+      this.field.value &&
+      this.field.value.id
+    ) {
       if (this.field.multiple) this.files = this.field.value
       else this.files = [this.field.value]
     }
@@ -174,7 +178,8 @@ export default {
       let value = null
       if (this.field.multiple) value = this.files
       else if (this.files.length === 1) {
-        this.form.image = this.files[0]
+        if (this.field.id === 'icon') this.form.iconFile = this.files[0]
+        else this.form.image = this.files[0]
         this.setForm(Object.assign({}, this.form))
         value = this.files[0].id
       }

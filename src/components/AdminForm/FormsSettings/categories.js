@@ -41,6 +41,15 @@ export default {
       required: false,
       itemsURL: '/categories/',
       tooltip: 'Категории в которую будет входить данная категория'
+    },
+    {
+      id: 'icon',
+      type: 'files-field',
+      label: 'Иконка',
+      placeholder: 'Загрузите файл',
+      required: false,
+      tooltip: 'Загрузите иконку категории для отображения в списке категорий',
+      multiple: false
     }
   ],
   creationTitle: 'Создание новой категории',

@@ -32,6 +32,15 @@ export default {
       required: true,
       tooltip: 'Загрузите иконку флага',
       multiple: false
+    },
+    {
+      id: 'icon',
+      type: 'files-field',
+      label: 'Иконка',
+      placeholder: 'Загрузите файл',
+      required: false,
+      tooltip: 'Загрузите иконку категории для отображения в списке категорий',
+      multiple: false
     }
   ],
   creationTitle: 'Создание страны',

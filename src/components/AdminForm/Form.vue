@@ -161,7 +161,9 @@ export default {
           this.fields = [
             ...formsSettings[this.id].fields.map(field => {
               if (field.type === 'files-field' && !field.multiple) {
-                return Object.assign({}, field, { value: this.form.image })
+                if (field.id === 'icon')
+                  return Object.assign({}, field, { value: this.form.iconFile })
+                else return Object.assign({}, field, { value: this.form.image })
               }
               return Object.assign({}, field, { value: this.form[field.id] })
             })
@@ -170,7 +172,9 @@ export default {
           this.fields = [
             ...formsSettings[this.id].fields.map(field => {
               if (field.type === 'files-field' && !field.multiple) {
-                return Object.assign({}, field, { value: this.item.image })
+                if (field.id === 'icon')
+                  return Object.assign({}, field, { value: this.item.iconFile })
+                else return Object.assign({}, field, { value: this.item.image })
               }
               return Object.assign({}, field, { value: this.item[field.id] })
             })
@@ -184,7 +188,9 @@ export default {
         this.fields = [
           ...formsSettings[this.id].fields.map(field => {
             if (field.type === 'files-field' && !field.multiple) {
-              if (this.form.image) return Object.assign({}, field, { value: this.form.image })
+              if (field.id === 'icon')
+                return Object.assign({}, field, { value: this.form.iconFile })
+              else if (this.form.image) return Object.assign({}, field, { value: this.form.image })
               else return field
             }
             if (this.form[field.id]) return Object.assign({}, field, { value: this.form[field.id] })

@@ -24,6 +24,15 @@ export default {
           return pattern.test(value) || 'Неверная ссылка'
         }
       ]
+    },
+    {
+      id: 'icon',
+      type: 'files-field',
+      label: 'Иконка',
+      placeholder: 'Загрузите файл',
+      required: false,
+      tooltip: 'Загрузите иконку категории для отображения в списке категорий',
+      multiple: false
     }
   ],
   creationTitle: 'Создание нового типа товара',
