@@ -158,13 +158,9 @@ export default {
   created() {
     if (this.field.required) this.rules.push(() => this.files.length > 0 || 'Обязательное поле')
 
-    if (
-      Object.prototype.hasOwnProperty.call(this.field, 'value') &&
-      this.field.value &&
-      this.field.value.id
-    ) {
+    if (Object.prototype.hasOwnProperty.call(this.field, 'value') && this.field.value) {
       if (this.field.multiple) this.files = this.field.value
-      else this.files = [this.field.value]
+      else if (this.field.value.id) this.files = [this.field.value]
     }
 
     if (Array.isArray(this.field.rules) && this.field.rules.length)

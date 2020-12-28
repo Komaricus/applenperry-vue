@@ -1,45 +1,43 @@
 <template>
-  <div>
+  <div id="products-swiper" v-if="products.length && !loading">
     <h2 class="new-products-title" v-if="title" :class="{ 'ml-3': title === 'Новинки' }">
       {{ title }}
     </h2>
-    <div id="products-swiper" v-if="products.length && !loading">
-      <swiper class="swiper" :options="swiperOption">
-        <swiper-slide v-for="product in products" :key="product.id">
-          <product-card :product="product" :base-path="linksBasePath"></product-card>
-        </swiper-slide>
+    <swiper class="swiper" :options="swiperOption">
+      <swiper-slide v-for="product in products" :key="product.id">
+        <product-card :product="product" :base-path="linksBasePath"></product-card>
+      </swiper-slide>
 
-        <div class="swiper-pagination" slot="pagination"></div>
-        <v-btn
-          fab
-          class="products-prev elevation-2 clickable"
-          slot="button-prev"
-          color="white"
-          v-ripple="false"
-          small
-        >
-          <v-icon color="primary" small>fas fa-arrow-left</v-icon>
-        </v-btn>
-        <v-btn
-          fab
-          class="products-next elevation-2 clickable"
-          slot="button-prev"
-          color="white"
-          v-ripple="false"
-          small
-        >
-          <v-icon color="primary" small>fas fa-arrow-right</v-icon>
-        </v-btn>
-      </swiper>
-    </div>
-    <div class="container fill-height" v-else>
-      <v-progress-circular
-        size="50"
-        indeterminate
-        color="primary"
-        class="mx-auto"
-      ></v-progress-circular>
-    </div>
+      <div class="swiper-pagination" slot="pagination"></div>
+      <v-btn
+        fab
+        class="products-prev elevation-2 clickable"
+        slot="button-prev"
+        color="white"
+        v-ripple="false"
+        small
+      >
+        <v-icon color="primary" small>fas fa-arrow-left</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        class="products-next elevation-2 clickable"
+        slot="button-prev"
+        color="white"
+        v-ripple="false"
+        small
+      >
+        <v-icon color="primary" small>fas fa-arrow-right</v-icon>
+      </v-btn>
+    </swiper>
+  </div>
+  <div class="container fill-height" v-else-if="loading">
+    <v-progress-circular
+      size="50"
+      indeterminate
+      color="primary"
+      class="mx-auto"
+    ></v-progress-circular>
   </div>
 </template>
 

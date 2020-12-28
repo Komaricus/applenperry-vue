@@ -18,8 +18,7 @@ export default {
   data() {
     return {
       params: {
-        page: 1,
-        perPage: 10,
+        newProduct: true,
         column: 'created_at',
         sort: 'desc'
       },

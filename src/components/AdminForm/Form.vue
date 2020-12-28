@@ -107,6 +107,7 @@ import FilesField from './Fields/FilesField'
 import HTMLField from './Fields/HTMLField'
 import SlugField from './Fields/SlugField'
 import CategoriesField from './Fields/CategoriesField'
+import CheckboxField from './Fields/CheckboxField'
 import { mapMutations, mapGetters, mapState } from 'vuex'
 
 export default {
@@ -133,7 +134,8 @@ export default {
     'files-field': FilesField,
     'html-field': HTMLField,
     'slug-field': SlugField,
-    'categories-field': CategoriesField
+    'categories-field': CategoriesField,
+    'checkbox-field': CheckboxField
   },
   data() {
     return {

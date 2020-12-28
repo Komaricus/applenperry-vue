@@ -101,7 +101,10 @@ export default {
     emitInputChange() {
       this.$emit('fieldValueChanged', {
         id: this.field.id,
-        value: this.categories
+        value: this.categories.map(e => {
+          delete e.iconFile
+          return e
+        })
       })
     }
   },
