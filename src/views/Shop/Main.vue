@@ -23,7 +23,7 @@ export default {
         column: 'created_at',
         sort: 'desc'
       },
-      title: 'Новые товары'
+      title: 'Новинки'
     }
   }
 }
