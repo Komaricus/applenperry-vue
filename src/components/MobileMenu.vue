@@ -26,10 +26,10 @@ export default {
           to: '/shop',
           title: 'Магазин'
         },
-        {
-          to: '/pages/friends',
-          title: 'Наши Друзья'
-        },
+        // {
+        //   to: '/pages/friends',
+        //   title: 'Наши Друзья'
+        // },
         {
           to: '/news',
           title: 'Новости'
