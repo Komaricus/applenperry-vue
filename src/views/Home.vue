@@ -8,9 +8,9 @@
           <li>
             <router-link :to="'/shop'">Магазин</router-link>
           </li>
-          <!--          <li>-->
-          <!--            <router-link :to="'/pages/friends'">Друзья</router-link>-->
-          <!--          </li>-->
+          <li>
+            <!--<router-link :to="'/pages/friends'">Друзья</router-link>-->
+          </li>
           <li>
             <router-link :to="'/pages/our-pub'">Наш pub</router-link>
           </li>
