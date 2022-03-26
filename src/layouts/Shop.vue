@@ -48,15 +48,7 @@
     <v-footer id="footer" color="#eee">
       <div class="container pa-0">
         <v-row class="d-flex justify-center">
-          <v-col cols="6" sm="3" class="py-0 px-2 text-sm-right social">
-            <div class="mb-1 caption text--inactive">Мы в соцсетях</div>
-            <div>
-              <a href="https://www.instagram.com/applenperry" target="_blank" title="Instagram">
-                <v-icon large class="instagram-icon">fab fa-instagram</v-icon>
-              </a>
-            </div>
-          </v-col>
-          <v-col cols="6" sm="3" class="py-0 px-2 text-sm-right phone">
+          <v-col cols="12" sm="6" class="py-0 px-2 text-sm-right phone">
             <div class="d-flex flex-column">
               <div class="mb-1 caption text--inactive">Позвоните нам</div>
               <div><a class="phone-link" href="tel: +79653714731">+7 (965) 371-47-31</a></div>
@@ -144,14 +136,6 @@ export default {
     max-height: 100%;
     max-width: 100%;
   }
-}
-
-.instagram-icon {
-  color: rgba(0, 0, 0, 0.54);
-}
-
-.instagram-icon:hover {
-  color: $orange;
 }
 
 .links-left,
